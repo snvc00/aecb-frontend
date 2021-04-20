@@ -1,0 +1,12 @@
+.spaced {
+  margin: 40px auto;
+}
+
+.top {
+  margin-top: 80px;
+}
+
+p.spaced {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
