@@ -10,13 +10,3 @@ p.spaced {
   margin-top: 10px;
   margin-bottom: 30px;
 }
-
-.footer {
-  width: 100%;
-  margin: 0 !important;
-  padding: 0 !important;
-  max-width: 100% !important;
-  margin-top: 80px !important;
-  background-color: black;
-  flex-shrink: 0 !important;
-}

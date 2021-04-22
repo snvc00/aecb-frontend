@@ -11,8 +11,6 @@ import {
     createRef,
 } from "react";
 
-//TODO: Remove not required state variables and use ref values instead.
-
 class ClientGeneralDataInput extends Component {
     constructor(props) {
         super(props);
@@ -20,12 +18,6 @@ class ClientGeneralDataInput extends Component {
         this.state = {
             curpIsValid: true,
             rfcIsValid: true,
-            firstname: "",
-            lastname: "",
-            curp: "",
-            birthdate: "",
-            rfc: "",
-            income: "",
         }
 
         this.isCurpValid = this.isCurpValid.bind(this);
@@ -55,8 +47,7 @@ class ClientGeneralDataInput extends Component {
         }
 
         this.setState({
-           curpIsValid: curpHasRequiredLength, 
-           curp: this.curpRef.current.value,
+           curpIsValid: curpHasRequiredLength,
         });
     }
 
@@ -66,24 +57,20 @@ class ClientGeneralDataInput extends Component {
         if (typeof (this.rfcRef.current.value) === "string") {
             rfcHasRequiredLength = this.rfcRef.current.value.length >= 12;
         }
-        if (this.birthdateRef) {
-            console.log(this.birthdateRef.current.inputField.value);
-        }
 
         this.setState({
             rfcIsValid: rfcHasRequiredLength,
-            rfc: this.rfcRef.current.value,
         });
     }
 
     getGeneralData() {
         return {
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
-            curp: this.state.curp,
+            firstname: this.firstnameRef.current.value,
+            lastname: this.lastnameRef.current.value,
+            curp: this.curpRef.current.value,
             birthdate: this.birthdateRef.current.inputField.value,
-            rfc: this.state.rfc,
-            income: this.state.income,
+            rfc: this.rfcRef.current.value,
+            income: this.incomeRef.current.value,
         }
     }
 
@@ -91,27 +78,27 @@ class ClientGeneralDataInput extends Component {
         const maxBirthDate = this.getMaxBirthdate();
         
         return (
-            <FormGroup>
-                <h4>Datos Generales</h4>
+            <FormGroup legendText={<h4>Datos Generales</h4>}>
                 <TextInput
                     labelText="Nombres"
+                    id="firstname"
                     size="lg"
                     maxLength={40}
                     invalidText="Campo Requerido"
                     ref={this.firstnameRef}
-                    onChange={()=>{ this.setState({ firstname: this.firstnameRef.current.value }); }}
                     required
                 />
                 <TextInput
                     labelText="Apellidos"
+                    id="lastname"
                     size="lg"
                     maxLength={40}
                     ref={this.lastnameRef}
-                    onChange={()=>{ this.setState({ lastname: this.lastnameRef.current.value }); }}
                     required
                 />
                 <TextInput
                     labelText="Clave Única de Registro de Población (CURP)"
+                    id="curp"
                     size="lg"
                     maxLength={18}
                     ref={this.curpRef}
@@ -136,6 +123,7 @@ class ClientGeneralDataInput extends Component {
                 </DatePicker>
                 <TextInput
                     labelText="Registro Federal de Contribuyentes (RFC)"
+                    id="rfc"
                     size="lg"
                     maxLength={13}
                     ref={this.rfcRef}
@@ -146,10 +134,10 @@ class ClientGeneralDataInput extends Component {
                 />
                 <NumberInput
                     label="Ingresos Mensuales Promedio"
+                    id="income"
                     size="lg"
                     placeholder="$"
                     ref={this.incomeRef}
-                    onChange={()=>{ this.setState({ income: this.incomeRef.current.value }); }}
                     step={1000}
                     invalidText="Ingrese un valor númerico mayor a 0"
                     min={1000}

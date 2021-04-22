@@ -1,19 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
-import Welcome from './pages/Welcome';
-import NewClient from './pages/NewClient';
+import Welcome from "./pages/Welcome";
+import NewClient from "./pages/NewClient";
+import UpdateClientAddress from "./pages/UpdateClientAddress";
+import RegisteredClientsList from "./pages/RegisteredClientsList";
 
 import "./index.css";
 
-import reportWebVitals from './reportWebVitals';
-import 'carbon-components/scss/globals/scss/styles.scss';
+import reportWebVitals from "./reportWebVitals";
+import "carbon-components/scss/globals/scss/styles.scss";
 
 ReactDOM.render(
   <React.StrictMode>
-    <NewClient />
+    <RegisteredClientsList />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

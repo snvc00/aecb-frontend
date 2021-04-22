@@ -9,50 +9,36 @@ import {
 
 import Header from "../../components/Header";
 import MainHeading from "../../components/MainHeading";
-import ClientGeneralDataInput from "../../components/ClientGeneralDataInput";
 import ClientAddressInput from "../../components/ClientAddressInput";
 
 import { Helmet } from "react-helmet";
 import { useRef } from "react";
-
-import "./NewClient.css";
 
 const gridStyles = {
     maxWidth: "50rem",
     marginTop: "80px"
 }
 
-const getClientData = (generalData, address) => {
-    const clientGeneralData = generalData.current.getGeneralData();
-    const clientAddress = address.current.getAddress();
-
-    if (clientGeneralData && clientAddress) {
-        return { ...clientGeneralData, ...clientAddress };
-    } 
-}
-
-const NewClient = () => { 
-    const generalDataRef = useRef();
+const UpdateClientAddress = () => { 
     const addressRef = useRef();
 
-    const submitClientRegister = () => {
-        const clientData = getClientData(generalDataRef, addressRef);
+    const submitClientAddress = () => {
+        const clientAddress = addressRef.current.getAddress();
 
-        console.log(clientData);
+        console.log(clientAddress);
     }
 
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Nuevo Cliente</title>
+                <title>Banco Nacional | Actualizar Domicilio</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
-                        <MainHeading>Nuevo Cliente</MainHeading>
-                        <Form onSubmit={submitClientRegister}>
-                            <ClientGeneralDataInput ref={generalDataRef} />
+                        <MainHeading>Actualizar Domicilio</MainHeading>
+                        <Form onSubmit={submitClientAddress}>
                             <ClientAddressInput ref={addressRef} />
                             <TextInput
                                 id="token"
@@ -60,8 +46,8 @@ const NewClient = () => {
                                 size="lg"
                                 type="password"
                             />
-                            <Button onClick={submitClientRegister} >
-                                Registrar
+                            <Button onClick={submitClientAddress} >
+                                Actualizar
                             </Button>
                         </Form>
                     </Column>
@@ -71,4 +57,4 @@ const NewClient = () => {
     );
 }
 
-export default NewClient;
+export default UpdateClientAddress;
