@@ -1,0 +1,11 @@
+/* Class overrides for general custom input fields */
+
+.bx--form-item {
+    margin: 20px 0px !important;
+    max-width: 50rem !important;
+}
+
+.bx--list-box__wrapper {
+    margin: 20px 0px !important;
+    max-width: 50rem !important;
+}

@@ -2,12 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Welcome from './pages/Welcome';
+import NewClient from './pages/NewClient';
+
+import "./index.css";
+
 import reportWebVitals from './reportWebVitals';
 import 'carbon-components/scss/globals/scss/styles.scss';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Welcome />
+    <NewClient />
   </React.StrictMode>,
   document.getElementById('root')
 );
