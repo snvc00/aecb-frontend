@@ -24,11 +24,9 @@ const RegisteredClientsList = () => {
             <Header />
             <Grid style={gridStyles}>
                 <Row>
-                    <Column>
-                        <MainHeading>Lista de Clientes</MainHeading>
-                        
-                    </Column>
+                    <MainHeading>Lista de Clientes</MainHeading>
                 </Row>
+                
             </Grid>
         </>
     );

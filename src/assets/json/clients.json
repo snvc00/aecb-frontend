@@ -1,0 +1,13 @@
+{
+    "clients": [
+        {
+            "name": "",
+            "curp": "",
+            "birthdate": "",
+            "rfc": "",
+            "registeredIn": "",
+            "income": 0,
+            "address": ""
+        }
+    ]
+}

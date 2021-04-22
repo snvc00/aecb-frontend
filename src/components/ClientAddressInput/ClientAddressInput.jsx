@@ -22,12 +22,14 @@ class ClientAddressInput extends Component {
         this.getAddress = this.getAddress.bind(this);
 
         this.addressRef = createRef();
+        this.neighborhoodRef = createRef();
         this.cityRef = createRef();
     }
 
     getAddress() {
         return {
             address: this.addressRef.current.value,
+            neighborhood: this.neighborhoodRef.current.value,
             state: this.state.selectedState,
             city: this.cityRef.current.value,
         }
@@ -41,7 +43,15 @@ class ClientAddressInput extends Component {
                     id="address"
                     size="lg"
                     ref={this.addressRef}
-                    maxLength={80}
+                    maxLength={50}
+                    required
+                />
+                <TextInput
+                    labelText="Colonia"
+                    id="neighborhood"
+                    size="lg"
+                    ref={this.neighborhoodRef}
+                    maxLength={30}
                     required
                 />
                 <ComboBox
@@ -60,6 +70,7 @@ class ClientAddressInput extends Component {
                     id="city"
                     size="lg"
                     ref={this.cityRef}
+                    maxLength={20}
                 />
             </FormGroup>
         );
