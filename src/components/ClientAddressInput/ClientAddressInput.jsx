@@ -9,7 +9,7 @@ import {
     createRef,
 } from "react";
 
-import { states } from "../../assets/json/mexico.json";
+import { states } from "../../assets/json/Mexico.json";
 
 class ClientAddressInput extends Component {
     constructor(props) {

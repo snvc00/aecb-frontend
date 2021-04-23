@@ -5,6 +5,7 @@ import Welcome from "./pages/Welcome";
 import NewClient from "./pages/NewClient";
 import UpdateClientAddress from "./pages/UpdateClientAddress";
 import RegisteredClientsList from "./pages/RegisteredClientsList";
+import NewCreditCard from "./pages/NewCreditCard";
 
 import "./index.css";
 
@@ -13,9 +14,7 @@ import "carbon-components/scss/globals/scss/styles.scss";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Welcome />
-    <div><br/><br/><br/></div>
-    <RegisteredClientsList />
+    <NewCreditCard />
   </React.StrictMode>,
   document.getElementById("root")
 );

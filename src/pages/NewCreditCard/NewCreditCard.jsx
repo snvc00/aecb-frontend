@@ -9,59 +9,45 @@ import {
 
 import Header from "../../components/Header";
 import MainHeading from "../../components/MainHeading";
-import ClientGeneralDataInput from "../../components/ClientGeneralDataInput";
-import ClientAddressInput from "../../components/ClientAddressInput";
+import CreditCardInput from "../../components/CreditCardInput";
 
 import { Helmet } from "react-helmet";
-import { useRef } from "react";
-
-import "./NewClient.css";
+import { createRef } from "react";
 
 const gridStyles = {
     maxWidth: "50rem",
     marginTop: "80px"
 }
 
-const getClientData = (generalData, address) => {
-    const clientGeneralData = generalData.current.getGeneralData();
-    const clientAddress = address.current.getAddress();
+const NewCreditCard = () => { 
+    const creditCardRef = createRef();
 
-    if (clientGeneralData && clientAddress) {
-        return { ...clientGeneralData, ...clientAddress };
-    } 
-}
+    const handleOnSubmit = () => {
+        const creditCard = creditCardRef.current.getCreditCard();
 
-const NewClient = () => { 
-    const generalDataRef = useRef();
-    const addressRef = useRef();
-
-    const submitClientRegister = () => {
-        const clientData = getClientData(generalDataRef, addressRef);
-
-        console.log(clientData);
+        console.log(creditCard);
     }
 
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Nuevo Cliente</title>
+                <title>Banco Nacional | Nueva Tarjeta de Crédito</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
-                        <MainHeading>Nuevo Cliente</MainHeading>
-                        <Form onSubmit={submitClientRegister}>
-                            <ClientGeneralDataInput ref={generalDataRef} />
-                            <ClientAddressInput ref={addressRef} />
+                        <MainHeading>Nueva Tarjeta de Crédito</MainHeading>
+                        <Form onSubmit={handleOnSubmit}>
+                            <CreditCardInput ref={creditCardRef} />
                             <TextInput
                                 id="token"
                                 labelText="Token de Administrador"
                                 size="lg"
                                 type="password"
                             />
-                            <Button onClick={submitClientRegister} >
-                                Registrar
+                            <Button onClick={handleOnSubmit} >
+                                Guardar
                             </Button>
                         </Form>
                     </Column>
@@ -71,4 +57,4 @@ const NewClient = () => {
     );
 }
 
-export default NewClient;
+export default NewCreditCard;

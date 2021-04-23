@@ -13,8 +13,8 @@ import {
     Badge24,
 } from "@carbon/icons-react";
 import { Helmet } from 'react-helmet'
-import "./Welcome.css";
 import MainHeading from "../../components/MainHeading";
+import "./Welcome.css";
 
 const Welcome = () => (
     <>
