@@ -1,13 +1,46 @@
 {
     "clients": [
         {
-            "name": "",
-            "curp": "",
-            "birthdate": "",
-            "rfc": "",
-            "registeredIn": "",
-            "income": 0,
-            "address": ""
+            "id": "1",
+            "name": "Santiago Valle",
+            "curp": "QAZQAZQAZQAZQAZQAZ",
+            "birthdate": "04/02/2000",
+            "rfc": "QAZWSXQAZWSXQ",
+            "registeredIn": "23/04/2020",
+            "income": "5 MXN",
+            "address": "Una calle 9332",
+            "neighborhood": "La colonia",
+            "city": "Guadalajara",
+            "state": "Jalisco",
+            "status": "Activo"
+        },
+        {
+            "id": "2",
+            "name": "Dimitri Petrenko",
+            "curp": "QAZQAZQAZQAZQAZQAZ",
+            "birthdate": "04/02/2000",
+            "rfc": "QAZWSXQAZWSXQ",
+            "registeredIn": "23/04/2020",
+            "income": "100000 MXN",
+            "address": "Comunismo 111",
+            "neighborhood": "La colonia",
+            "city": "Guadalajara",
+            "state": "Jalisco",
+            "status": "Activo"
+        },
+        {
+            "id": "3",
+            "name": "Felipe Ferra Gomez",
+            "curp": "QAZQAZQAZQAZQAZQAZ",
+            "birthdate": "04/02/2000",
+            "rfc": "QAZWSXQAZWSXQ",
+            "registeredIn": "23/04/2020",
+            "income": "5 MXN",
+            "address": "Rancho Viejo 9332",
+            "neighborhood": "Veracru",
+            "city": "Guadalajara",
+            "state": "Jalisco",
+            "status": "Activo"
         }
     ]
 }

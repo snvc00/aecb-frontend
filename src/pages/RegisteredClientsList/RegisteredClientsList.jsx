@@ -6,16 +6,16 @@ import {
 
 import Header from "../../components/Header";
 import MainHeading from "../../components/MainHeading";
+import ClientInfoTableSkeleton from "../../components/ClientInfoTableSkeleton";
+import ClientInfoTable from "../../components/ClientInfoTable";
 
 import { Helmet } from "react-helmet";
-import { useRef } from "react";
 
 const gridStyles = {
-    maxWidth: "50rem",
-    marginTop: "80px"
+    marginTop: "80px",
 }
 
-const RegisteredClientsList = () => { 
+const RegisteredClientsList = () => {
     return (
         <>
             <Helmet>
@@ -24,9 +24,17 @@ const RegisteredClientsList = () => {
             <Header />
             <Grid style={gridStyles}>
                 <Row>
-                    <MainHeading>Lista de Clientes</MainHeading>
+                    <Column>
+                        <MainHeading>Lista de Clientes</MainHeading>
+                        <ClientInfoTableSkeleton />
+                        <div>
+                            <br/>
+                            <br/>
+                            <br/>
+                        </div>
+                        <ClientInfoTable />
+                    </Column>
                 </Row>
-                
             </Grid>
         </>
     );

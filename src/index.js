@@ -13,6 +13,8 @@ import "carbon-components/scss/globals/scss/styles.scss";
 
 ReactDOM.render(
   <React.StrictMode>
+    <Welcome />
+    <div><br/><br/><br/></div>
     <RegisteredClientsList />
   </React.StrictMode>,
   document.getElementById("root")
