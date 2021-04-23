@@ -14,6 +14,7 @@ import {
 } from "@carbon/icons-react";
 import { Helmet } from 'react-helmet'
 import "./Welcome.css";
+import MainHeading from "../../components/MainHeading";
 
 const Welcome = () => (
     <>
@@ -24,6 +25,7 @@ const Welcome = () => (
         <Grid className="spaced top">
             <Row>
                 <Column>
+                    <MainHeading>Banco Nacional desde 2021</MainHeading>
                     <SkeletonPlaceholder style={{ width: "100%", height: 400 }} />
                 </Column>
             </Row>
