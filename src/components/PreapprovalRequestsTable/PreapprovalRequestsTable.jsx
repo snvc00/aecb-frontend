@@ -17,68 +17,56 @@ import {
 } from "carbon-components-react";
 
 import {
-    Edit24 as Edit,
-    UserActivity24 as UserActivity,
+    Report24 as Report,
+    Misuse24 as Misuse,
 } from "@carbon/icons-react";
 
-import { clients as rows } from "../../assets/json/clients.json";
+import { requests as rows } from "../../assets/json/requests.json";
 
 import { Component, Fragment } from "react";
 
 const headers = [
     {
         key: "id",
-        header: "ID",
+        header: "Folio",
     },
     {
-        key: "name",
-        header: "Nombre",
-    },
-    {
-        key: "curp",
-        header: "CURP",
-    },
-    {
-        key: "birthdate",
-        header: "Fecha de Nacimiento",
-    },
-    {
-        key: "rfc",
-        header: "RFC",
-    },
-    {
-        key: "income",
-        header: "Ingreso Mensual",
-    },
-    {
-        key: "address",
-        header: "Calle y Número",
-    },
-    {
-        key: "neighborhood",
-        header: "Colonia",
-    },
-    {
-        key: "city",
-        header: "Ciudad",
+        key: "creationDate",
+        header: "Fecha de Creación",
     },
     {
         key: "state",
         header: "Estado",
     },
     {
-        key: "status",
+        key: "activity",
         header: "Actividad",
+    },
+    {
+        key: "creditCardId",
+        header: "ID Tarjeta de Crédito",
+    },
+    {
+        key: "creditCardName",
+        header: "Tarjeta de Crédito",
+    },
+    {
+        key: "clientId",
+        header: "ID Cliente",
+    },
+    {
+        key: "clientName",
+        header: "Cliente",
     },
 ];
 
 var translationKeys = {
     'carbon.table.batch.cancel': 'Cancelar',
-    'carbon.table.batch.items.selected': 'clientes seleccionados',
-    'carbon.table.batch.item.selected': 'cliente seleccionado'
+    'carbon.table.batch.items.selected': 'solicitudes seleccionadas',
+    'carbon.table.batch.item.selected': 'solicitud seleccionada'
 };
 
-class ClientInfoTable extends Component {
+class PreapprovalRequestsTable extends Component {
     constructor(props) {
         super(props);
 
@@ -88,12 +76,12 @@ class ClientInfoTable extends Component {
         }
     }
 
-    handleBatchActionClickUpdateStatus(selectedRows) {
-        console.log("handleBatchActionClickUpdateStatus");
+    handleBatchActionClickUpdateActivity(selectedRows) {
+        console.log("handleBatchActionClickUpdateActivity");
     }
 
-    handleBatchActionClickUpdateAddress(selectedRows) {
-        console.log("handleBatchActionClickUpdateAddress");
+    handleBatchActionClickGenerateReport(selectedRows) {
+        console.log("handleBatchActionClickGenerateReport");
     }
 
     customTranslationForTableBatchActions(id, state) {
@@ -123,26 +111,27 @@ class ClientInfoTable extends Component {
                     getTableContainerProps,
                 }) => (
                     <TableContainer
-                        title="Clientes Registrados"
-                        description="Selecciona un cliente para modificar su estado de actividad o domicilio."
+                        title="Solicitudes de Preaprobación"
+                        description="Selecciona una solicitud para terminar o generar un reporte."
                         {...getTableContainerProps()}>
                         <TableToolbar {...getToolbarProps()}>
                             <TableBatchActions {...getBatchActionProps()} translateWithId={this.customTranslationForTableBatchActions}>
                                 <TableBatchAction
-                                    renderIcon={UserActivity}
-                                    iconDescription="Cambiar Estado de Actividad"
-                                    onClick={() => { this.handleBatchActionClickUpdateStatus(selectedRows) }}>
-                                    Cambiar Estado de Actividad
+                                    renderIcon={Misuse}
+                                    iconDescription="Terminar Proceso de Solicitud"
+                                    kind="danger--ghost"
+                                    onClick={() => { this.handleBatchActionClickUpdateActivity(selectedRows) }}>
+                                    Terminar Proceso de Solicitud
                                 </TableBatchAction>
                                 <TableBatchAction
-                                    renderIcon={Edit}
-                                    iconDescription="Editar Domicilio"
-                                    onClick={() => { this.handleBatchActionClickUpdateAddress(selectedRows) }}>
-                                    Editar Domicilio
+                                    renderIcon={Report}
+                                    iconDescription="Generar Reporte"
+                                    onClick={() => { this.handleBatchActionClickGenerateReport(selectedRows) }}>
+                                    Generar Reporte
                                 </TableBatchAction>
                             </TableBatchActions>
                             <TableToolbarContent>
-                                <TableToolbarSearch onChange={onInputChange} placeholder="Buscar cliente" />
+                                <TableToolbarSearch onChange={onInputChange} placeholder="Buscar solicitud" />
                             </TableToolbarContent>
                         </TableToolbar>
                         <Table {...getTableProps()}>
@@ -176,4 +165,4 @@ class ClientInfoTable extends Component {
     }
 }
 
-export default ClientInfoTable;
+export default PreapprovalRequestsTable;

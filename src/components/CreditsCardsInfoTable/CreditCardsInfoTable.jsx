@@ -17,11 +17,10 @@ import {
 } from "carbon-components-react";
 
 import {
-    Edit24 as Edit,
-    UserActivity24 as UserActivity,
+    Purchase24 as Purchase,
 } from "@carbon/icons-react";
 
-import { clients as rows } from "../../assets/json/clients.json";
+import { creditCards as rows } from "../../assets/json/creditCards.json";
 
 import { Component, Fragment } from "react";
 
@@ -35,50 +34,38 @@ const headers = [
         header: "Nombre",
     },
     {
-        key: "curp",
-        header: "CURP",
+        key: "minCredit",
+        header: "Crédito Mínimo",
     },
     {
-        key: "birthdate",
-        header: "Fecha de Nacimiento",
+        key: "maxCredit",
+        header: "Crédito Máximo",
     },
     {
-        key: "rfc",
-        header: "RFC",
+        key: "cat",
+        header: "CAT Promedio",
     },
     {
-        key: "income",
-        header: "Ingreso Mensual",
+        key: "annualFee",
+        header: "Costo de Anualidad",
     },
     {
-        key: "address",
-        header: "Calle y Número",
+        key: "category",
+        header: "Categoría",
     },
     {
-        key: "neighborhood",
-        header: "Colonia",
-    },
-    {
-        key: "city",
-        header: "Ciudad",
-    },
-    {
-        key: "state",
-        header: "Estado",
-    },
-    {
-        key: "status",
-        header: "Actividad",
+        key: "image",
+        header: "Imagen",
     },
 ];
 
 var translationKeys = {
     'carbon.table.batch.cancel': 'Cancelar',
-    'carbon.table.batch.items.selected': 'clientes seleccionados',
-    'carbon.table.batch.item.selected': 'cliente seleccionado'
+    'carbon.table.batch.items.selected': 'tarjetas seleccionadas',
+    'carbon.table.batch.item.selected': 'tarjeta seleccionada'
 };
 
-class ClientInfoTable extends Component {
+class CreditCardsInfoTable extends Component {
     constructor(props) {
         super(props);
 
@@ -88,12 +75,8 @@ class ClientInfoTable extends Component {
         }
     }
 
-    handleBatchActionClickUpdateStatus(selectedRows) {
-        console.log("handleBatchActionClickUpdateStatus");
-    }
-
-    handleBatchActionClickUpdateAddress(selectedRows) {
-        console.log("handleBatchActionClickUpdateAddress");
+    handleBatchActionClickUpdateCreditCard(selectedRows) {
+        console.log("handleBatchActionClickUpdateCreditCard");
     }
 
     customTranslationForTableBatchActions(id, state) {
@@ -123,26 +106,20 @@ class ClientInfoTable extends Component {
                     getTableContainerProps,
                 }) => (
                     <TableContainer
-                        title="Clientes Registrados"
-                        description="Selecciona un cliente para modificar su estado de actividad o domicilio."
+                        title="Tarjetas de Crédito Registradas"
+                        description="Selecciona una tarjeta para modificar categoría o imagen."
                         {...getTableContainerProps()}>
                         <TableToolbar {...getToolbarProps()}>
                             <TableBatchActions {...getBatchActionProps()} translateWithId={this.customTranslationForTableBatchActions}>
                                 <TableBatchAction
-                                    renderIcon={UserActivity}
-                                    iconDescription="Cambiar Estado de Actividad"
-                                    onClick={() => { this.handleBatchActionClickUpdateStatus(selectedRows) }}>
-                                    Cambiar Estado de Actividad
-                                </TableBatchAction>
-                                <TableBatchAction
-                                    renderIcon={Edit}
-                                    iconDescription="Editar Domicilio"
-                                    onClick={() => { this.handleBatchActionClickUpdateAddress(selectedRows) }}>
-                                    Editar Domicilio
+                                    renderIcon={Purchase}
+                                    iconDescription="Actualizar Tarjeta de Crédito"
+                                    onClick={() => { this.handleBatchActionClickUpdateCreditCard(selectedRows) }}>
+                                    Actualizar Tarjeta de Crédito
                                 </TableBatchAction>
                             </TableBatchActions>
                             <TableToolbarContent>
-                                <TableToolbarSearch onChange={onInputChange} placeholder="Buscar cliente" />
+                                <TableToolbarSearch onChange={onInputChange} placeholder="Buscar tarjeta" />
                             </TableToolbarContent>
                         </TableToolbar>
                         <Table {...getTableProps()}>
@@ -176,4 +153,4 @@ class ClientInfoTable extends Component {
     }
 }
 
-export default ClientInfoTable;
+export default CreditCardsInfoTable;

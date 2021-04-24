@@ -6,8 +6,8 @@ import {
 
 import Header from "../../components/Header";
 import MainHeading from "../../components/MainHeading";
-import ClientInfoTableSkeleton from "../../components/ClientInfoTableSkeleton";
-import ClientInfoTable from "../../components/ClientInfoTable";
+import PreapprovalRequestsTableSkeleton from "../../components/PreapprovalRequestsTableSkeleton";
+import PreapprovalRequestsTable from "../../components/PreapprovalRequestsTable";
 
 import { Helmet } from "react-helmet";
 
@@ -15,24 +15,24 @@ const gridStyles = {
     marginTop: "80px",
 }
 
-const RegisteredClientsList = () => {
+const PreapprovalRequestRecords = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Lista de Clientes</title>
+                <title>Banco Nacional | Solicitudes de Preaprobación</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
-                        <MainHeading>Lista de Clientes</MainHeading>
-                        <ClientInfoTableSkeleton />
+                        <MainHeading>Solicitudes de Preaprobación</MainHeading>
+                        <PreapprovalRequestsTableSkeleton />
                         <div>
                             <br/>
                             <br/>
                             <br/>
                         </div>
-                        <ClientInfoTable />
+                        <PreapprovalRequestsTable />
                     </Column>
                 </Row>
             </Grid>
@@ -40,4 +40,4 @@ const RegisteredClientsList = () => {
     );
 }
 
-export default RegisteredClientsList;
+export default PreapprovalRequestRecords;

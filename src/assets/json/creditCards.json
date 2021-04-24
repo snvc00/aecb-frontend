@@ -1,0 +1,34 @@
+{
+    "creditCards": [
+        {
+            "id": "1",
+            "name": "Universitaria",
+            "minCredit": "4999 MXN",
+            "maxCredit": "10999 MXN",
+            "cat": "14%",
+            "annualFee": "1200 MXN",
+            "category": "Oro",
+            "image": "https://google.com/nsdjkn34cnjn923njcni803jfwdnf"
+        },
+        {
+            "id": "2",
+            "name": "Dorada",
+            "minCredit": "4999 MXN",
+            "maxCredit": "16999 MXN",
+            "cat": "16%",
+            "annualFee": "1400 MXN",
+            "category": "Oro",
+            "image": "https://google.com/fsdfsbds010occmdfkmckfvjk"
+        },
+        {
+            "id": "3",
+            "name": "Plateada",
+            "minCredit": "2999 MXN",
+            "maxCredit": "5999 MXN",
+            "cat": "34%",
+            "annualFee": "900 MXN",
+            "category": "Plata",
+            "image": "https://google.com/sdkmjonjovno32jf0iuvugjfdsmf4dsadd"
+        }
+    ]
+}

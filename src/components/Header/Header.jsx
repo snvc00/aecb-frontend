@@ -12,10 +12,20 @@ import {
     SideNavItems
 } from "carbon-components-react";
 
+import Welcome from "../../pages/Welcome";
+import NewClient from "../../pages/NewClient";
+import UpdateClientAddress from "../../pages/UpdateClientAddress";
+import RegisteredClientsTable from "../../pages/RegisteredClientsTable";
+import NewCreditCard from "../../pages/NewCreditCard";
+import UpdateCreditCard from "../../pages/UpdateCreditCard";
+import RegisteredCreditCardsTable from "../../pages/RegisteredCreditCardsTable";
+import CreditCardPreapproval from "../../pages/CreditCardPreapproval";
+import PreapprovalRequestRecords from "../../pages/PreapprovalRequestRecords";
+
 const Header = () => {
     return (
         <HeaderContainer
-            render={({isSideNavExpanded, onClickSideNavExpand}) => (
+            render={({ isSideNavExpanded, onClickSideNavExpand }) => (
                 <HeaderCarbon aria-label="AECB">
                     <SkipToContent />
                     <HeaderMenuButton
@@ -29,16 +39,15 @@ const Header = () => {
                     <HeaderNavigation aria-label="Banco Nacional AECB">
                         <HeaderMenu aria-label="Clientes" menuLinkName="Clientes">
                             {/*isCurrentPage*/}
-                            <HeaderMenuItem href="#">Solicitar Preaprobación</HeaderMenuItem>
-                            <HeaderMenuItem href="#">Detalle de Solicitud</HeaderMenuItem>
-                            <HeaderMenuItem href="#">Historial de Solicitudes</HeaderMenuItem>
+                            <HeaderMenuItem href="/preaprobacion">Solicitar Preaprobación</HeaderMenuItem>
+                            <HeaderMenuItem href="/preaprobacion/:clientId">Historial de Solicitudes</HeaderMenuItem>
                         </HeaderMenu>
                         <HeaderMenu aria-label="Administradores" menuLinkName="Administradores">
-                            <HeaderMenuItem href="#">Clientes Registrados</HeaderMenuItem>
-                            <HeaderMenuItem href="#">Tarjetas de Crédito</HeaderMenuItem>
-                            <HeaderMenuItem href="#">Reportes</HeaderMenuItem>
+                            <HeaderMenuItem href="/clientes">Clientes</HeaderMenuItem>
+                            <HeaderMenuItem href="/tarjetas">Tarjetas de Crédito</HeaderMenuItem>
+                            <HeaderMenuItem href="/reportes">Reportes</HeaderMenuItem>
                         </HeaderMenu>
-                        <HeaderMenuItem href="#">Nuestros Beneficios</HeaderMenuItem>
+                        <HeaderMenuItem href="/beneficios">Nuestros Beneficios</HeaderMenuItem>
                     </HeaderNavigation>
                     <SideNav
                         aria-label="Navegación lateral"
@@ -48,16 +57,15 @@ const Header = () => {
                             <HeaderSideNavItems>
                                 <HeaderMenu aria-label="Clientes" menuLinkName="Clientes">
                                     {/*isCurrentPage*/}
-                                    <HeaderMenuItem href="#">Solicitar Preaprobación</HeaderMenuItem>
-                                    <HeaderMenuItem href="#">Detalle de Solicitud</HeaderMenuItem>
-                                    <HeaderMenuItem href="#">Historial de Solicitudes</HeaderMenuItem>
+                                    <HeaderMenuItem href="/preaprobacion">Solicitar Preaprobación</HeaderMenuItem>
+                                    <HeaderMenuItem href="/preaprobacion/:clientId">Historial de Solicitudes</HeaderMenuItem>
                                 </HeaderMenu>
                                 <HeaderMenu aria-label="Administradores" menuLinkName="Administradores">
-                                    <HeaderMenuItem href="#">Clientes Registrados</HeaderMenuItem>
-                                    <HeaderMenuItem href="#">Tarjetas de Crédito</HeaderMenuItem>
-                                    <HeaderMenuItem href="#">Reportes</HeaderMenuItem>
+                                    <HeaderMenuItem href="/clientes">Clientes</HeaderMenuItem>
+                                    <HeaderMenuItem href="/tarjetas">Tarjetas de Crédito</HeaderMenuItem>
+                                    <HeaderMenuItem href="/reportes">Reportes</HeaderMenuItem>
                                 </HeaderMenu>
-                                <HeaderMenuItem href="#">Nuestros Beneficios</HeaderMenuItem>
+                                <HeaderMenuItem href="/beneficios">Nuestros Beneficios</HeaderMenuItem>
                             </HeaderSideNavItems>
                         </SideNavItems>
                     </SideNav>

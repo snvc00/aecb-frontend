@@ -2,7 +2,6 @@ import {
     FormGroup,
     NumberInput,
     TextInput,
-    ComboBox,
 } from "carbon-components-react";
 
 import {
@@ -10,38 +9,24 @@ import {
     createRef,
 } from "react";
 
-const creditCategories = [
-    "Bronce",
-    "Plata",
-    "Oro",
-    "Diamante"
-];
-
-class CreditCardInput extends Component {
+class CreditCardGenericInput extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            selectedCategory: creditCategories[0],
-        }
-
-        this.getCreditCard = this.getCreditCard.bind(this);
+        this.getCreditCardGenerics = this.getCreditCardGenerics.bind(this);
 
         this.nameRef = createRef();
         this.minCreditRef = createRef();
         this.maxCreditRef = createRef();
-        this.imageRef = createRef();
         this.catRef = createRef();
         this.annualFeeRef = createRef();
     }
 
-    getCreditCard() {
+    getCreditCardGenerics() {
         return {
             name: this.nameRef.current.value,
-            category: this.state.selectedCategory,
             minCredit: this.minCreditRef.current.value,
             maxCredit: this.maxCreditRef.current.value,
-            image: this.imageRef.current.value,
             cat: this.catRef.current.value,
             annualFeed: this.annualFeeRef.current.value,
         }
@@ -57,15 +42,6 @@ class CreditCardInput extends Component {
                     ref={this.nameRef}
                     maxLength={50}
                     required
-                />  
-                <ComboBox
-                    titleText="Categoría"
-                    onChange={({ selectedItem }) => { this.setState({ selectedCategory: selectedItem }); }}
-                    selectedItem={this.state.selectedCategory}
-                    id="category"
-                    size="lg"
-                    items={creditCategories}
-                    placeholder="Filtrar"
                 />
                 <NumberInput
                     label="Crédito Mínimo"
@@ -89,14 +65,6 @@ class CreditCardInput extends Component {
                     step={50}
                     invalidText="Ingrese un crédito máximo mayor a 0"
                     helperText="Expresado en Pesos Mexicanos (MXN)"
-                    required
-                />
-                <TextInput
-                    labelText="Enlace a Imagen"
-                    id="image"
-                    size="lg"
-                    ref={this.imageRef}
-                    maxLength={50}
                     required
                 />
                 <NumberInput
@@ -129,4 +97,4 @@ class CreditCardInput extends Component {
     }
 }
 
-export default CreditCardInput;
+export default CreditCardGenericInput;

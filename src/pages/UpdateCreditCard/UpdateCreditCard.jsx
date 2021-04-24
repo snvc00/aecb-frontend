@@ -9,48 +9,36 @@ import {
 
 import Header from "../../components/Header";
 import MainHeading from "../../components/MainHeading";
-import CreditCardGenericInput from "../../components/CreditCardGenericInput";
 import CreditCardSpecificsInput from "../../components/CreditCardSpecificsInput";
 
 import { Helmet } from "react-helmet";
-import { createRef } from "react";
+import { useRef } from "react";
 
 const gridStyles = {
     maxWidth: "50rem",
     marginTop: "80px"
 }
 
-const getCreditCardData = (generics, specifics) => {
-    const creditCardGenerics = generics.current.getCreditCardGenerics();
-    const creditCardSpecifics = specifics.current.getCreditCardSpecifics();
-
-    if (creditCardGenerics && creditCardSpecifics) {
-        return { ...creditCardGenerics, ...creditCardSpecifics };
-    } 
-}
-
-const NewCreditCard = () => { 
-    const creditCardGenericsRef = createRef();
-    const creditCardSpecificsRef = createRef();
+const UpdateCreditCard = () => { 
+    const creditCardSpecificsRef = useRef();
 
     const handleOnSubmit = () => {
-        const creditCard = getCreditCardData(creditCardGenericsRef, creditCardSpecificsRef);
+        const creditCardSpecifics = creditCardSpecificsRef.current.getCreditCardSpecifics();
 
-        console.log(creditCard);
+        console.log(creditCardSpecifics);
     }
 
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Nueva Tarjeta de Crédito</title>
+                <title>Banco Nacional | Actualizar Tarjeta de Crédito</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
-                        <MainHeading>Nueva Tarjeta de Crédito</MainHeading>
+                        <MainHeading>Actualizar Tarjeta de Crédito</MainHeading>
                         <Form onSubmit={handleOnSubmit}>
-                            <CreditCardGenericInput ref={creditCardGenericsRef} />
                             <CreditCardSpecificsInput ref={creditCardSpecificsRef} />
                             <TextInput
                                 id="token"
@@ -59,7 +47,7 @@ const NewCreditCard = () => {
                                 type="password"
                             />
                             <Button onClick={handleOnSubmit} >
-                                Añadir
+                                Actualizar
                             </Button>
                         </Form>
                     </Column>
@@ -69,4 +57,4 @@ const NewCreditCard = () => {
     );
 }
 
-export default NewCreditCard;
+export default UpdateCreditCard;
