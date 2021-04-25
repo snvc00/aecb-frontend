@@ -13,6 +13,7 @@ import PreapprovalRequestRecords from "./pages/PreapprovalRequestRecords";
 import AdminClients from "./pages/AdminClients";
 import AdminCreditCards from "./pages/AdminCreditCards";
 import Benefits from "./pages/Benefits";
+import ErrorHandler from "./pages/ErrorHandler/ErrorHandler";
 
 import {
     BrowserRouter as Router,
@@ -69,7 +70,7 @@ ReactDOM.render(
                     <Benefits />
                 </Route>
                 <Route path="*">
-                    {"404"}
+                    <ErrorHandler code={404} message="No encontrado" />
                 </Route>
             </Switch>
         </Router>
