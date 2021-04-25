@@ -7,6 +7,8 @@ import {
     SkeletonPlaceholder,
     InlineNotification,
     NotificationActionButton,
+    Breadcrumb,
+    BreadcrumbItem,
 } from "carbon-components-react";
 import {
     UserFollow32 as UserFollow,
@@ -33,6 +35,12 @@ const AdminClients = () => {
             <Grid className="spaced top">
                 <Row>
                     <Column>
+                        <Breadcrumb>
+                            <BreadcrumbItem href="/">Inicio</BreadcrumbItem>
+                            <BreadcrumbItem href="/clientes" isCurrentPage>
+                                Clientes
+                            </BreadcrumbItem>
+                        </Breadcrumb><br/><br/>
                         <MainHeading>Administrar Clientes</MainHeading>
                         <SkeletonPlaceholder style={{ width: "100%", height: 400 }} />
                         <br /><br />

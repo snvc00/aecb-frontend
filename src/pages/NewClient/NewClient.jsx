@@ -5,6 +5,8 @@ import {
     Column,
     TextInput,
     Button,
+    Breadcrumb,
+    BreadcrumbItem,
 } from "carbon-components-react";
 
 import Header from "../../components/Header";
@@ -50,6 +52,13 @@ const NewClient = () => {
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
+                        <Breadcrumb>
+                            <BreadcrumbItem href="/">Inicio</BreadcrumbItem>
+                            <BreadcrumbItem href="/clientes">Clientes</BreadcrumbItem>
+                            <BreadcrumbItem href="/clientes/registro" isCurrentPage>
+                                Registrar
+                            </BreadcrumbItem>
+                        </Breadcrumb><br/><br/>
                         <MainHeading>Nuevo Cliente</MainHeading>
                         <Form onSubmit={submitClientRegister}>
                             <ClientGeneralDataInput ref={generalDataRef} />

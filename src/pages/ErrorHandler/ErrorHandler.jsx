@@ -3,7 +3,6 @@ import {
     Grid,
     Row,
     Column,
-    AspectRatio
 } from "carbon-components-react";
 import { Helmet } from 'react-helmet'
 

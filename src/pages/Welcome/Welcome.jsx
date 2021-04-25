@@ -39,7 +39,7 @@ const Welcome = () => (
                         dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
                         non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </p>
-                    <Link href="#" renderIcon={Purchase24} size="lg">
+                    <Link href="/preaprobacion" renderIcon={Purchase24} size="lg">
                         Solicitar Tarjeta
                     </Link>
                 </Column>
@@ -51,7 +51,7 @@ const Welcome = () => (
                         dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
                         non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </p>
-                    <Link href="#" renderIcon={Group24} size="lg">
+                    <Link href="/clientes" renderIcon={Group24} size="lg">
                         Gestionar Clientes
                     </Link>
                 </Column>
@@ -63,7 +63,7 @@ const Welcome = () => (
                         dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
                         non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </p>
-                    <Link href="#" renderIcon={Badge24} size="lg">
+                    <Link href="/beneficios" renderIcon={Badge24} size="lg">
                         Ver Beneficios
                     </Link>
                 </Column>

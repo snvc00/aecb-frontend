@@ -2,6 +2,8 @@ import {
     Grid,
     Row,
     Column,
+    Breadcrumb,
+    BreadcrumbItem,
 } from "carbon-components-react";
 
 import Header from "../../components/Header";
@@ -25,6 +27,13 @@ const RegisteredCreditCardsTable = () => {
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
+                        <Breadcrumb>
+                            <BreadcrumbItem href="/">Inicio</BreadcrumbItem>
+                            <BreadcrumbItem href="/tarjetas">Tarjetas</BreadcrumbItem>
+                            <BreadcrumbItem href="/tartjetas/registradas" isCurrentPage>
+                                Registradas
+                            </BreadcrumbItem>
+                        </Breadcrumb><br/><br/>
                         <MainHeading>Nuestras Tarjetas de Crédito</MainHeading>
                         <CreditCardsInfoTableSkeleton />
                         <div>

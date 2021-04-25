@@ -5,6 +5,8 @@ import {
     Column,
     TextInput,
     Button,
+    Breadcrumb,
+    BreadcrumbItem,
 } from "carbon-components-react";
 
 import Header from "../../components/Header";
@@ -48,6 +50,13 @@ const NewCreditCard = () => {
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
+                        <Breadcrumb>
+                            <BreadcrumbItem href="/">Inicio</BreadcrumbItem>
+                            <BreadcrumbItem href="/tarjetas">Tarjetas</BreadcrumbItem>
+                            <BreadcrumbItem href="/tartjetas/registrar" isCurrentPage>
+                                Registrar
+                            </BreadcrumbItem>
+                        </Breadcrumb><br/><br/>
                         <MainHeading>Nueva Tarjeta de Crédito</MainHeading>
                         <Form onSubmit={handleOnSubmit}>
                             <CreditCardGenericInput ref={creditCardGenericsRef} />

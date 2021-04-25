@@ -7,6 +7,8 @@ import {
     SkeletonPlaceholder,
     InlineNotification,
     NotificationActionButton,
+    Breadcrumb,
+    BreadcrumbItem,
 } from "carbon-components-react";
 import {
     Add32 as Add,
@@ -33,6 +35,12 @@ const AdminCreditCards = () => {
             <Grid className="spaced top">
                 <Row>
                     <Column>
+                        <Breadcrumb>
+                            <BreadcrumbItem href="/">Inicio</BreadcrumbItem>
+                            <BreadcrumbItem href="/tarjetas" isCurrentPage>
+                                Tarjetas
+                            </BreadcrumbItem>
+                        </Breadcrumb><br/><br/>
                         <MainHeading>Administrar Tarjetas de Crédito</MainHeading>
                         <SkeletonPlaceholder style={{ width: "100%", height: 400 }} />
                         <br /><br />
