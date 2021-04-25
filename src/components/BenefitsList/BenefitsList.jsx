@@ -18,7 +18,7 @@ const BenefitsList = props => {
             <StructuredListBody>
                 {
                     props.benefits.map(benefit => (
-                        <StructuredListRow>
+                        <StructuredListRow key={benefit.id}>
                             <StructuredListCell>
                                 {benefit.description}
                             </StructuredListCell>

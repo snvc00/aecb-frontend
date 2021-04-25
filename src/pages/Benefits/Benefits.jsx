@@ -41,7 +41,7 @@ const Benefits = () => {
             <Grid className="spaced top">
                 <Row>
                     <Column>
-                        <MainHeading>Los Beneficios de Banco Nacional</MainHeading>
+                        <MainHeading>Beneficios</MainHeading>
                     </Column>
                 </Row>
                 <Row>

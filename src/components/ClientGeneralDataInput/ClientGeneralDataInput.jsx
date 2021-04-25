@@ -105,7 +105,6 @@ class ClientGeneralDataInput extends Component {
                     invalid={!this.state.curpIsValid}
                     onChange={this.isCurpValid}
                     invalidText="Ingrese los 18 cáracteres de la CURP"
-                    ref={this.curpRef}
                     required
                 />
                 <DatePicker 
