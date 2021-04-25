@@ -12,16 +12,6 @@ import {
     SideNavItems
 } from "carbon-components-react";
 
-import Welcome from "../../pages/Welcome";
-import NewClient from "../../pages/NewClient";
-import UpdateClientAddress from "../../pages/UpdateClientAddress";
-import RegisteredClientsTable from "../../pages/RegisteredClientsTable";
-import NewCreditCard from "../../pages/NewCreditCard";
-import UpdateCreditCard from "../../pages/UpdateCreditCard";
-import RegisteredCreditCardsTable from "../../pages/RegisteredCreditCardsTable";
-import CreditCardPreapproval from "../../pages/CreditCardPreapproval";
-import PreapprovalRequestRecords from "../../pages/PreapprovalRequestRecords";
-
 const Header = () => {
     return (
         <HeaderContainer

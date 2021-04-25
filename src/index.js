@@ -12,6 +12,7 @@ import CreditCardPreapproval from "./pages/CreditCardPreapproval";
 import PreapprovalRequestRecords from "./pages/PreapprovalRequestRecords";
 import AdminClients from "./pages/AdminClients";
 import AdminCreditCards from "./pages/AdminCreditCards";
+import Benefits from "./pages/Benefits";
 
 import {
     BrowserRouter as Router,
@@ -28,7 +29,17 @@ ReactDOM.render(
     <React.StrictMode>
         <Router>
             <Switch>
-                {/* Administrativo: Clientes */}
+                <Route exact path="/">
+                    <Welcome />
+                </Route>
+                {/* Clientes */}
+                <Route exact path="/preaprobacion">
+                    <CreditCardPreapproval />
+                </Route>
+                <Route exact path="/preaprobacion/:clientId">
+                    <PreapprovalRequestRecords />
+                </Route>
+                {/* Administrativos: Clientes */}
                 <Route exact path="/clientes">
                     <AdminClients />
                 </Route>
@@ -41,7 +52,7 @@ ReactDOM.render(
                 <Route exact path="/clientes/registrados">
                     <RegisteredClientsTable />
                 </Route>
-                {/* Administrativo: Tarjetas */}
+                {/* Administrativos: Tarjetas */}
                 <Route exact path="/tarjetas">
                     <AdminCreditCards />
                 </Route>
@@ -54,12 +65,11 @@ ReactDOM.render(
                 <Route exact path="/tarjetas/registradas">
                     <RegisteredCreditCardsTable />
                 </Route>
-
-                <Route exact path="/preaprobacion">
-                    <CreditCardPreapproval />
+                <Route exact path="/beneficios">
+                    <Benefits />
                 </Route>
-                <Route exact path="/">
-                    <Welcome />
+                <Route path="*">
+                    {"404"}
                 </Route>
             </Switch>
         </Router>
