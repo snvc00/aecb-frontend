@@ -2,15 +2,11 @@ import {
     Grid,
     Row,
     Column,
-    Form,
     TextInput,
-    Button,
     ComposedModal,
     ModalHeader,
     ModalBody,
     ModalFooter,
-    Select,
-    SelectItem,
     ToastNotification,
     Link,
 } from "carbon-components-react";
@@ -33,19 +29,25 @@ class ClientPreapprovalRequests extends Component {
 
         this.state = {
             curpIsValid: true,
+            isModalOpen: true,
             requests: undefined,
             isAuthenticated: undefined,
         }
 
         this.isCurpValid = this.isCurpValid.bind(this);
-        this.handleOnSubmit = this.handleOnSubmit.bind(this);
+        this.handleModalSubmit = this.handleModalSubmit.bind(this);
 
         this.curpRef = createRef();
         this.passwordRef = createRef();
     }
 
-    handleOnSubmit() {
-        console.log(this.curpRef.current.value, this.passwordRef.current.value);
+    handleModalSubmit() {
+        const curp = this.curpRef.current.value;
+        const password = this.passwordRef.current.value;
+
+        console.log(curp, password);
+
+        this.setState({ isModalOpen: false });
     }
 
     isCurpValid() {
@@ -70,8 +72,8 @@ class ClientPreapprovalRequests extends Component {
                 <Grid style={gridStyles}>
                     <Row>
                         <Column>
-                            <ComposedModal 
-                                open 
+                            <ComposedModal
+                                open={this.state.isModalOpen}
                                 onClose={() => {
                                     this.setState({ isAuthenticated: false });
                                 }}
@@ -98,7 +100,11 @@ class ClientPreapprovalRequests extends Component {
                                         type="password"
                                     />
                                 </ModalBody>
-                                <ModalFooter primaryButtonText="Ingresar" secondaryButtonText="Cancelar" />
+                                <ModalFooter 
+                                    primaryButtonText="Ingresar" 
+                                    secondaryButtonText="Cancelar" 
+                                    onRequestSubmit={() => { this.handleModalSubmit(); }} 
+                                />
                             </ComposedModal>
                             <MainHeading>Mis Solicitudes</MainHeading>
                             {this.state.isAuthenticated === false ? (

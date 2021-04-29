@@ -26,7 +26,16 @@ const gridStyles = {
 const PreapprovalRequestRecords = () => {
     const tokenRef = useRef();
     const [isAuthenticated, setIsAuthenticated] = useState(undefined);
+    const [ isModalOpen, setIsModalOpen ] = useState(true);
     const [requests, setRequests] = useState();
+
+    const handleModalSubmit = () => {
+        const token = tokenRef.current.value;
+
+        console.log(token);
+
+        setIsModalOpen(false);
+    };
 
     return (
         <>
@@ -38,7 +47,7 @@ const PreapprovalRequestRecords = () => {
                 <Row>
                     <Column>
                         <ComposedModal
-                            open
+                            open={isModalOpen}
                             onClose={() => {
                                 setIsAuthenticated(false);
                             }}
@@ -51,7 +60,7 @@ const PreapprovalRequestRecords = () => {
                                 <p style={{ marginBottom: "1rem" }}>
                                     Recuerda el tratar con seguridad esta información, ya que es
                                     de uso exclusivo de personal administrativo.
-                </p>
+                                </p>
                                 <TextInput
                                     data-modal-primary-focus
                                     id="token"
@@ -62,9 +71,10 @@ const PreapprovalRequestRecords = () => {
                                     type="password"
                                 />
                             </ModalBody>
-                            <ModalFooter
-                                primaryButtonText="Ingresar"
-                                secondaryButtonText="Cancelar"
+                            <ModalFooter 
+                                primaryButtonText="Ingresar" 
+                                secondaryButtonText="Cancelar" 
+                                onRequestSubmit={() => { handleModalSubmit(); }} 
                             />
                         </ComposedModal>
                         <MainHeading>Solicitudes de Preaprobación</MainHeading>
