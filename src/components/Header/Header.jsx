@@ -30,7 +30,7 @@ const Header = () => {
                         <HeaderMenu aria-label="Clientes" menuLinkName="Clientes">
                             {/*isCurrentPage*/}
                             <HeaderMenuItem href="/preaprobacion">Solicitar Preaprobación</HeaderMenuItem>
-                            <HeaderMenuItem href="/preaprobacion/:clientId">Historial de Solicitudes</HeaderMenuItem>
+                            <HeaderMenuItem href="/preaprobacion/historial">Historial de Solicitudes</HeaderMenuItem>
                         </HeaderMenu>
                         <HeaderMenu aria-label="Administradores" menuLinkName="Administradores">
                             <HeaderMenuItem href="/clientes">Clientes</HeaderMenuItem>
@@ -48,7 +48,7 @@ const Header = () => {
                                 <HeaderMenu aria-label="Clientes" menuLinkName="Clientes">
                                     {/*isCurrentPage*/}
                                     <HeaderMenuItem href="/preaprobacion">Solicitar Preaprobación</HeaderMenuItem>
-                                    <HeaderMenuItem href="/preaprobacion/:clientId">Historial de Solicitudes</HeaderMenuItem>
+                                    <HeaderMenuItem href="/preaprobacion/historial">Historial de Solicitudes</HeaderMenuItem>
                                 </HeaderMenu>
                                 <HeaderMenu aria-label="Administradores" menuLinkName="Administradores">
                                     <HeaderMenuItem href="/clientes">Clientes</HeaderMenuItem>

@@ -40,6 +40,7 @@ const NewClient = () => {
     const submitClientRegister = () => {
         const clientData = getClientData(generalDataRef, addressRef);
 
+        // Enviar datos a la API
         console.log(clientData);
     }
 

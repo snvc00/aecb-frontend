@@ -25,6 +25,7 @@ import "./index.css";
 
 import reportWebVitals from "./reportWebVitals";
 import "carbon-components/scss/globals/scss/styles.scss";
+import ClientPreapprovalRequests from "./pages/ClientPreapprovalRequests";
 
 ReactDOM.render(
     <React.StrictMode>
@@ -37,7 +38,10 @@ ReactDOM.render(
                 <Route exact path="/preaprobacion">
                     <CreditCardPreapproval />
                 </Route>
-                <Route exact path="/preaprobacion/:clientId">
+                <Route exact path="/preaprobacion/historial">
+                    <ClientPreapprovalRequests />
+                </Route>
+                <Route exact path="/preaprobacion/historial/:clientId">
                     <PreapprovalRequestRecords />
                 </Route>
                 {/* Administrativos: Clientes */}
@@ -65,6 +69,10 @@ ReactDOM.render(
                 </Route>
                 <Route exact path="/tarjetas/registradas">
                     <RegisteredCreditCardsTable />
+                </Route>
+                {/* Administrativos: Reportes */}
+                <Route exact path="/reportes">
+                    <PreapprovalRequestRecords />
                 </Route>
                 <Route exact path="/beneficios">
                     <Benefits />
