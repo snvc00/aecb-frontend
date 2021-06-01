@@ -25,10 +25,10 @@ class CreditCardGenericInput extends Component {
     getCreditCardGenerics() {
         return {
             name: this.nameRef.current.value,
-            minCredit: this.minCreditRef.current.value,
-            maxCredit: this.maxCreditRef.current.value,
-            cat: this.catRef.current.value,
-            annualFeed: this.annualFeeRef.current.value,
+            min_credit: parseInt(this.minCreditRef.current.value),
+            max_credit: parseInt(this.maxCreditRef.current.value),
+            cat: parseInt(this.catRef.current.value),
+            annual_fee: parseInt(this.annualFeeRef.current.value),
         }
     }
 
