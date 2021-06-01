@@ -54,6 +54,14 @@ class ClientAddressInput extends Component {
                     maxLength={30}
                     required
                 />
+                <TextInput
+                    labelText="Ciudad"
+                    id="city"
+                    size="lg"
+                    ref={this.cityRef}
+                    maxLength={20}
+                    required
+                />
                 <ComboBox
                     titleText="Estado"
                     ref={this.stateRef}
@@ -64,13 +72,7 @@ class ClientAddressInput extends Component {
                     items={states}
                     itemToString={(state) => state}
                     placeholder="Filtrar"
-                />
-                <TextInput
-                    labelText="Ciudad"
-                    id="city"
-                    size="lg"
-                    ref={this.cityRef}
-                    maxLength={20}
+                    required
                 />
             </FormGroup>
         );
