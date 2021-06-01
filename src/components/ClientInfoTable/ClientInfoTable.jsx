@@ -14,6 +14,8 @@ import {
     TableBody,
     TableCell,
     TableSelectRow,
+    InlineNotification,
+    NotificationActionButton,
 } from "carbon-components-react";
 
 import {
@@ -21,9 +23,8 @@ import {
     UserActivity24 as UserActivity,
 } from "@carbon/icons-react";
 
-import { clients as rows } from "../../assets/json/clients.json";
-
-import { Component, Fragment } from "react";
+import { Fragment } from "react";
+import { useState } from "react";
 
 const headers = [
     {
@@ -33,6 +34,10 @@ const headers = [
     {
         key: "name",
         header: "Nombre",
+    },
+    {
+        key: "password",
+        header: "Contraseña",
     },
     {
         key: "curp",
@@ -47,7 +52,7 @@ const headers = [
         header: "RFC",
     },
     {
-        key: "income",
+        key: "monthly_income",
         header: "Ingreso Mensual",
     },
     {
@@ -67,7 +72,7 @@ const headers = [
         header: "Estado",
     },
     {
-        key: "status",
+        key: "is_active",
         header: "Actividad",
     },
 ];
@@ -78,102 +83,160 @@ var translationKeys = {
     'carbon.table.batch.item.selected': 'cliente seleccionado'
 };
 
-class ClientInfoTable extends Component {
-    constructor(props) {
-        super(props);
+const ClientInfoTable = (props) => {
+    const [showNotification, setShowNotification] = useState(false);
+    const [notificationInfo, setNotificationInfo] = useState({});
 
-        this.state = {
-            rows: rows,
-            headers: headers,
-        }
-    }
-
-    handleBatchActionClickUpdateStatus(selectedRows) {
+    const handleBatchActionClickUpdateStatus = async (selectedRows) => {
+        console.log(selectedRows);
         console.log("handleBatchActionClickUpdateStatus");
+        const token = sessionStorage.getItem("token") || "";
+        const curp = selectedRows[0].cells[3].value;
+        const isActive = selectedRows[0].cells[11].value === "Activo";
+
+
+        await fetch(`http://localhost:5000/api/clients/${curp}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Token": token
+            },
+            body: JSON.stringify({ is_active: !isActive }),
+        })
+            .then(body => body.json())
+            .then(data => {
+                if (data.hasOwnProperty("error")) {
+                    console.log(data.error);
+                    setNotificationInfo({
+                        kind: "error",
+                        title: data.error.message,
+                    });
+                    setShowNotification(true);
+                }
+                else {
+                    setNotificationInfo({
+                        kind: "success",
+                        title: "Actividad modificada",
+                    });
+                    setShowNotification(true);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                setNotificationInfo({
+                    kind: "error",
+                    title: "Ha ocurrido un error",
+                });
+                setShowNotification(true);
+            });
     }
 
-    handleBatchActionClickUpdateAddress(selectedRows) {
+    const handleBatchActionClickUpdateAddress = selectedRows => {
+        console.log(selectedRows);
         console.log("handleBatchActionClickUpdateAddress");
+        const curp = selectedRows[0].cells[3].value;
+
+        window.location.replace(`/clientes/actualizar/${curp}`);
     }
 
-    customTranslationForTableBatchActions(id, state) {
+    const customTranslationForTableBatchActions = (id, state) => {
         if (id === 'carbon.table.batch.cancel') {
             return translationKeys[id];
         }
         return `${state.totalSelected} ${translationKeys[id]}`;
     }
 
-    render() {
-        return (
-            <DataTable
-                rows={this.state.rows}
-                headers={this.state.headers}
-                {...this.props}
-                render={({
-                    rows,
-                    headers,
-                    getHeaderProps,
-                    getSelectionProps,
-                    getToolbarProps,
-                    getBatchActionProps,
-                    getRowProps,
-                    onInputChange,
-                    selectedRows,
-                    getTableProps,
-                    getTableContainerProps,
-                }) => (
-                    <TableContainer
-                        title="Clientes Registrados"
-                        description="Selecciona un cliente para modificar su estado de actividad o domicilio."
-                        {...getTableContainerProps()}>
-                        <TableToolbar {...getToolbarProps()}>
-                            <TableBatchActions {...getBatchActionProps()} translateWithId={this.customTranslationForTableBatchActions}>
-                                <TableBatchAction
-                                    renderIcon={UserActivity}
-                                    iconDescription="Cambiar Estado de Actividad"
-                                    onClick={() => { this.handleBatchActionClickUpdateStatus(selectedRows) }}>
-                                    Cambiar Estado de Actividad
-                                </TableBatchAction>
-                                <TableBatchAction
-                                    renderIcon={Edit}
-                                    iconDescription="Editar Domicilio"
-                                    onClick={() => { this.handleBatchActionClickUpdateAddress(selectedRows) }}>
-                                    Editar Domicilio
-                                </TableBatchAction>
-                            </TableBatchActions>
-                            <TableToolbarContent>
-                                <TableToolbarSearch onChange={onInputChange} placeholder="Buscar cliente" />
-                            </TableToolbarContent>
-                        </TableToolbar>
-                        <Table {...getTableProps()}>
-                            <TableHead>
-                                <TableRow>
-                                    <TableExpandHeader />
-                                    {headers.map((header, i) => (
-                                        <TableHeader key={i} {...getHeaderProps({ header })}>
-                                            {header.header}
-                                        </TableHeader>
-                                    ))}
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {rows.map((row) => (
-                                    <Fragment key={row.id}>
-                                        <TableRow {...getRowProps({ row })}>
-                                            <TableSelectRow {...getSelectionProps({ row })} />
-                                            {row.cells.map((cell) => (
-                                                <TableCell key={cell.id}>{cell.value}</TableCell>
-                                            ))}
-                                        </TableRow>
-                                    </Fragment>
+    return (
+        <>
+        {showNotification ? 
+            <InlineNotification
+                kind={notificationInfo.kind || "error"}
+                title={notificationInfo.title || ""}
+                style={{ marginBottom: "2rem" }}
+                actions={
+                    <NotificationActionButton
+                        onClick={() => { window.location.reload() }}
+                    >
+                        Intentar de nuevo
+                    </NotificationActionButton>
+                }
+            >
+            </InlineNotification> 
+            
+            : 
+            
+            <></>
+        }
+        <DataTable
+            rows={props.clients}
+            headers={headers}
+            {...props}
+            render={({
+                rows,
+                headers,
+                getHeaderProps,
+                getSelectionProps,
+                getToolbarProps,
+                getBatchActionProps,
+                getRowProps,
+                onInputChange,
+                selectedRows,
+                getTableProps,
+                getTableContainerProps,
+            }) => (
+                <TableContainer
+                    title="Clientes Registrados"
+                    description="Selecciona un cliente para modificar su estado de actividad o domicilio."
+                    {...getTableContainerProps()}>
+                    <TableToolbar {...getToolbarProps()}>
+                        <TableBatchActions {...getBatchActionProps()} translateWithId={customTranslationForTableBatchActions}>
+                            <TableBatchAction
+                                renderIcon={UserActivity}
+                                iconDescription="Cambiar Estado de Actividad"
+                                onClick={() => {handleBatchActionClickUpdateStatus(selectedRows)}}>
+                                Cambiar Estado de Actividad
+                            </TableBatchAction>
+                            <TableBatchAction
+                                renderIcon={Edit}
+                                iconDescription="Editar Domicilio"
+                                onClick={() => {handleBatchActionClickUpdateAddress(selectedRows)}}>
+                                Editar Domicilio
+                            </TableBatchAction>
+                        </TableBatchActions>
+                        <TableToolbarContent>
+                            <TableToolbarSearch onChange={onInputChange} placeholder="Buscar cliente" />
+                        </TableToolbarContent>
+                    </TableToolbar>
+                    <Table {...getTableProps()}>
+                        <TableHead>
+                            <TableRow>
+                                <TableExpandHeader />
+                                {headers.map((header, i) => (
+                                    <TableHeader key={i} {...getHeaderProps({ header })}>
+                                        {header.header}
+                                    </TableHeader>
                                 ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                )}
-            />
-        );
-    }
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows.map((row) => (
+                                <Fragment key={row.id}>
+                                    <TableRow {...getRowProps({ row })}>
+                                        <TableSelectRow {...getSelectionProps({ row })} />
+                                        {row.cells.map((cell) => (
+                                            <TableCell key={cell.id}>{cell.value}</TableCell>
+                                        ))}
+                                    </TableRow>
+                                </Fragment>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            )}
+        />
+        </>
+    );
+
 }
 
 export default ClientInfoTable;
