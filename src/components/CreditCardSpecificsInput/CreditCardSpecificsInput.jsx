@@ -30,8 +30,15 @@ class CreditCardGenericInput extends Component {
     }
 
     getCreditCardSpecifics() {
+        const tierTranslations = {
+            Bronce: 1,
+            Plata: 2,
+            Oro: 3,
+            Diamante: 4
+        };
+
         return {
-            category: this.state.selectedCategory,
+            tier: parseInt(tierTranslations[this.state.selectedCategory]),
             image: this.imageRef.current.value,
         }
     }
