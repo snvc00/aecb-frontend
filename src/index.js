@@ -51,7 +51,7 @@ ReactDOM.render(
                 <Route exact path="/clientes/registrar">
                     <NewClient />
                 </Route>
-                <Route exact path="/clientes/actualizar">
+                <Route exact path="/clientes/actualizar/:curp">
                     <UpdateClientAddress />
                 </Route>
                 <Route exact path="/clientes/registrados">
@@ -64,7 +64,7 @@ ReactDOM.render(
                 <Route exact path="/tarjetas/registrar">
                     <NewCreditCard />
                 </Route>
-                <Route exact path="/tarjetas/actualizar">
+                <Route exact path="/tarjetas/actualizar/:id">
                     <UpdateCreditCard />
                 </Route>
                 <Route exact path="/tarjetas/registradas">
