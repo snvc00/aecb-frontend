@@ -4,6 +4,7 @@ import {
     DatePicker,
     DatePickerInput,
     NumberInput,
+    Checkbox,
 } from "carbon-components-react";
 
 import {
@@ -18,6 +19,7 @@ class ClientGeneralDataInput extends Component {
         this.state = {
             curpIsValid: true,
             rfcIsValid: true,
+            hasCredit: false,
         }
 
         this.isCurpValid = this.isCurpValid.bind(this);
@@ -32,11 +34,15 @@ class ClientGeneralDataInput extends Component {
         this.incomeRef = createRef();
     }
 
-    getMaxBirthdate() {
+    getBirthdateBounds() {
         const today = new Date();
         today.setFullYear(today.getFullYear() - 18);
+        const maxBirthdate = today.toLocaleDateString("es");
 
-        return today.toLocaleDateString();
+        today.setFullYear(today.getFullYear() - 100);
+        const minBirthdate = today.toLocaleDateString("es");
+
+        return { minBirthdate: minBirthdate, maxBirthdate: maxBirthdate };
     }
 
     isCurpValid() {
@@ -64,18 +70,20 @@ class ClientGeneralDataInput extends Component {
     }
 
     getGeneralData() {
+        const birthdate = this.birthdateRef.current.inputField.value.split("/");
+        
         return {
-            firstname: this.firstnameRef.current.value,
-            lastname: this.lastnameRef.current.value,
+            name: this.firstnameRef.current.value + " " + this.lastnameRef.current.value,
             curp: this.curpRef.current.value,
-            birthdate: this.birthdateRef.current.inputField.value,
+            birthdate: `${birthdate[2]}-${birthdate[1]}-${birthdate[0]}`, // Send birthdate in YYYY-MM-DD format
             rfc: this.rfcRef.current.value,
-            income: this.incomeRef.current.value,
+            monthly_income: parseInt(this.incomeRef.current.value),
+            has_credit: this.state.hasCredit,
         }
     }
 
     render() {
-        const maxBirthDate = this.getMaxBirthdate();
+        const { minBirthdate, maxBirthdate } = this.getBirthdateBounds();
         
         return (
             <FormGroup legendText={<h4>Datos Generales</h4>}>
@@ -109,13 +117,16 @@ class ClientGeneralDataInput extends Component {
                 />
                 <DatePicker 
                     datePickerType="single" 
-                    maxDate={maxBirthDate} 
-                    dateFormat="d/m/Y" 
+                    maxDate={maxBirthdate}
+                    minDate={minBirthdate}
+                    dateFormat="d/m/Y"
+                    locale="es"
                     ref={this.birthdateRef}
                 >
                     <DatePickerInput
                         id="birthdate"
                         labelText="Fecha de Nacimiento"
+                        placeholder="dd/mm/yyyy"
                         size="lg"
                         required 
                     />
@@ -142,6 +153,12 @@ class ClientGeneralDataInput extends Component {
                     min={1000}
                     helperText="Expresado en Pesos Mexicanos (MXN)"
                     required
+                />
+                <Checkbox  
+                    labelText="Tiene tarjeta de crédito"
+                    id="has_credit" 
+                    checked={this.state.hasCredit}
+                    onChange={()=>{this.setState({hasCredit: !this.state.hasCredit})}}
                 />
             </FormGroup>
         );
