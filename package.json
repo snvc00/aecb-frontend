@@ -4,17 +4,21 @@
   "private": true,
   "dependencies": {
     "@carbon/icons-react": "^10.30.0",
+    "@carbon/themes": "^10.36.0",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
     "carbon-components": "^10.33.0",
     "carbon-components-react": "^7.33.0",
     "carbon-icons": "^7.0.7",
+    "firebase": "^8.6.5",
     "node-sass": "^5.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "sass": "^1.35.0",
     "sass-loader": "^11.0.1",
     "web-vitals": "^1.1.1"
   },
@@ -41,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-plugin-react-hooks": "^4.2.0"
   }
 }
