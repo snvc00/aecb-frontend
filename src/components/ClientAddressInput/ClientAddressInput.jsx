@@ -30,9 +30,13 @@ class ClientAddressInput extends Component {
         return {
             address: this.addressRef.current.value,
             neighborhood: this.neighborhoodRef.current.value,
-            state: this.state.selectedState,
             city: this.cityRef.current.value,
+            state: this.state.selectedState,
         }
+    }
+
+    componentDidMount() {
+        this.setState({ selectedState: this.props.client ? this.props.client.state : "" });
     }
 
     render() {
@@ -44,6 +48,7 @@ class ClientAddressInput extends Component {
                     size="lg"
                     ref={this.addressRef}
                     maxLength={50}
+                    defaultValue={this.props.client ? this.props.client.address : ""}
                     required
                 />
                 <TextInput
@@ -52,6 +57,7 @@ class ClientAddressInput extends Component {
                     size="lg"
                     ref={this.neighborhoodRef}
                     maxLength={30}
+                    defaultValue={this.props.client ? this.props.client.neighborhood : ""}
                     required
                 />
                 <TextInput
@@ -60,13 +66,14 @@ class ClientAddressInput extends Component {
                     size="lg"
                     ref={this.cityRef}
                     maxLength={20}
+                    defaultValue={this.props.client ? this.props.client.city : ""}
                     required
                 />
                 <ComboBox
                     titleText="Estado"
                     ref={this.stateRef}
                     onChange={({ selectedItem })=>{ this.setState({ selectedState: selectedItem }); }}
-                    selectedItem={this.state.selectedState}
+                    selectedItem={this.props.client ? this.props.client.state : ""}
                     id="state"
                     size="lg"
                     items={states}
