@@ -23,56 +23,48 @@ const gridStyles = {
     marginTop: "80px"
 }
 
-const UpdateClientAddress = () => {
+const UpdateClientAddress = (props) => {
     const addressRef = useRef();
-    const tokenRef = useRef();
 
     const [showNotification, setShowNotification] = useState();
     const [notificationInfo, setNotificationInfo] = useState();
 
-    const { curp } = useParams();
+    const { id } = useParams();
 
-    const submitClientAddress = async (e) => {
+    const submitClientAddress = (e) => {
         e.preventDefault();
         const clientAddress = addressRef.current.getAddress();
 
-        await fetch(`http://localhost:5000/api/clients/${curp}`, {
+        fetch(`${process.env.REACT_APP_BACKEND_API}/api/clients/${id}/`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                "Token": tokenRef.current.value
+                "Token": sessionStorage.getItem("token")
             },
             body: JSON.stringify(clientAddress),
         })
-            .then(body => body.json())
-            .then(data => {
-                if (data.hasOwnProperty("error")) {
-                    console.log(data.error);
-                    setNotificationInfo({
-                        kind: "error",
-                        title: data.error.message,
-                    });
-                    setShowNotification(true);
-                }
-                else {
-                    setNotificationInfo({
-                        kind: "success",
-                        title: "Domicilio modificado",
-                    });
-                    setShowNotification(true);
-                    e.target.reset();
-                }
-            })
-            .catch(error => {
-                console.log(error);
+        .then(async (response) => ({ data: await response.json(), responseOk: response.ok }))
+        .then(({ data, responseOk }) => {
+            if (responseOk) {
                 setNotificationInfo({
-                    kind: "error",
-                    title: "Ha ocurrido un error",
+                    kind: "success",
+                    title: "Domicilio modificado",
                 });
                 setShowNotification(true);
+                e.target.reset();
+            }
+            else {
+                const firstError = Object.keys(data)[0];
+                throw `Error with ${firstError}: ${data[firstError]}`;
+            }
+        })
+        .catch(error => {
+            setNotificationInfo({
+                kind: "error",
+                title: error,
             });
-
-        console.log(clientAddress);
+            setShowNotification(true);
+        });
     }
 
     return (
@@ -106,15 +98,7 @@ const UpdateClientAddress = () => {
                         }
                         <MainHeading>Actualizar Domicilio</MainHeading>
                         <Form onSubmit={submitClientAddress}>
-                            <ClientAddressInput ref={addressRef} />
-                            <TextInput
-                                id="token"
-                                labelText="Token de Administrador"
-                                size="lg"
-                                type="password"
-                                ref={tokenRef}
-                                required
-                            />
+                            <ClientAddressInput ref={addressRef} client={props.history.location.state.client} />
                             <Button type="submit">
                                 Actualizar
                             </Button>

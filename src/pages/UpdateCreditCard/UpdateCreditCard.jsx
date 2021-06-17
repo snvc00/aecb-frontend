@@ -3,7 +3,6 @@ import {
     Grid,
     Row,
     Column,
-    TextInput,
     Button,
     InlineNotification,
     NotificationActionButton,
@@ -11,68 +10,63 @@ import {
 
 import Header from "../../components/Header";
 import MainHeading from "../../components/MainHeading";
-import CreditCardSpecificsInput from "../../components/CreditCardSpecificsInput";
 
 import { Helmet } from "react-helmet";
 import { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import CreditCardGenericInput from "../../components/CreditCardGenericInput";
+import { WatsonHealthWindowBase16 } from "@carbon/icons-react";
 
 const gridStyles = {
     maxWidth: "50rem",
     marginTop: "80px"
 }
 
-const UpdateCreditCard = () => {
-    const creditCardSpecificsRef = useRef();
-    const tokenRef = useRef();
+const UpdateCreditCard = (props) => {
+    const creditCardGenericsRef = useRef();
 
     const [showNotification, setShowNotification] = useState(false);
     const [notificationInfo, setNotificationInfo] = useState({});
 
     const { id } = useParams();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        const creditCardSpecifics = creditCardSpecificsRef.current.getCreditCardSpecifics();
+        const creditCardGenerics = creditCardGenericsRef.current.getCreditCardGenerics();
 
-        await fetch(`http://localhost:5000/api/cards/${id}`, {
+        fetch(`${process.env.REACT_APP_BACKEND_API}/api/cards/${id}/`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                "Token": tokenRef.current.value
+                "Token": sessionStorage.getItem("token")
             },
-            body: JSON.stringify(creditCardSpecifics),
+            body: JSON.stringify(creditCardGenerics),
         })
-            .then(body => body.json())
-            .then(data => {
-                if (data.hasOwnProperty("error")) {
-                    console.log(data.error);
-                    setNotificationInfo({
-                        kind: "error",
-                        title: data.error.message,
-                    });
-                    setShowNotification(true);
-                }
-                else {
-                    setNotificationInfo({
-                        kind: "success",
-                        title: "Tarjeta de crédito modificada",
-                    });
-                    setShowNotification(true);
-                    e.target.reset();
-                }
-            })
-            .catch(error => {
-                console.log(error);
+        .then(async (response) => ({ data: await response.json(), responseOk: response.ok }))
+        .then(({ data, responseOk }) => {
+            if (responseOk) {
                 setNotificationInfo({
-                    kind: "error",
-                    title: "Ha ocurrido un error",
+                    kind: "success",
+                    title: "Tarjeta de crédito modificada",
                 });
                 setShowNotification(true);
+                e.target.reset();
+            }
+            else {
+                const firstError = Object.keys(data)[0];
+                throw `Error with ${firstError}: ${data[firstError]}`;
+            }
+        })
+        .catch(error => {
+            setNotificationInfo({
+                kind: "error",
+                title: error,
             });
+            setShowNotification(true);
+        });
 
-        console.log(creditCardSpecifics);
+        window.scrollTo(0, 0);
     }
 
     return (
@@ -93,7 +87,7 @@ const UpdateCreditCard = () => {
                                     onCloseButtonClick={() => { setShowNotification(false); }}
                                     actions={
                                         <NotificationActionButton
-                                            onClick={() => { window.location.href = "/clientes/registrados" }}
+                                            onClick={() => { window.location.href = "/tarjetas/registradas" }}
                                         >
                                             Ver Tarjetas de crédito
                                         </NotificationActionButton>
@@ -106,15 +100,7 @@ const UpdateCreditCard = () => {
                         }
                         <MainHeading>Actualizar Tarjeta de Crédito</MainHeading>
                         <Form onSubmit={handleSubmit}>
-                            <CreditCardSpecificsInput ref={creditCardSpecificsRef} />
-                            <TextInput
-                                id="token"
-                                labelText="Token de Administrador"
-                                size="lg"
-                                type="password"
-                                ref={tokenRef}
-                                required
-                            />
+                            <CreditCardGenericInput ref={creditCardGenericsRef} creditCard={props.history.location.state.creditCard} />
                             <Button type="submit">
                                 Actualizar
                             </Button>
