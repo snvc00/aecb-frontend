@@ -18,6 +18,7 @@ import CreditCardSpecificsInput from "../../components/CreditCardSpecificsInput"
 
 import { Helmet } from "react-helmet";
 import { createRef, useRef, useState } from "react";
+import { useEffect } from "react";
 
 const gridStyles = {
     maxWidth: "50rem",
@@ -27,10 +28,11 @@ const gridStyles = {
 const NewCreditCard = () => { 
     const creditCardGenericsRef = createRef();
     const creditCardSpecificsRef = createRef();
-    const tokenRef = useRef();
 
     const [showNotification, setShowNotification] = useState();
     const [notificationInfo, setNotificationInfo] = useState();
+    const [promotions, setPromotions] = useState();
+    const [insurances, setInsurances] = useState();
 
     const getCreditCardData = () => {
         const creditCardGenerics = creditCardGenericsRef.current.getCreditCardGenerics();
@@ -41,48 +43,65 @@ const NewCreditCard = () => {
         } 
     }
 
-    const handleSubmit = async (e) => {
+    useEffect(() => {
+        
+    }, [setPromotions, setInsurances]);
+
+    const handleSubmit = (e) => {
         e.preventDefault();
         
         const creditCard = getCreditCardData();
+        var formData = new FormData();
 
-        await fetch("http://localhost:5000/api/cards", {
+        formData.append("name", creditCard.name);
+        formData.append("min_credit", creditCard.min_credit);
+        formData.append("max_credit", creditCard.max_credit);
+        formData.append("tier", creditCard.tier);
+        formData.append("cat", creditCard.cat);
+        formData.append("annual_fee", creditCard.annual_fee);
+        
+        creditCard.promotions.forEach(promotion => {
+            formData.append("promotions", promotion.id);
+        });
+
+        creditCard.insurances.forEach(insurance => {
+            formData.append("insurances", insurance.id);
+        });
+        
+        formData.append("image", creditCard.image);
+
+        fetch(`${process.env.REACT_APP_BACKEND_API}/api/cards/`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
-                "Token": tokenRef.current.value
+                "Token": sessionStorage.getItem("token")
             },
-            body: JSON.stringify(creditCard),
+            body: formData,
         })
-            .then(body => body.json())
-            .then(data => {
-                if (data.hasOwnProperty("error")) {
-                    console.log(data.error);
-                    setNotificationInfo({
-                        kind: "error",
-                        title: data.error.message,
-                    });
-                    setShowNotification(true);
-                }
-                else {
-                    setNotificationInfo({
-                        kind: "success",
-                        title: "Tarjeta de crédito registrada",
-                    });
-                    setShowNotification(true);
-                    e.target.reset();
-                }
-            })
-            .catch(error => {
-                console.log(error);
+        .then(async (response) => ({ data: await response.json(), responseOk: response.ok }))
+        .then(({ data, responseOk }) => {
+            if (responseOk) {
                 setNotificationInfo({
-                    kind: "error",
-                    title: "Ha ocurrido un error",
+                    kind: "success",
+                    title: "Tarjeta de crédito registrada",
                 });
                 setShowNotification(true);
+                e.target.reset();
+            }
+            else {
+                const firstError = Object.keys(data)[0];
+                throw `Error with ${firstError}: ${data[firstError]}`;
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            setNotificationInfo({
+                kind: "error",
+                title: error,
             });
+            setShowNotification(true);
+        });
 
-        console.log(creditCard);
+        window.scrollTo(0, 0);
     }
 
     return (
@@ -113,7 +132,7 @@ const NewCreditCard = () => {
                                         <NotificationActionButton
                                             onClick={() => { window.location.href = "/tarjetas/registradas" }}
                                         >
-                                            Ver Tarjeras de Crédito
+                                            Ver Tarjetas de Crédito
                                         </NotificationActionButton>
                                     }
                                 />
@@ -125,18 +144,11 @@ const NewCreditCard = () => {
                         <Form onSubmit={handleSubmit}>
                             <CreditCardGenericInput ref={creditCardGenericsRef} />
                             <CreditCardSpecificsInput ref={creditCardSpecificsRef} />
-                            <TextInput
-                                id="token"
-                                labelText="Token de Administrador"
-                                size="lg"
-                                type="password"
-                                ref={tokenRef}
-                                required
-                            />
                             <Button type="submit">
                                 Añadir
                             </Button>
                         </Form>
+                        <br /><br /><br />
                     </Column>
                 </Row>
             </Grid>
