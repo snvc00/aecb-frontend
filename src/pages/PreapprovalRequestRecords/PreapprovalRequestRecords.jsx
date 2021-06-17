@@ -2,13 +2,6 @@ import {
     Grid,
     Row,
     Column,
-    ComposedModal,
-    ModalHeader,
-    ModalBody,
-    TextInput,
-    ModalFooter,
-    ToastNotification,
-    Link,
 } from "carbon-components-react";
 
 import Header from "../../components/Header";
@@ -17,25 +10,57 @@ import PreapprovalRequestsTableSkeleton from "../../components/PreapprovalReques
 import PreapprovalRequestsTable from "../../components/PreapprovalRequestsTable";
 
 import { Helmet } from "react-helmet";
-import { useRef, useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Auth";
+import { useEffect } from "react/cjs/react.development";
 
 const gridStyles = {
     marginTop: "80px",
 };
 
 const PreapprovalRequestRecords = () => {
-    const tokenRef = useRef();
-    const [isAuthenticated, setIsAuthenticated] = useState(undefined);
-    const [ isModalOpen, setIsModalOpen ] = useState(true);
-    const [requests, setRequests] = useState();
+    const [preapprovalRequests, setPreapprovalRequests] = useState([]);
+    const { currentUser, userRole } = useContext(AuthContext);
 
-    const handleModalSubmit = () => {
-        const token = tokenRef.current.value;
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_BACKEND_API}/api/preapprovals/`, {
+            method: "GET",
+            headers: {
+                "Token": sessionStorage.getItem("token")
+            }
+        })
+            .then(async (response) => ({ data: await response.json(), responseOk: response.ok }))
+            .then(({ data, responseOk }) => {
+                if (responseOk) {
+                    const preapprovals = formatPreapprovals(data);
+                    setPreapprovalRequests(preapprovals);
+                }
+                else {
+                    throw data.detail;
+                }
 
-        console.log(token);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
 
-        setIsModalOpen(false);
-    };
+    const formatPreapprovals = preapprovals => {
+        const formattedPreapprovals = preapprovals.map(preapproval => ({
+            id: preapproval.id,
+            creation_timestamp: Date(preapproval.creation_timestamp).toString(),
+            approved: preapproval.approved ? "Yes" : "No",
+            active: preapproval.active ? "Yes" : "No",
+            credit_card_id: preapproval.credit_card.id,
+            credit_card_name: preapproval.credit_card.name,
+            credit_card_range: `$${preapproval.credit_card.min_credit} - $${preapproval.credit_card.max_credit}`,
+            client_name: preapproval.client.name,
+            client_email: preapproval.client.email,
+            reviewed_by: preapproval.reviewed_by ? preapproval.reviewed_by.email : "",
+        }));
+
+        return formattedPreapprovals;
+    }
 
     return (
         <>
@@ -46,73 +71,11 @@ const PreapprovalRequestRecords = () => {
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
-                        <ComposedModal
-                            open={isModalOpen}
-                            onClose={() => {
-                                setIsAuthenticated(false);
-                            }}
-                        >
-                            <ModalHeader
-                                label="Identificación"
-                                title="Ingresa tu Token de Administrador"
-                            />
-                            <ModalBody>
-                                <p style={{ marginBottom: "1rem" }}>
-                                    Recuerda el tratar con seguridad esta información, ya que es
-                                    de uso exclusivo de personal administrativo.
-                                </p>
-                                <TextInput
-                                    data-modal-primary-focus
-                                    id="token"
-                                    ref={tokenRef}
-                                    labelText=""
-                                    placeholder="Token de Administrador"
-                                    style={{ marginBottom: "1rem" }}
-                                    type="password"
-                                />
-                            </ModalBody>
-                            <ModalFooter 
-                                primaryButtonText="Ingresar" 
-                                secondaryButtonText="Cancelar" 
-                                onRequestSubmit={() => { handleModalSubmit(); }} 
-                            />
-                        </ComposedModal>
                         <MainHeading>Solicitudes de Preaprobación</MainHeading>
-                        {isAuthenticated === false ? (
-                            <Row>
-                                <Column sm={2} md={{ span: 4, offset: 6 }}>
-                                    <ToastNotification
-                                        title="Error de Autenticación"
-                                        subtitle="Token de Administrador no válido"
-                                        onCloseButtonClick={() => {
-                                            setTimeout(() => {
-                                                window.location.reload();
-                                            }, 1000);
-                                        }}
-                                        style={{ marginBottom: "2rem" }}
-                                        caption={
-                                            <Link onClick={() => { window.location.reload(); }}>
-                                                Intentar de nuevo
-                                            </Link>
-                                        }
-                                    >
-                                    </ToastNotification>
-                                </Column>
-                            </Row>
-                        ) : (
-                            <></>
-                        )}
 
-                        {requests !== undefined ? (
-                            <PreapprovalRequestsTable />
+                        {userRole === "admin" ? (
+                            <PreapprovalRequestsTable rows={preapprovalRequests} />
                         ) : (
                             <PreapprovalRequestsTableSkeleton />
                         )}
-                    </Column>
-                </Row>
-            </Grid>
-        </>
-    );
-};
-
-export default PreapprovalRequestRecords;
+                    </Cow
