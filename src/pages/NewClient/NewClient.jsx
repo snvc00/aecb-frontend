@@ -19,8 +19,6 @@ import ClientAddressInput from "../../components/ClientAddressInput";
 import { Helmet } from "react-helmet";
 import { useRef, useState } from "react";
 
-import "./NewClient.css";
-
 const gridStyles = {
     maxWidth: "50rem",
     marginTop: "80px"
@@ -29,7 +27,6 @@ const gridStyles = {
 const NewClient = () => {
     const generalDataRef = useRef();
     const addressRef = useRef();
-    const tokenRef = useRef();
     const [showNotification, setShowNotification] = useState(false);
     const [notificationInfo, setNotificationInfo] = useState({});
 
@@ -37,36 +34,40 @@ const NewClient = () => {
         const clientGeneralData = generalDataRef.current.getGeneralData();
         const clientAddress = addressRef.current.getAddress();
 
-        return { ...clientGeneralData, ...clientAddress, is_active: true, password: "secure" };
+        return { ...clientGeneralData, ...clientAddress, active: true };
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const clientData = getClientData();
 
-        const response = await fetch("http://localhost:5000/api/clients", {
+        fetch(`${process.env.REACT_APP_BACKEND_API}/api/clients/`, {
             method: "POST",
-            body: JSON.stringify(clientData),
             headers: {
                 "Content-Type": "application/json",
-                "Token": tokenRef.current.value,
+                "Token": sessionStorage.getItem("token"),
             },
-        }).catch(error => console.log(error));
-
-        const data = response !== undefined ? await response.json() : { error: { message: "Ha ocurrido un error" } };
-        updateNotification(data, e);
+            body: JSON.stringify(clientData),
+        })
+        .then(async (response) => ({ data: await response.json(), responseOk: response.ok }))
+        .then(({ data, responseOk }) => {
+            if (responseOk) {
+                updateNotification("success", "Cliente registrado", e);
+            }
+            else {
+                const firstError = Object.keys(data)[0];
+                throw `Error with ${firstError}: ${data[firstError]}`;
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            updateNotification("error", error, e);
+        });
     }
 
-    const updateNotification = (data, e) => {
-        const errorInData = data.hasOwnProperty("error");
-
-        const kind = errorInData ? "error" : "success";
-        const title = errorInData ? data.error.message : "Cliente registrado";
-
-        console.log(errorInData, kind, title);
-
-        if (!errorInData) {
-            e.target.reset();
+    const updateNotification = (kind, title, event) => {
+        if (kind === "success") {
+            event.target.reset();
         }
 
         setShowNotification(true);
@@ -118,14 +119,6 @@ const NewClient = () => {
                         <Form onSubmit={handleSubmit}>
                             <ClientGeneralDataInput ref={generalDataRef} />
                             <ClientAddressInput ref={addressRef} />
-                            <TextInput
-                                id="token"
-                                labelText="Token de Administrador"
-                                size="lg"
-                                type="password"
-                                ref={tokenRef}
-                                required
-                            />
                             <Button type="submit" >
                                 Registrar
                             </Button>
