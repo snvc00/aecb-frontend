@@ -1,0 +1,11 @@
+@import '@carbon/themes/scss/themes';
+
+$carbon--theme: $carbon--theme--g100;
+
+.g100 {
+  @include carbon--theme($carbon--theme--g100);
+}
+
+@import 'carbon-components/scss/globals/scss/styles.scss';
+
+
