@@ -2,8 +2,6 @@ import {
     DataTable,
     TableContainer,
     TableToolbar,
-    TableBatchActions,
-    TableBatchAction,
     TableToolbarContent,
     TableToolbarSearch,
     TableHead,
@@ -13,7 +11,11 @@ import {
     Table,
     TableBody,
     TableCell,
-    TableSelectRow,
+    InlineNotification,
+    Pagination,
+    Button,
+    OverflowMenu,
+    OverflowMenuItem,
 } from "carbon-components-react";
 
 import {
@@ -21,148 +23,257 @@ import {
     Misuse24 as Misuse,
 } from "@carbon/icons-react";
 
-import { requests as rows } from "../../assets/json/requests.json";
-
 import { Component, Fragment } from "react";
+import { useContext, useState } from "react/cjs/react.development";
+import { AuthContext } from "../../Auth";
+import { BrowserRouter } from "react-router-dom";
 
 const headers = [
     {
         key: "id",
-        header: "Folio",
+        header: "ID",
     },
     {
-        key: "creationDate",
-        header: "Fecha de Creación",
+        key: "creation_timestamp",
+        header: "Created",
     },
     {
-        key: "state",
-        header: "Estado",
+        key: "approved",
+        header: "Approved",
     },
     {
-        key: "activity",
-        header: "Actividad",
+        key: "active",
+        header: "Active",
     },
     {
-        key: "creditCardId",
-        header: "ID Tarjeta de Crédito",
+        key: "credit_card_id",
+        header: "Credit Card ID",
     },
     {
-        key: "creditCardName",
-        header: "Tarjeta de Crédito",
+        key: "credit_card_name",
+        header: "Credit Card Name",
     },
     {
-        key: "clientId",
-        header: "ID Cliente",
+        key: "credit_card_range",
+        header: "Credit Range",
     },
     {
-        key: "clientName",
-        header: "Cliente",
+        key: "client_name",
+        header: "Client Name",
+    },
+    {
+        key: "client_email",
+        header: "Client Email",
+    },
+    {
+        key: "reviewed_by",
+        header: "Reviewed By",
     },
 ];
 
-var translationKeys = {
-    'carbon.table.batch.cancel': 'Cancelar',
-    'carbon.table.batch.items.selected': 'solicitudes seleccionadas',
-    'carbon.table.batch.item.selected': 'solicitud seleccionada'
-};
+const PreapprovalRequestsTable = (props) => {
+    const [itemBegin, setItemBegin] = useState(0);
+    const [itemEnd, setItemEnd] = useState(10);
+    const [notificationInfo, setNotificationInfo] = useState();
+    const [showNotification, setShowNotification] = useState(false);
 
-class PreapprovalRequestsTable extends Component {
-    constructor(props) {
-        super(props);
+    const { currentUser } = useContext(AuthContext);
 
-        this.state = {
-            rows: rows,
-            headers: headers,
-        }
+    const handleApproveRequest = (row) => {
+        fetch(`${process.env.REACT_APP_BACKEND_API}/api/preapprovals/${row.id}/`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Token": sessionStorage.getItem("token")
+            },
+            body: JSON.stringify({ approved: true, reviewed_by: currentUser.email })
+        })
+        .then(async (response) => ({ data: await response.json(), responseOk: response.ok }))
+        .then(({ data, responseOk }) => {
+            if (responseOk) {
+                setNotificationInfo({
+                    kind: "success",
+                    title: "Request Approved",
+                });
+                setShowNotification(true);
+            }
+            else {
+                throw data.detail;
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            setNotificationInfo({
+                kind: "error",
+                title: error,
+            });
+            setShowNotification(true);
+        });
     }
 
-    handleBatchActionClickUpdateActivity(selectedRows) {
-        console.log("handleBatchActionClickUpdateActivity");
+    const handleDenyRequest = (row) => {
+        fetch(`${process.env.REACT_APP_BACKEND_API}/api/preapprovals/${row.id}/`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Token": sessionStorage.getItem("token")
+            },
+            body: JSON.stringify({ approved: false, active: false, reviewed_by: currentUser.email })
+        })
+        .then(async (response) => ({ data: await response.json(), responseOk: response.ok }))
+        .then(({ data, responseOk }) => {
+            if (responseOk) {
+                setNotificationInfo({
+                    kind: "success",
+                    title: "Request Denied",
+                });
+                setShowNotification(true);
+            }
+            else {
+                throw data.detail;
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            setNotificationInfo({
+                kind: "error",
+                title: error,
+            });
+            setShowNotification(true);
+        });
     }
 
-    handleBatchActionClickGenerateReport(selectedRows) {
-        console.log("handleBatchActionClickGenerateReport");
+    const handleGenerateReport = () => {
+        fetch(`${process.env.REACT_APP_BACKEND_API}/api/preapprovals/generate_report/`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Token": sessionStorage.getItem("token"),
+                "Admin-Email": currentUser.email,
+            }
+        })
+        .then(async (response) => ({ data: await response.json(), responseOk: response.ok }))
+        .then(({ data, responseOk }) => {
+            if (responseOk) {
+                setNotificationInfo({
+                    kind: "success",
+                    title: "Report Generated",
+                });
+                setShowNotification(true);
+                window.open(`${process.env.REACT_APP_BACKEND_API}${data.report}`, "_blank");
+            }
+            else {
+                throw data.detail;
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            setNotificationInfo({
+                kind: "error",
+                title: error,
+            });
+            setShowNotification(true);
+        });
     }
 
-    customTranslationForTableBatchActions(id, state) {
-        if (id === 'carbon.table.batch.cancel') {
-            return translationKeys[id];
-        }
-        return `${state.totalSelected} ${translationKeys[id]}`;
+    const handlePageChange = pagination => {
+        setItemBegin(pagination.pageSize * (pagination.page - 1));
+        setItemEnd(pagination.page * pagination.pageSize);
     }
 
-    render() {
-        return (
+    return (
+        <>
+            {showNotification ?
+                <InlineNotification
+                    kind={notificationInfo.kind || "error"}
+                    title={notificationInfo.title || ""}
+                    style={{ marginBottom: "2rem" }}
+                >
+                </InlineNotification>
+
+                :
+
+                <></>
+            }
             <DataTable
-                rows={this.state.rows}
-                headers={this.state.headers}
-                {...this.props}
+                isSortable
+                rows={props.rows.slice(itemBegin, itemEnd)}
+                headers={headers}
+                {...props}
                 render={({
                     rows,
                     headers,
                     getHeaderProps,
-                    getSelectionProps,
                     getToolbarProps,
-                    getBatchActionProps,
                     getRowProps,
                     onInputChange,
-                    selectedRows,
                     getTableProps,
                     getTableContainerProps,
                 }) => (
                     <TableContainer
                         title="Solicitudes de Preaprobación"
-                        description="Selecciona una solicitud para terminar o generar un reporte."
+                        description="Selecciona una solicitud para resolverla o generar un reporte."
                         {...getTableContainerProps()}>
                         <TableToolbar {...getToolbarProps()}>
-                            <TableBatchActions {...getBatchActionProps()} translateWithId={this.customTranslationForTableBatchActions}>
-                                <TableBatchAction
-                                    renderIcon={Misuse}
-                                    iconDescription="Terminar Proceso de Solicitud"
-                                    kind="danger--ghost"
-                                    onClick={() => { this.handleBatchActionClickUpdateActivity(selectedRows) }}>
-                                    Terminar Proceso de Solicitud
-                                </TableBatchAction>
-                                <TableBatchAction
-                                    renderIcon={Report}
-                                    iconDescription="Generar Reporte"
-                                    onClick={() => { this.handleBatchActionClickGenerateReport(selectedRows) }}>
-                                    Generar Reporte
-                                </TableBatchAction>
-                            </TableBatchActions>
                             <TableToolbarContent>
                                 <TableToolbarSearch onChange={onInputChange} placeholder="Buscar solicitud" />
+                                <Button
+                                    renderIcon={Report}
+                                    onClick={handleGenerateReport}
+                                    kind="primary"
+                                >
+                                    Generate Report
+                                </Button>
                             </TableToolbarContent>
                         </TableToolbar>
                         <Table {...getTableProps()}>
                             <TableHead>
                                 <TableRow>
-                                    <TableExpandHeader />
                                     {headers.map((header, i) => (
                                         <TableHeader key={i} {...getHeaderProps({ header })}>
                                             {header.header}
                                         </TableHeader>
                                     ))}
+                                    <TableExpandHeader />
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {rows.map((row) => (
-                                    <Fragment key={row.id}>
-                                        <TableRow {...getRowProps({ row })}>
-                                            <TableSelectRow {...getSelectionProps({ row })} />
-                                            {row.cells.map((cell) => (
-                                                <TableCell key={cell.id}>{cell.value}</TableCell>
-                                            ))}
-                                        </TableRow>
-                                    </Fragment>
+                                    <TableRow key={row.id} {...getRowProps({ row })}>
+                                        {row.cells.map((cell) => (
+                                            <TableCell key={cell.id}>{cell.value}</TableCell>
+                                        ))}
+                                        <TableCell className="bx--table-column-menu">
+                                            <OverflowMenu>
+                                                <OverflowMenuItem hasDivider disabled={row.cells[2].value === "Yes" || row.cells[3].value === "No"} itemText="Approve Request" onClick={() => { handleApproveRequest(row) }} />
+                                                <OverflowMenuItem hasDivider disabled={row.cells[2].value === "No" || row.cells[3].value === "No"} isDelete itemText="Deny Request" onClick={() => { handleDenyRequest(row) }} />
+                                            </OverflowMenu>
+                                        </TableCell>
+                                    </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
+                        <Pagination
+                            backwardText="Anterior"
+                            forwardText="Siguiente"
+                            itemsPerPageText="Solicitudes por página:"
+                            page={1}
+                            pageNumberText="Página"
+                            pageSize={10}
+                            pageSizes={[
+                                10,
+                                25,
+                                50,
+                            ]}
+                            onChange={handlePageChange}
+                            totalItems={props.rows.length}
+                        />
                     </TableContainer>
                 )}
             />
-        );
-    }
+        </>
+
+    );
 }
 
 export default PreapprovalRequestsTable;
