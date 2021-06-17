@@ -78,4 +78,11 @@ const PreapprovalRequestRecords = () => {
                         ) : (
                             <PreapprovalRequestsTableSkeleton />
                         )}
-                    </Cow
+                    </Column>
+                </Row>
+            </Grid>
+        </>
+    );
+}
+
+export default PreapprovalRequestRecords;
