@@ -41,6 +41,7 @@ class CreditCardGenericInput extends Component {
                     size="lg"
                     ref={this.nameRef}
                     maxLength={50}
+                    defaultValue={this.props.creditCard ? this.props.creditCard.name : ""}
                     required
                 />
                 <NumberInput
@@ -48,22 +49,18 @@ class CreditCardGenericInput extends Component {
                     id="minCredit"
                     ref={this.minCreditRef}
                     size="lg"
-                    min={1}
-                    value={5000}
                     step={50}
-                    invalidText="Ingrese un crédito mínimo mayor a 0"
                     helperText="Expresado en Pesos Mexicanos (MXN)"
+                    value={this.props.creditCard ? this.props.creditCard.min_credit : 5000}
                     required
                 />
                 <NumberInput
                     label="Crédito Máximo"
                     id="maxCredit"
                     ref={this.maxCreditRef}
+                    value={this.props.creditCard ? this.props.creditCard.max_credit : 10000}
                     size="lg"
-                    min={1}
-                    value={10000}
                     step={50}
-                    invalidText="Ingrese un crédito máximo mayor a 0"
                     helperText="Expresado en Pesos Mexicanos (MXN)"
                     required
                 />
@@ -72,10 +69,9 @@ class CreditCardGenericInput extends Component {
                     id="cat"
                     ref={this.catRef}
                     size="lg"
-                    min={1}
+                    value={this.props.creditCard ? this.props.creditCard.cat : 20}
                     max={100}
                     step={0.5}
-                    value={20}
                     invalidText="Ingrese un CAT promedio entre 1% y 100%"
                     helperText="% en Promedio"
                     required
@@ -87,7 +83,8 @@ class CreditCardGenericInput extends Component {
                     size="lg"
                     min={100}
                     step={100}
-                    value={800}
+                    onChange={()=>{console.log(this.props.creditCard)}}
+                    value={this.props.creditCard ? this.props.creditCard.annual_fee : 800}
                     invalidText="Ingrese un costo de anualidad mayor a 100"
                     helperText="Expresado en Pesos Mexicanos (MXN)"
                     required
