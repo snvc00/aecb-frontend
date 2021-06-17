@@ -28,6 +28,7 @@ class ClientGeneralDataInput extends Component {
 
         this.firstnameRef = createRef();
         this.lastnameRef = createRef();
+        this.emailRef = createRef();
         this.curpRef = createRef();
         this.birthdateRef = createRef();
         this.rfcRef = createRef();
@@ -74,10 +75,11 @@ class ClientGeneralDataInput extends Component {
         
         return {
             name: this.firstnameRef.current.value + " " + this.lastnameRef.current.value,
+            email: this.emailRef.current.value,
             curp: this.curpRef.current.value,
             birthdate: `${birthdate[2]}-${birthdate[1]}-${birthdate[0]}`, // Send birthdate in YYYY-MM-DD format
             rfc: this.rfcRef.current.value,
-            monthly_income: parseInt(this.incomeRef.current.value),
+            income: parseInt(this.incomeRef.current.value),
             has_credit: this.state.hasCredit,
         }
     }
@@ -102,6 +104,15 @@ class ClientGeneralDataInput extends Component {
                     size="lg"
                     maxLength={40}
                     ref={this.lastnameRef}
+                    required
+                />
+                <TextInput
+                    labelText="Correo Electrónico"
+                    id="email"
+                    type="email"
+                    size="lg"
+                    maxLength={60}
+                    ref={this.emailRef}
                     required
                 />
                 <TextInput
