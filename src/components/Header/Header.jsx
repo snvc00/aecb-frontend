@@ -30,7 +30,7 @@ const Header = () => {
         }
 
         const domain = currentUser.email.split("@");
-        return domain[1] === "alumnos.udg.mx" ? "Admins" : "Clients";
+        return domain[1] === process.env.REACT_APP_ADMIN_DOMAIN ? "Admins" : "Clients";
     }
 
     const headerNamePostfix = getPostfix();

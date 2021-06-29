@@ -6,7 +6,7 @@ import { AuthContext } from "./Auth";
 const PrivateRoute = ({ component: RouteComponent, accessTo, ...rest }) => {
   const { currentUser } = useContext(AuthContext);
 
-  const userType = !!currentUser ? (currentUser.email.split("@")[1] === "alumnos.udg.mx" ? "admin" : "client") : "";
+  const userType = !!currentUser ? (currentUser.email.split("@")[1] === process.env.REACT_APP_ADMIN_DOMAIN ? "admin" : "client") : "";
 
   return (
     <Route
