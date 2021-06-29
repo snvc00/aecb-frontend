@@ -29,19 +29,19 @@ const AdminPromotions = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Administrar Promociones</title>
+                <title>National Bank | Admin Promotions</title>
             </Helmet>
             <Header />
             <Grid className="spaced top">
                 <Row>
                     <Column>
                         <Breadcrumb>
-                            <BreadcrumbItem href="/">Inicio</BreadcrumbItem>
-                            <BreadcrumbItem href="/promociones" isCurrentPage>
-                                Promociones
+                            <BreadcrumbItem href="/">Home</BreadcrumbItem>
+                            <BreadcrumbItem href="/promotions" isCurrentPage>
+                                Promotions
                             </BreadcrumbItem>
                         </Breadcrumb><br/><br/>
-                        <MainHeading>Administrar Promociones</MainHeading>
+                        <MainHeading>Admin Promotions</MainHeading>
                         <SkeletonPlaceholder style={{ width: "100%", height: 400 }} />
                         <br /><br />
                     </Column>
@@ -51,13 +51,13 @@ const AdminPromotions = () => {
 
                         <InlineNotification
                             kind="warning"
-                            title="Selecciona una promoción desde el registro"
+                            title="Select a promotion from table"
                             onCloseButtonClick={()=>{ setShowNotification(false); }}
                             actions={
                             <NotificationActionButton
-                                onClick={()=>{ window.location.href = "/promociones/registradas" }}
+                                onClick={()=>{ window.location.href = "/promotions/registered" }}
                             >
-                                Buscar Promoción
+                                Search Promotion
                             </NotificationActionButton>
                           }
                         />
@@ -68,22 +68,22 @@ const AdminPromotions = () => {
                 }
                 <Row>
                     <Column style={styles}>
-                        <Link href="/promociones/registrar" renderIcon={Add}>
-                            <h3>Registrar Promoción</h3>
+                        <Link href="/promotions/register" renderIcon={Add}>
+                            <h3>Register Promotion</h3>
                         </Link>
                     </Column>
                 </Row>
                 <Row>
                     <Column style={styles}>
                         <Link renderIcon={Edit} onClick={() => { setShowNotification(true); }}>
-                            <h3>Actualizar Información de Promoción</h3>
+                            <h3>Update Promotion</h3>
                         </Link>
                     </Column>
                 </Row>
                 <Row>
                     <Column style={styles}>
-                        <Link href="/promociones/registradas" renderIcon={UserCertification}>
-                            <h3>Promociones Registradas</h3>
+                        <Link href="/promotions/registered" renderIcon={UserCertification}>
+                            <h3>Registered Promotions</h3>
                         </Link>
                     </Column>
                 </Row>

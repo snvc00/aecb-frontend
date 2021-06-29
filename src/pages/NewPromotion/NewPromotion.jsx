@@ -46,7 +46,7 @@ const NewPromotion = () => {
             if (responseOk) {
                 setNotificationInfo({
                     kind: "success",
-                    title: "Promoción registrada",
+                    title: "Promotion has been registered",
                 });
                 setShowNotification(true);
                 e.target.reset();
@@ -60,7 +60,7 @@ const NewPromotion = () => {
             console.log(error);
             setNotificationInfo({
                 kind: "error",
-                title: error,
+                title: String(error),
             });
             setShowNotification(true);
         });
@@ -71,20 +71,20 @@ const NewPromotion = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Nueva Promoción</title>
+                <title>National Bank | New Promotion</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
                         <Breadcrumb>
-                            <BreadcrumbItem href="/">Inicio</BreadcrumbItem>
-                            <BreadcrumbItem href="/promociones">Promociones</BreadcrumbItem>
-                            <BreadcrumbItem href="/promociones/registrar" isCurrentPage>
-                                Registrar
+                            <BreadcrumbItem href="/">Home</BreadcrumbItem>
+                            <BreadcrumbItem href="/promotions">Promotions</BreadcrumbItem>
+                            <BreadcrumbItem href="/promotions/register" isCurrentPage>
+                                Register
                             </BreadcrumbItem>
                         </Breadcrumb><br/><br/>
-                        <MainHeading>Nueva Promoción</MainHeading>
+                        <MainHeading>New Promotion</MainHeading>
                         {
                             showNotification ?
 
@@ -94,9 +94,9 @@ const NewPromotion = () => {
                                     onCloseButtonClick={() => { setShowNotification(false); }}
                                     actions={
                                         <NotificationActionButton
-                                            onClick={() => { window.location.replace("/promociones/registradas") }}
+                                            onClick={() => { window.location.replace("/promotions/registered") }}
                                         >
-                                            Ver Promociones
+                                            See Promotions
                                         </NotificationActionButton>
                                     }
                                 />
@@ -108,7 +108,7 @@ const NewPromotion = () => {
                         <Form onSubmit={handleSubmit}>
                             <PromotionInput ref={promotionRef} />
                             <Button type="submit">
-                                Añadir
+                                Add
                             </Button>
                         </Form>
                     </Column>

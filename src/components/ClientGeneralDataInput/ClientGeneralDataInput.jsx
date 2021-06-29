@@ -77,7 +77,7 @@ class ClientGeneralDataInput extends Component {
             name: this.firstnameRef.current.value + " " + this.lastnameRef.current.value,
             email: this.emailRef.current.value,
             curp: this.curpRef.current.value,
-            birthdate: `${birthdate[2]}-${birthdate[1]}-${birthdate[0]}`, // Send birthdate in YYYY-MM-DD format
+            birthdate: `${birthdate[2]}-${birthdate[0]}-${birthdate[1]}`, // Send birthdate in YYYY-MM-DD format
             rfc: this.rfcRef.current.value,
             income: parseInt(this.incomeRef.current.value),
             has_credit: this.state.hasCredit,
@@ -90,7 +90,7 @@ class ClientGeneralDataInput extends Component {
         return (
             <FormGroup legendText={<h4>Datos Generales</h4>}>
                 <TextInput
-                    labelText="Nombres"
+                    labelText="First Name"
                     id="firstname"
                     size="lg"
                     maxLength={40}
@@ -99,7 +99,7 @@ class ClientGeneralDataInput extends Component {
                     required
                 />
                 <TextInput
-                    labelText="Apellidos"
+                    labelText="Last Name"
                     id="lastname"
                     size="lg"
                     maxLength={40}
@@ -107,7 +107,7 @@ class ClientGeneralDataInput extends Component {
                     required
                 />
                 <TextInput
-                    labelText="Correo Electrónico"
+                    labelText="Email"
                     id="email"
                     type="email"
                     size="lg"
@@ -116,57 +116,57 @@ class ClientGeneralDataInput extends Component {
                     required
                 />
                 <TextInput
-                    labelText="Clave Única de Registro de Población (CURP)"
+                    labelText="CURP"
                     id="curp"
                     size="lg"
                     maxLength={18}
                     ref={this.curpRef}
                     invalid={!this.state.curpIsValid}
                     onChange={this.isCurpValid}
-                    invalidText="Ingrese los 18 cáracteres de la CURP"
+                    invalidText="CURP requires 18 characters"
                     required
                 />
                 <DatePicker 
                     datePickerType="single" 
                     maxDate={maxBirthdate}
                     minDate={minBirthdate}
-                    dateFormat="d/m/Y"
-                    locale="es"
+                    dateFormat="m/d/Y"
+                    locale="en"
                     ref={this.birthdateRef}
                 >
                     <DatePickerInput
                         id="birthdate"
-                        labelText="Fecha de Nacimiento"
-                        placeholder="dd/mm/yyyy"
+                        labelText="Birthdate"
+                        placeholder="mm/dd/yyyy"
                         size="lg"
                         required 
                     />
                 </DatePicker>
                 <TextInput
-                    labelText="Registro Federal de Contribuyentes (RFC)"
+                    labelText="RFC"
                     id="rfc"
                     size="lg"
                     maxLength={13}
                     ref={this.rfcRef}
                     invalid={!this.state.rfcIsValid}
                     onChange={this.isRfcValid}
-                    invalidText="Ingrese entre 12 y 13 cáracteres del RFC"
+                    invalidText="CURP requires between 12 and 13 characters"
                     required
                 />
                 <NumberInput
-                    label="Ingresos Mensuales Promedio"
+                    label="Monthly Income"
                     id="income"
                     size="lg"
                     placeholder="$"
                     ref={this.incomeRef}
                     step={1000}
-                    invalidText="Ingrese un valor númerico mayor a 0"
+                    invalidText="That values is not in the accepted range"
                     min={1000}
-                    helperText="Expresado en Pesos Mexicanos (MXN)"
+                    helperText="In US Dollar"
                     required
                 />
                 <Checkbox  
-                    labelText="Tiene tarjeta de crédito"
+                    labelText="Has Credit Card"
                     id="has_credit" 
                     checked={this.state.hasCredit}
                     onChange={()=>{this.setState({hasCredit: !this.state.hasCredit})}}

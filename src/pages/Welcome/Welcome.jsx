@@ -1,4 +1,5 @@
 import Header from "../../components/Header";
+import MainHeading from "../../components/MainHeading";
 import {
     Grid,
     Row,
@@ -13,11 +14,10 @@ import {
     Group24,
     Badge24,
 } from "@carbon/icons-react";
-import { Helmet } from 'react-helmet'
-import MainHeading from "../../components/MainHeading";
-import { AuthContext } from "../../Auth";
-import { useContext, useEffect, useState } from "react";
 import "./Welcome.css";
+import { Helmet } from 'react-helmet'
+import { AuthContext } from "../../Auth";
+import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 const Welcome = () => {
@@ -28,7 +28,7 @@ const Welcome = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Bienvenido</title>
+                <title>National Bank | Welcome</title>
             </Helmet>
             <Header />
             <Grid className="spaced top">
@@ -44,7 +44,7 @@ const Welcome = () => {
                                         <NotificationActionButton
                                             onClick={() => { history.push("/login") }}
                                         >
-                                            Reintentar
+                                            Retry
                                         </NotificationActionButton>
                                     }
                                 />
@@ -53,7 +53,7 @@ const Welcome = () => {
 
                                 <></>
                         }
-                        <MainHeading>Bienvenido <span style={{textTransform: "capitalize"}}>{currentUser ? currentUser.displayName.toLowerCase() : "a Banco Nacional"}</span></MainHeading>
+                        <MainHeading>Welcome <span style={{textTransform: "capitalize"}}>{currentUser ? currentUser.displayName.toLowerCase() : "to National Bank"}</span></MainHeading>
                         <SkeletonPlaceholder style={{ width: "100%", height: 400 }} />
                     </Column>
                 </Row>
@@ -61,39 +61,39 @@ const Welcome = () => {
             <Grid className="spaced">
                 <Row>
                     <Column>
-                        <h4><strong>Servicios a Clientes</strong></h4><br />
+                        <h4><strong>Services for Clients</strong></h4><br />
                         <p className="spaced">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
                             dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
                             non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                         </p>
-                        <Link href="/preaprobacion" renderIcon={Purchase24} size="lg">
-                            Solicitar Tarjeta
+                        <Link href="/preapproval" renderIcon={Purchase24} size="lg">
+                            Preapproval Request
                         </Link>
                     </Column>
                     <Column>
-                        <h4><strong>Servicios a Administradores</strong></h4><br />
+                        <h4><strong>Services for Admins</strong></h4><br />
                         <p className="spaced">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
                             dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
                             non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                         </p>
-                        <Link href="/clientes" renderIcon={Group24} size="lg">
-                            Gestionar Clientes
+                        <Link href="/clients" renderIcon={Group24} size="lg">
+                            Manage Clients
                         </Link>
                     </Column>
                     <Column>
-                        <h4><strong>Promociones en Tarjetas de Crédito</strong></h4><br />
+                        <h4><strong>Credit Card Promotions</strong></h4><br />
                         <p className="spaced">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
                             dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
                             non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                         </p>
-                        <Link href="/promociones-tarjetas" renderIcon={Badge24} size="lg">
-                            Ver Promociones
+                        <Link href="/card-promotions" renderIcon={Badge24} size="lg">
+                            About Promotions
                         </Link>
                     </Column>
                 </Row>

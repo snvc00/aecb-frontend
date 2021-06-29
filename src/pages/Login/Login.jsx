@@ -20,8 +20,8 @@ const gridStyles = {
 const Login = () => {
     const handleLogin = () => {
         var provider = new firebase.auth.GoogleAuthProvider();
-        provider.addScope('profile');
-        provider.addScope('email');
+        provider.addScope("profile");
+        provider.addScope("email");
         app.auth().signInWithPopup(provider).then(result => {
             result.user.getIdToken(false).then(idToken => {
                 sessionStorage.setItem("token", idToken);
@@ -39,19 +39,19 @@ const Login = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Iniciar Sesión</title>
+                <title>National Bank | Login</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
-                        <MainHeading>Iniciar Sesión</MainHeading>
+                        <MainHeading>Login</MainHeading>
                         <Button
                             renderIcon={Google}
-                            iconDescription="Iniciar sesión con Google"
+                            iconDescription="Login with Google"
                             onClick={handleLogin}
                         >
-                            Iniciar sesión con Google
+                            Login with Google
                         </Button>
                     </Column>
                 </Row>

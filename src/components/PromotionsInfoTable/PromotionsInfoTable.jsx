@@ -31,15 +31,15 @@ const headers = [
     },
     {
         key: "name",
-        header: "Nombre",
+        header: "Name",
     },
     {
         key: "description",
-        header: "Descripción",
+        header: "Description",
     },
     {
         key: "valid_until",
-        header: "Válida hasta",
+        header: "Valid Until",
     },
     {
         key: "last_update",
@@ -48,9 +48,9 @@ const headers = [
 ];
 
 var translationKeys = {
-    'carbon.table.batch.cancel': 'Cancelar',
-    'carbon.table.batch.items.selected': 'promociones seleccionadas',
-    'carbon.table.batch.item.selected': 'promoción seleccionada'
+    'carbon.table.batch.cancel': 'Cancel',
+    'carbon.table.batch.items.selected': 'promotions selected',
+    'carbon.table.batch.item.selected': 'promotion selected'
 };
 
 const PromotionsInfoTable = (props) => {
@@ -59,12 +59,10 @@ const PromotionsInfoTable = (props) => {
     let history = useHistory();
 
     const handleBatchActionClickUpdatePromotion = (selectedRows) => {
-        console.log(selectedRows);
-        console.log("handleBatchActionClickUpdatePromotion");
         const id = selectedRows[0].cells[0].value;
 
         const location = {
-            pathname: `/promociones/actualizar/${id}`,
+            pathname: `/promotions/update/${id}`,
             state: {
                 promotion: {
                     name: selectedRows[0].cells[1].value,
@@ -110,20 +108,20 @@ const PromotionsInfoTable = (props) => {
             }) => (
                 <>
                     <TableContainer
-                        title="Promociones Registradas"
-                        description="Selecciona una promoción para ver las opciones."
+                        title="Registered Promotions"
+                        description="Selelect a promotions to see the options."
                         {...getTableContainerProps()}>
                         <TableToolbar {...getToolbarProps()}>
                             <TableBatchActions {...getBatchActionProps()} translateWithId={customTranslationForTableBatchActions}>
                                 <TableBatchAction
                                     renderIcon={UserCertification}
-                                    iconDescription="Actualizar Promoción"
+                                    iconDescription="Update Promotion"
                                     onClick={() => { handleBatchActionClickUpdatePromotion(selectedRows) }}>
-                                    Actualizar Promoción
+                                    Update Promotion
                                 </TableBatchAction>
                             </TableBatchActions>
                             <TableToolbarContent>
-                                <TableToolbarSearch onChange={onInputChange} placeholder="Buscar promoción" />
+                                <TableToolbarSearch onChange={onInputChange} placeholder="Search promotion" />
                             </TableToolbarContent>
                         </TableToolbar>
                         <Table {...getTableProps()}>
@@ -151,11 +149,11 @@ const PromotionsInfoTable = (props) => {
                             </TableBody>
                         </Table>
                         <Pagination
-                            backwardText="Anterior"
-                            forwardText="Siguiente"
-                            itemsPerPageText="Promociones por página:"
+                            backwardText="Backward"
+                            forwardText="Forward"
+                            itemsPerPageText="Promotions per page:"
                             page={1}
-                            pageNumberText="Página"
+                            pageNumberText="Page"
                             pageSize={10}
                             pageSizes={[
                                 10,

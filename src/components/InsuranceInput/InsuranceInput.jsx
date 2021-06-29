@@ -32,9 +32,9 @@ class InsuranceInput extends Component {
 
     render() {
         return (
-            <FormGroup legendText={<h4>Datos Generales</h4>}>
+            <FormGroup legendText={<h4>General Data</h4>}>
                 <TextInput
-                    labelText="Nombre"
+                    labelText="Name"
                     id="name"
                     size="lg"
                     ref={this.nameRef}
@@ -43,7 +43,7 @@ class InsuranceInput extends Component {
                     required
                 />
                 <TextArea
-                    labelText="Descripción"
+                    labelText="Description"
                     id="description"
                     ref={this.descriptionRef}
                     defaultValue={this.props.insurance ? this.props.insurance.description : ""}
@@ -51,13 +51,13 @@ class InsuranceInput extends Component {
                     required
                 />
                 <NumberInput
-                    label="Protección Máxima"
+                    label="Max Protection"
                     id="max_protection"
                     ref={this.maxProtectionRef}
                     size="lg"
                     value={this.props.insurance ? this.props.insurance.max_protection : 10000}
                     step={1000}
-                    helperText="Expresado en Pesos Mexicanos (MXN)"
+                    helperText="In US Dollars"
                     required
                 />
             </FormGroup>

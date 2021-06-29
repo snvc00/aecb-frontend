@@ -11,9 +11,9 @@ const PromotionsList = props => {
         <StructuredListWrapper>
             <StructuredListHead>
                 <StructuredListRow head>
-                    <StructuredListCell head>Nombre</StructuredListCell>
-                    <StructuredListCell head>Descripción</StructuredListCell>
-                    <StructuredListCell head>Vigencia</StructuredListCell>
+                    <StructuredListCell head>Name</StructuredListCell>
+                    <StructuredListCell head>Description</StructuredListCell>
+                    <StructuredListCell head>Valid Until</StructuredListCell>
                 </StructuredListRow>
             </StructuredListHead>
             <StructuredListBody>

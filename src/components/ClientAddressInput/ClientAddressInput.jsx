@@ -3,7 +3,6 @@ import {
     TextInput,
     ComboBox,
 } from "carbon-components-react";
-
 import {
     Component,
     createRef,
@@ -41,9 +40,9 @@ class ClientAddressInput extends Component {
 
     render() {
         return (
-            <FormGroup legendText={<h4>Dirección</h4>}>
+            <FormGroup legendText={<h4>Address</h4>}>
                 <TextInput
-                    labelText="Calle y Número"
+                    labelText="Street with Number"
                     id="address"
                     size="lg"
                     ref={this.addressRef}
@@ -52,7 +51,7 @@ class ClientAddressInput extends Component {
                     required
                 />
                 <TextInput
-                    labelText="Colonia"
+                    labelText="Neighborhood"
                     id="neighborhood"
                     size="lg"
                     ref={this.neighborhoodRef}
@@ -61,7 +60,7 @@ class ClientAddressInput extends Component {
                     required
                 />
                 <TextInput
-                    labelText="Ciudad"
+                    labelText="City"
                     id="city"
                     size="lg"
                     ref={this.cityRef}
@@ -70,7 +69,7 @@ class ClientAddressInput extends Component {
                     required
                 />
                 <ComboBox
-                    titleText="Estado"
+                    titleText="State"
                     ref={this.stateRef}
                     onChange={({ selectedItem })=>{ this.setState({ selectedState: selectedItem }); }}
                     selectedItem={this.props.client ? this.props.client.state : ""}
@@ -78,7 +77,7 @@ class ClientAddressInput extends Component {
                     size="lg"
                     items={states}
                     itemToString={(state) => state}
-                    placeholder="Filtrar"
+                    placeholder="Filter"
                     required
                 />
             </FormGroup>

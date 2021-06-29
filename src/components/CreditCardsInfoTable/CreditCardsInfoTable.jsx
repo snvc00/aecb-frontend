@@ -34,42 +34,42 @@ const headers = [
     },
     {
         key: "name",
-        header: "Nombre",
+        header: "Name",
     },
     {
         key: "min_credit",
-        header: "Crédito Mínimo",
+        header: "Minimum Credit",
     },
     {
         key: "max_credit",
-        header: "Crédito Máximo",
+        header: "Maximum Credit",
     },
     {
         key: "cat",
-        header: "CAT Promedio",
+        header: "CAT",
     },
     {
         key: "annual_fee",
-        header: "Costo de Anualidad",
+        header: "Annual Fee",
     },
     {
         key: "tier",
-        header: "Categoría",
+        header: "Tier",
     },
     {
         key: "image",
-        header: "Imagen",
+        header: "Image",
     },
     {
         key: "last_update",
-        header: "Última Actualización",
+        header: "Last Update",
     },
 ];
 
 var translationKeys = {
-    'carbon.table.batch.cancel': 'Cancelar',
-    'carbon.table.batch.items.selected': 'tarjetas seleccionadas',
-    'carbon.table.batch.item.selected': 'tarjeta seleccionada'
+    'carbon.table.batch.cancel': 'Cancel',
+    'carbon.table.batch.items.selected': 'credit cards selected',
+    'carbon.table.batch.item.selected': 'credit card selected'
 };
 
 const CreditCardsInfoTable = (props) => {
@@ -90,7 +90,7 @@ const CreditCardsInfoTable = (props) => {
         console.log(selectedRows[0].cells);
 
         const location = {
-            pathname: `/tarjetas/actualizar/${id}`,
+            pathname: `/cards/update/${id}`,
             state: {
                 creditCard: {
                     name: selectedRows[0].cells[1].value,
@@ -133,7 +133,7 @@ const CreditCardsInfoTable = (props) => {
                         <NotificationActionButton
                             onClick={() => { window.location.reload() }}
                         >
-                            Intentar de nuevo
+                            Retry
                         </NotificationActionButton>
                     }
                 >
@@ -162,26 +162,26 @@ const CreditCardsInfoTable = (props) => {
                     getTableContainerProps,
                 }) => (
                     <TableContainer
-                        title="Tarjetas de Crédito Registradas"
-                        description="Selecciona una tarjeta para modificar categoría o imagen."
+                        title="Registered Credit Cards"
+                        description="Pick a credit card to update their information"
                         {...getTableContainerProps()}>
                         <TableToolbar {...getToolbarProps()}>
                             <TableBatchActions {...getBatchActionProps()} translateWithId={customTranslationForTableBatchActions}>
                                 <TableBatchAction
                                     renderIcon={Purchase}
-                                    iconDescription="Actualizar Tarjeta de Crédito"
+                                    iconDescription="Update Credit Card"
                                     onClick={() => { handleBatchActionClickUpdateCreditCard(selectedRows) }}>
-                                    Actualizar Tarjeta de Crédito
+                                    Update Credit Card
                                 </TableBatchAction>
                                 <TableBatchAction
                                     renderIcon={Image}
-                                    iconDescription="Abrir Imagen"
+                                    iconDescription="Open Image"
                                     onClick={() => { handleBatchActionClickOpenImage(selectedRows) }}>
-                                    Abrir Imagen
+                                    Open Image
                                 </TableBatchAction>
                             </TableBatchActions>
                             <TableToolbarContent>
-                                <TableToolbarSearch onChange={onInputChange} placeholder="Buscar tarjeta" />
+                                <TableToolbarSearch onChange={onInputChange} placeholder="Search credit card" />
                             </TableToolbarContent>
                         </TableToolbar>
                         <Table {...getTableProps()}>
@@ -209,11 +209,11 @@ const CreditCardsInfoTable = (props) => {
                             </TableBody>
                         </Table>
                         <Pagination
-                            backwardText="Anterior"
-                            forwardText="Siguiente"
-                            itemsPerPageText="Tarjetas por página:"
+                            backwardText="Backward"
+                            forwardText="Forward"
+                            itemsPerPageText="Credit cards per page:"
                             page={1}
-                            pageNumberText="Página"
+                            pageNumberText="Page"
                             pageSize={10}
                             pageSizes={[
                                 10,

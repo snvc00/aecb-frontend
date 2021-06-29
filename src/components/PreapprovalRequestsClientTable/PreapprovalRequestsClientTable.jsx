@@ -18,8 +18,7 @@ import {
 } from "carbon-components-react";
 
 import { Image24 } from "@carbon/icons-react";
-import { useContext, useEffect } from "react";
-import { useState } from "react";
+import { useContext, useEffect,useState } from "react";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../Auth";
 
@@ -30,35 +29,35 @@ const headers = [
     },
     {
         key: "approved",
-        header: "Aprobada",
+        header: "Approved",
     },
     {
         key: "active",
-        header: "Activa",
+        header: "Active",
     },
     {
         key: "creation_timestamp",
-        header: "Fecha y Hora de Creación",
+        header: "Creation Timestamp",
     },
     {
         key: "last_update",
-        header: "Última Actualización",
+        header: "Last Update",
     },
     {
         key: "credit_card_name",
-        header: "Tarjeta de Crédito"
+        header: "Credit Card"
     },
     {
         key: "credit_card_max_credit",
-        header: "Crédito Máximo"
+        header: "Maximum Credit"
     },
     {
         key: "aprobbed_by",
-        header: "Aprobada Por"
+        header: "Approved By"
     },
     {
         key: "credit_card_image",
-        header: "Imagen"
+        header: "Image"
     }
 ];
 
@@ -97,7 +96,7 @@ const PreapprovalRequestsClientTable = (props) => {
             if (responseOk) {
                 setNotificationInfo({
                     kind: "success",
-                    title: "Solicitud cancelada",
+                    title: "Preapproved request cancelled successfully",
                 });
                 setShowNotification(true);
             }
@@ -109,7 +108,7 @@ const PreapprovalRequestsClientTable = (props) => {
             console.log(error);
             setNotificationInfo({
                 kind: "error",
-                title: error,
+                title: String(error),
             });
             setShowNotification(true);
         });
@@ -137,14 +136,14 @@ const PreapprovalRequestsClientTable = (props) => {
                 <></>
             }
             <ComposedModal open={openModal} preventCloseOnClickOutside onClose={() => { setOpenModal(false); }}>
-                <ModalHeader label={`Solicitudes de ${props.clientName || ""}`} title="Cancelación de Solicitud" />
+                <ModalHeader label={`Solicitudes de ${props.clientName || ""}`} title="Cancel Preapproval Request" />
                 <ModalBody>
                     <p style={{ marginBottom: '1rem' }}>
-                        Una vez que canceles tu solicitud, podrías volver a realizar el proceso, pero no se garantiza
-                        obtener el mismo resultado.
+                        If you cancel the preapproval request the is no guarantee to get the same result in following
+                        preapproval requests.
                     </p>
                 </ModalBody>
-                <ModalFooter danger primaryButtonText="Cancelar Solicitud" secondaryButtonText="Regresar" onClick={handleCancelPreapproval} />
+                <ModalFooter danger primaryButtonText="Cancel Preapproval Request" secondaryButtonText="Back" onClick={handleCancelPreapproval} />
             </ComposedModal>
             <DataTable
                 rows={props.preapprovals.slice(itemBegin, itemEnd)}
@@ -152,7 +151,7 @@ const PreapprovalRequestsClientTable = (props) => {
                 isSortable
             >
                 {({ rows, headers, getHeaderProps, getRowProps, getTableProps }) => (
-                    <TableContainer title="Solicitudes de Preaprobación" description={`Issued to ${props.clientName || ""}`}>
+                    <TableContainer title="Preapproval Requests" description={`Issued to ${props.clientName || "you"}.`}>
                         <Table {...getTableProps()}>
                             <TableHead>
                                 <TableRow>
@@ -177,8 +176,8 @@ const PreapprovalRequestsClientTable = (props) => {
                                         )}
                                         <TableCell className="bx--table-column-menu">
                                             <OverflowMenu>
-                                                <OverflowMenuItem hasDivider itemText="Ver Imagen" onClick={() => { handleOpenImage(row) }} />
-                                                <OverflowMenuItem hasDivider disabled={row.cells[2].value === "No"} isDelete itemText="Cancelar Solicitud" onClick={() => { setOpenModal(true); }} />
+                                                <OverflowMenuItem hasDivider itemText="Open Image" onClick={() => { handleOpenImage(row) }} />
+                                                <OverflowMenuItem hasDivider disabled={row.cells[2].value === "No"} isDelete itemText="Cancela Preapproval Request" onClick={() => { setOpenModal(true); }} />
                                             </OverflowMenu>
                                         </TableCell>
                                     </TableRow>
@@ -186,11 +185,11 @@ const PreapprovalRequestsClientTable = (props) => {
                             </TableBody>
                         </Table>
                         <Pagination
-                            backwardText="Anterior"
-                            forwardText="Siguiente"
-                            itemsPerPageText="Solicitudes por página:"
+                            backwardText="Backward"
+                            forwardText="Forward"
+                            itemsPerPageText="Preapproval requests per page:"
                             page={1}
-                            pageNumberText="Página"
+                            pageNumberText="Page"
                             pageSize={10}
                             pageSizes={[
                                 10,

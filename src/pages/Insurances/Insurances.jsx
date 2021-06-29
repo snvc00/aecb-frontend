@@ -43,21 +43,21 @@ const Insurances = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Seguros</title>
+                <title>National Bank | Insurances</title>
             </Helmet>
             <Header />
             <Grid className="spaced top">
                 <Row>
                     <Column>
-                        <MainHeading>Seguros</MainHeading>
+                        <MainHeading>Insurances</MainHeading>
                         <ComboBox
                         id="cards"
                         items={cards}
                         itemToString={(card) => (card.name)}
                         onChange={updateSelectedCard}
-                        placeholder="Buscar tarjeta"
-                        titleText="Tarjetas de Crédito"
-                        helperText="Selecciona una tarjeta para mostrar los seguros que ofrece."
+                        placeholder="Search credit card"
+                        titleText="Credit Cards"
+                        helperText="Pick a credit card to see their insurances."
                     />
                     </Column>
                 </Row>

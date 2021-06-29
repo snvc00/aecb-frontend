@@ -48,7 +48,7 @@ const UpdateCreditCard = (props) => {
             if (responseOk) {
                 setNotificationInfo({
                     kind: "success",
-                    title: "Tarjeta de crédito modificada",
+                    title: "Credit card has been updated",
                 });
                 setShowNotification(true);
                 e.target.reset();
@@ -61,7 +61,7 @@ const UpdateCreditCard = (props) => {
         .catch(error => {
             setNotificationInfo({
                 kind: "error",
-                title: error,
+                title: String(error),
             });
             setShowNotification(true);
         });
@@ -72,7 +72,7 @@ const UpdateCreditCard = (props) => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Actualizar Tarjeta de Crédito</title>
+                <title>National Bank | Update Credit Card</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
@@ -87,9 +87,9 @@ const UpdateCreditCard = (props) => {
                                     onCloseButtonClick={() => { setShowNotification(false); }}
                                     actions={
                                         <NotificationActionButton
-                                            onClick={() => { window.location.href = "/tarjetas/registradas" }}
+                                            onClick={() => { window.location.href = "/cards/registered" }}
                                         >
-                                            Ver Tarjetas de crédito
+                                            See Credit Cards
                                         </NotificationActionButton>
                                     }
                                 />
@@ -98,11 +98,11 @@ const UpdateCreditCard = (props) => {
 
                                 <></>
                         }
-                        <MainHeading>Actualizar Tarjeta de Crédito</MainHeading>
+                        <MainHeading>Update Credit Card</MainHeading>
                         <Form onSubmit={handleSubmit}>
                             <CreditCardGenericInput ref={creditCardGenericsRef} creditCard={props.history.location.state.creditCard} />
                             <Button type="submit">
-                                Actualizar
+                                Update
                             </Button>
                         </Form>
                     </Column>

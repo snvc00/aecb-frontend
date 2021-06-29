@@ -28,15 +28,15 @@ class PromotionInput extends Component {
         return {
             name: this.nameRef.current.value,
             description: this.descriptionRef.current.value,
-            valid_until: `${date[2]}-${date[1]}-${date[0]}`, // Send date in YYYY-MM-DD format,
+            valid_until: `${date[2]}-${date[0]}-${date[1]}`, // Send date in YYYY-MM-DD format,
         }
     }
 
     render() {
         return (
-            <FormGroup legendText={<h4>Datos Generales</h4>}>
+            <FormGroup legendText={<h4>General Data</h4>}>
                 <TextInput
-                    labelText="Nombre"
+                    labelText="Name"
                     id="name"
                     size="lg"
                     ref={this.nameRef}
@@ -45,7 +45,7 @@ class PromotionInput extends Component {
                     required
                 />
                 <TextArea
-                    labelText="Descripción"
+                    labelText="Description"
                     id="description"
                     ref={this.descriptionRef}
                     maxLength={300}
@@ -55,14 +55,14 @@ class PromotionInput extends Component {
                 <DatePicker
                     datePickerType="single"
                     minDate="today"
-                    dateFormat="d/m/Y"
-                    locale="es"
+                    dateFormat="m/d/Y"
+                    locale="en"
                     ref={this.validUntilRef}
                     value={this.props.promotion ? this.props.promotion.valid_until : "today"}
                 >
                     <DatePickerInput
                         id="valid_until"
-                        labelText="Válido hasta"
+                        labelText="Valid Until"
                         placeholder="dd/mm/yyyy"
                         size="lg"
                         required

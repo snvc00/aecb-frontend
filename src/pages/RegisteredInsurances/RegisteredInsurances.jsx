@@ -29,7 +29,7 @@ const RegisteredInsurances = () => {
     const { userRole } = useContext(AuthContext);
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_BACKEND_API_ENDPOINT}/api/insurances/`, {
+        fetch(`${process.env.REACT_APP_BACKEND_API}/api/insurances/`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -39,6 +39,7 @@ const RegisteredInsurances = () => {
         .then(async (response) => ({ data: await response.json(), responseOk: response.ok }))
         .then(({ data, responseOk }) => {
             if (responseOk) {
+                console.log("WAS SUCCESS")
                 const insurances = formatInsurances(data);
                 setInsurances(insurances);
             }
@@ -50,7 +51,7 @@ const RegisteredInsurances = () => {
             console.log(error);
             setNotificationInfo({
                 kind: "error",
-                title: error,
+                title: String(error),
             });
             setShowNotification(true);
         });
@@ -63,7 +64,7 @@ const RegisteredInsurances = () => {
                 id: Number(insurance.id).toString(),
                 name: insurance.name,
                 description: insurance.description,
-                max_protection: `$${insurance.max_protection} MXN`,
+                max_protection: `$${insurance.max_protection} DLLS`,
                 last_update: insurance.last_update,
             }
         });
@@ -74,17 +75,17 @@ const RegisteredInsurances = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Nuestros Seguros</title>
+                <title>National Bank | Our Insurances</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
                         <Breadcrumb>
-                            <BreadcrumbItem href="/">Inicio</BreadcrumbItem>
-                            <BreadcrumbItem href="/seguros">Seguros</BreadcrumbItem>
-                            <BreadcrumbItem href="/seguros/registrados" isCurrentPage>
-                                Registrados
+                            <BreadcrumbItem href="/">Home</BreadcrumbItem>
+                            <BreadcrumbItem href="/insurances">Insurances</BreadcrumbItem>
+                            <BreadcrumbItem href="/insurances/registered" isCurrentPage>
+                                Registered
                             </BreadcrumbItem>
                         </Breadcrumb><br /><br />
                         {showNotification ?
@@ -99,7 +100,7 @@ const RegisteredInsurances = () => {
 
                             <></>
                         }
-                        <MainHeading>Nuestros Seguros</MainHeading>
+                        <MainHeading>Our Insurances</MainHeading>
                         {
                             userRole === "admin" ?
 

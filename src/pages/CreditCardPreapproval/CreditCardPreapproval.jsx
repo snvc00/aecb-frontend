@@ -26,7 +26,7 @@ const gridStyles = {
 const CreditCardPreapproval = () => {
     const [buttonIsLoading, setButtonIsLoading] = useState(false);
     const [buttonSuccess, setButtonSuccess] = useState(false);
-    const [buttonDescription, setButtonDescription] = useState("Obteniendo información...");
+    const [buttonDescription, setButtonDescription] = useState("Getting info...");
     const [ariaLive, setAriaLive] = useState("off");
 
     const [currentStep, setCurrentStep] = useState(0);
@@ -53,7 +53,7 @@ const CreditCardPreapproval = () => {
                 }
 
                 setButtonSuccess(true);
-                setButtonDescription("Información obtenida");
+                setButtonDescription("Info fetched");
 
                 if (data.length === 0) {
                     setErrorMessage("No credit cards available for client tier.")
@@ -64,7 +64,7 @@ const CreditCardPreapproval = () => {
                     setCreditCards(data);
                     setButtonIsLoading(false);
                     setButtonSuccess(false);
-                    setButtonDescription("Creando solicitud...");
+                    setButtonDescription("Creating preapproval request...");
                     setAriaLive("off");
                     setCurrentStep(currentStep + stepsToMove);
                 }, 1000);
@@ -72,7 +72,7 @@ const CreditCardPreapproval = () => {
             })
             .catch(error => { 
                 console.log(error);
-                setErrorMessage(error); 
+                setErrorMessage(String(error)); 
                 setCurrentStep(2);
             });
     }
@@ -90,44 +90,42 @@ const CreditCardPreapproval = () => {
         .then(async (response) => ({ data: await response.json(), responseOk: response.ok }))
         .then(({ data, responseOk }) => {
             if (!responseOk) {
-                console.log("Stpper: ", data)
                 throw data.detail;
             }
 
             setButtonSuccess(true);
-            setButtonDescription("Solicitud creada");
+            setButtonDescription("Preapproval request created");
             setTimeout(() => {
                 setButtonIsLoading(false);
                 setButtonSuccess(false);
-                setButtonDescription("Creando solicitud...");
+                setButtonDescription("Creating preapproval request...");
                 setAriaLive("off");
                 setCurrentStep(currentStep + 1);
             }, 1000);
         })
         .catch(error => { 
-            setErrorMessage(error); 
+            setErrorMessage(String(error)); 
             setCurrentStep(2);
         });
     }
 
     const updateSelectedCard = ({ selectedItem }) => {
-        console.log("I selected: ", selectedItem.id);
         setSelectedCreditCardId(selectedItem.id);
     }
 
     const steps = [
         (
             <>
-                <h3>Evaluación de Crédito</h3><br />
-                <p>Para continuar, debes aceptar el proceso de solicitud que implica analizar tu comportamiento económico.</p><br /><br />
+                <h3>Credit Evaluation</h3><br />
+                <p>If you continue you accept to use your economical behaviour data.</p><br /><br />
 
-                <div style={{ display: 'flex' }}>
+                <div style={{ display: "flex" }}>
                     <Button
                         kind="secondary"
                         disabled={buttonIsLoading || buttonSuccess}
                         onClick={() => { window.location.replace("/") }}
                     >
-                        Cancelar
+                        Cancel
                     </Button>
                     {buttonIsLoading || buttonSuccess ? (
                         <InlineLoading
@@ -137,32 +135,32 @@ const CreditCardPreapproval = () => {
                             aria-live={ariaLive}
                         />
                     ) : (
-                        <Button onClick={handleRequestPreapproval}>Solicitar Preaprovación</Button>
+                        <Button onClick={handleRequestPreapproval}>Request Preapproval</Button>
                     )}
                 </div>
             </>
         ),
         (
             <>
-                <h3>Selección de Tarjeta de Crédito</h3><br />
-                <p>Puedes elegir cualquiera de las tarjetas mostradas.</p><br /><br />
+                <h3>Select Credit Card</h3><br />
+                <p>Pick one of the available credit cards.</p><br /><br />
                 <ComboBox
                     id="cards"
                     items={creditCards || []}
                     itemToString={(card) => (card.name)}
                     onChange={updateSelectedCard}
-                    placeholder="Buscar tarjeta"
-                    titleText="Tarjetas de Crédito"
-                    helperText="Selecciona una tarjeta de crédito."
+                    placeholder="Search credit card"
+                    titleText="Credit Cards"
+                    helperText="Select a credit card."
                 />
 
-                <div style={{ display: 'flex' }}>
+                <div style={{ display: "flex" }}>
                     <Button
                         kind="secondary"
                         disabled={buttonIsLoading || buttonSuccess}
                         onClick={() => { window.location.replace("/") }}
                     >
-                        Cancelar
+                        Cancel
                     </Button>
                     {buttonIsLoading || buttonSuccess ? (
                         <InlineLoading
@@ -172,7 +170,7 @@ const CreditCardPreapproval = () => {
                             aria-live={ariaLive}
                         />
                     ) : (
-                        <Button onClick={handleRequestCreditCard}>Solicitar Tarjeta de Crédito</Button>
+                        <Button onClick={handleRequestCreditCard}>Request Credit Card</Button>
                     )}
                 </div>
             </>
@@ -182,21 +180,21 @@ const CreditCardPreapproval = () => {
                 {
                     (creditCards === null || creditCards.length === 0 || errorMessage) ? (
                         <>
-                            <h3>Lo sentimos, no podemos preaprobarte una tarjeta de crédito</h3><br />
+                            <h3>We are sorry, we can not offer you any credit card.</h3><br />
                             <p>{errorMessage}</p><br /><br />
                         </>
                     ) :
                         (
                             <>
-                                <h3>Solicitud creada exitosamente</h3><br />
-                                <p>Espera a su aprobación para pasar a tu banco por la tarjeta. <Link href="/preaprobacion/historial">Ver mis solicitudes</Link>.</p><br /><br />
+                                <h3>Preapproval request created successfully</h3><br />
+                                <p>Wait until approval to pick the credit card in your nearest National Bank. <Link href="/preapproval/history">Go to My Preapprovals</Link>.</p><br /><br />
                             </>
                         )
                 }
                 <Button
                     onClick={() => { window.location.replace("/") }}
                 >
-                    Terminar
+                    Home
                 </Button>
             </>
         )
@@ -205,32 +203,32 @@ const CreditCardPreapproval = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Solicitud de Preaprobación</title>
+                <title>National Bank | Preapproval Request</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
-                        <MainHeading>Solicitud de Preaprobación</MainHeading>
+                        <MainHeading>Preapproval Request</MainHeading>
                         <ProgressIndicator
                             currentIndex={currentStep + 1}
                             spaceEqually={true}
                         >
                             <ProgressStep
-                                label="Autenticación"
+                                label="Authentication"
                             />
                             <ProgressStep
-                                label="Evaluación de crédito"
+                                label="Credit Evaluation"
                                 disabled={currentStep < 0}
                                 onChange={() => { console.log(2) }}
                             />
                             <ProgressStep
-                                label="Selección de tarjeta"
+                                label="Pick Credit Card"
                                 invalid={creditCards === null && currentStep > 1}
                                 disabled={currentStep < 1}
                             />
                             <ProgressStep
-                                label="Proceso completado"
+                                label="Finish"
                                 disabled={currentStep < 2}
                             />
                         </ProgressIndicator>

@@ -29,19 +29,19 @@ const AdminInsurances = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Administrar Seguros</title>
+                <title>National Bank | Admin Insurances</title>
             </Helmet>
             <Header />
             <Grid className="spaced top">
                 <Row>
                     <Column>
                         <Breadcrumb>
-                            <BreadcrumbItem href="/">Inicio</BreadcrumbItem>
-                            <BreadcrumbItem href="/seguros" isCurrentPage>
-                                Seguros
+                            <BreadcrumbItem href="/">Home</BreadcrumbItem>
+                            <BreadcrumbItem href="/insurances" isCurrentPage>
+                                Insurances
                             </BreadcrumbItem>
                         </Breadcrumb><br/><br/>
-                        <MainHeading>Administrar Seguros</MainHeading>
+                        <MainHeading>Admin Insurances</MainHeading>
                         <SkeletonPlaceholder style={{ width: "100%", height: 400 }} />
                         <br /><br />
                     </Column>
@@ -51,13 +51,13 @@ const AdminInsurances = () => {
 
                         <InlineNotification
                             kind="warning"
-                            title="Selecciona un seguro desde el registro"
+                            title="Select an insurance from table"
                             onCloseButtonClick={()=>{ setShowNotification(false); }}
                             actions={
                             <NotificationActionButton
-                                onClick={()=>{ window.location.href = "/seguros/registrados" }}
+                                onClick={()=>{ window.location.href = "/insurances/registered" }}
                             >
-                                Buscar Seguro
+                                Search Insurance
                             </NotificationActionButton>
                           }
                         />
@@ -68,22 +68,22 @@ const AdminInsurances = () => {
                 }
                 <Row>
                     <Column style={styles}>
-                        <Link href="/seguros/registrar" renderIcon={Add}>
-                            <h3>Registrar Seguro</h3>
+                        <Link href="/insurances/register" renderIcon={Add}>
+                            <h3>Register Insurance</h3>
                         </Link>
                     </Column>
                 </Row>
                 <Row>
                     <Column style={styles}>
                         <Link renderIcon={Edit} onClick={() => { setShowNotification(true); }}>
-                            <h3>Actualizar Información de Seguro</h3>
+                            <h3>Update Insurance</h3>
                         </Link>
                     </Column>
                 </Row>
                 <Row>
                     <Column style={styles}>
-                        <Link href="/seguros/registrados" renderIcon={ManageProtection}>
-                            <h3>Seguros Registrados</h3>
+                        <Link href="/insurances/registered" renderIcon={ManageProtection}>
+                            <h3>Registered Insurances</h3>
                         </Link>
                     </Column>
                 </Row>

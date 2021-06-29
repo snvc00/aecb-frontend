@@ -3,7 +3,6 @@ import {
     Grid,
     Row,
     Column,
-    TextInput,
     Button,
     InlineNotification,
     NotificationActionButton,
@@ -14,9 +13,8 @@ import MainHeading from "../../components/MainHeading";
 import ClientAddressInput from "../../components/ClientAddressInput";
 
 import { Helmet } from "react-helmet";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useParams } from "react-router";
-import { useState } from "react/cjs/react.development";
 
 const gridStyles = {
     maxWidth: "50rem",
@@ -48,7 +46,7 @@ const UpdateClientAddress = (props) => {
             if (responseOk) {
                 setNotificationInfo({
                     kind: "success",
-                    title: "Domicilio modificado",
+                    title: "Address has been updated",
                 });
                 setShowNotification(true);
                 e.target.reset();
@@ -61,7 +59,7 @@ const UpdateClientAddress = (props) => {
         .catch(error => {
             setNotificationInfo({
                 kind: "error",
-                title: error,
+                title: String(error),
             });
             setShowNotification(true);
         });
@@ -70,7 +68,7 @@ const UpdateClientAddress = (props) => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Actualizar Domicilio</title>
+                <title>National Bank | Update Address</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
@@ -85,9 +83,9 @@ const UpdateClientAddress = (props) => {
                                     onCloseButtonClick={() => { setShowNotification(false); }}
                                     actions={
                                         <NotificationActionButton
-                                            onClick={() => { window.location.href = "/clientes/registrados" }}
+                                            onClick={() => { window.location.href = "/clients/registered" }}
                                         >
-                                            Ver Clientes
+                                            See Clients
                                         </NotificationActionButton>
                                     }
                                 />
@@ -96,11 +94,11 @@ const UpdateClientAddress = (props) => {
 
                                 <></>
                         }
-                        <MainHeading>Actualizar Domicilio</MainHeading>
+                        <MainHeading>Update Domicilio</MainHeading>
                         <Form onSubmit={submitClientAddress}>
                             <ClientAddressInput ref={addressRef} client={props.history.location.state.client} />
                             <Button type="submit">
-                                Actualizar
+                                Update
                             </Button>
                         </Form>
                     </Column>

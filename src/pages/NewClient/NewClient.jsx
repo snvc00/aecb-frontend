@@ -52,7 +52,7 @@ const NewClient = () => {
         .then(async (response) => ({ data: await response.json(), responseOk: response.ok }))
         .then(({ data, responseOk }) => {
             if (responseOk) {
-                updateNotification("success", "Cliente registrado", e);
+                updateNotification("success", "Client has been registered", e);
             }
             else {
                 const firstError = Object.keys(data)[0];
@@ -82,20 +82,20 @@ const NewClient = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Nuevo Cliente</title>
+                <title>National Bank | New Client</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
                         <Breadcrumb>
-                            <BreadcrumbItem href="/">Inicio</BreadcrumbItem>
-                            <BreadcrumbItem href="/clientes">Clientes</BreadcrumbItem>
-                            <BreadcrumbItem href="/clientes/registro" isCurrentPage>
-                                Registrar
+                            <BreadcrumbItem href="/">Home</BreadcrumbItem>
+                            <BreadcrumbItem href="/clients">Clients</BreadcrumbItem>
+                            <BreadcrumbItem href="/clients/registro" isCurrentPage>
+                                Register
                             </BreadcrumbItem>
                         </Breadcrumb><br /><br />
-                        <MainHeading>Nuevo Cliente</MainHeading>
+                        <MainHeading>New Client</MainHeading>
                         {
                             showNotification ?
 
@@ -105,9 +105,9 @@ const NewClient = () => {
                                     onCloseButtonClick={() => { setShowNotification(false); }}
                                     actions={
                                         <NotificationActionButton
-                                            onClick={() => { window.location.href = "/clientes/registrados" }}
+                                            onClick={() => { window.location.href = "/clients/registered" }}
                                         >
-                                            Ver Clientes
+                                            See Clients
                                         </NotificationActionButton>
                                     }
                                 />
@@ -120,7 +120,7 @@ const NewClient = () => {
                             <ClientGeneralDataInput ref={generalDataRef} />
                             <ClientAddressInput ref={addressRef} />
                             <Button type="submit" >
-                                Registrar
+                                Register
                             </Button>
                         </Form>
                     </Column>

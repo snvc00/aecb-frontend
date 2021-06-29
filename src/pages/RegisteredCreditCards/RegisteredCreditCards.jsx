@@ -25,7 +25,7 @@ const RegisteredCreditCards = () => {
     const [showNotification, setShowNotification] = useState(false);
     const [notificationInfo, setNotificationInfo] = useState();
 
-    const { currentUser, userRole } = useContext(AuthContext);
+    const { userRole } = useContext(AuthContext);
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BACKEND_API}/api/cards/`, {
@@ -48,23 +48,23 @@ const RegisteredCreditCards = () => {
             console.log(error);
             setNotificationInfo({
                 kind: "error",
-                title: error,
+                title: String(error),
             });
             setShowNotification(true);
         });
     }, []);
 
     const formatCards = cards => {
-        const tiers = [ "None", "Bronce", "Plata", "Oro", "Diamante"];
+        const tiers = [ "None", "Bronze", "Silver", "Gold", "Diamond"];
         const formattedCards = cards.map(card => {
 
             return {
                 id: Number(card.id).toString(),
                 name: card.name,
-                min_credit: `$${card.min_credit} MXN`,
-                max_credit: `$${card.max_credit} MXN`,
+                min_credit: `$${card.min_credit} DLLS`,
+                max_credit: `$${card.max_credit} DLLS`,
                 cat: `${card.cat}%`,
-                annual_fee: `$${card.annual_fee} MXN`,
+                annual_fee: `$${card.annual_fee} DLLS`,
                 tier: tiers[card.tier],
                 image: card.image,
                 last_update: card.last_update
@@ -77,17 +77,17 @@ const RegisteredCreditCards = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Nuestras Tarjetas de Crédito</title>
+                <title>National Bank | Our Credit Cards</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
                         <Breadcrumb>
-                            <BreadcrumbItem href="/">Inicio</BreadcrumbItem>
-                            <BreadcrumbItem href="/tarjetas">Tarjetas</BreadcrumbItem>
-                            <BreadcrumbItem href="/tarjetas/registradas" isCurrentPage>
-                                Registradas
+                            <BreadcrumbItem href="/">Home</BreadcrumbItem>
+                            <BreadcrumbItem href="/cards">Credit Cards</BreadcrumbItem>
+                            <BreadcrumbItem href="/cards/registered" isCurrentPage>
+                                Registered
                             </BreadcrumbItem>
                         </Breadcrumb><br /><br />
                         {showNotification ?
@@ -102,7 +102,7 @@ const RegisteredCreditCards = () => {
 
                             <></>
                         }
-                        <MainHeading>Nuestras Tarjetas de Crédito</MainHeading>
+                        <MainHeading>Our Credit Cards</MainHeading>
                         {
                             userRole === "admin" ?
 

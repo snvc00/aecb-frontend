@@ -30,7 +30,7 @@ const Header = () => {
         }
 
         const domain = currentUser.email.split("@");
-        return domain[1] === "alumnos.udg.mx" ? "Administrativos" : "Clientes";
+        return domain[1] === "alumnos.udg.mx" ? "Admins" : "Clients";
     }
 
     const headerNamePostfix = getPostfix();
@@ -51,33 +51,33 @@ const Header = () => {
                 <HeaderCarbon aria-label="AECB">
                     <SkipToContent />
                     <HeaderMenuButton
-                        aria-label="Abrir menú"
+                        aria-label="Open menu"
                         onClick={onClickSideNavExpand}
                         isActive={isSideNavExpanded}
                     />
-                    <HeaderName href="/" prefix="Banco Nacional">
+                    <HeaderName href="/" prefix="National Bank">
                         AECB {headerNamePostfix}
                     </HeaderName>
 
-                    <HeaderNavigation aria-label="Banco Nacional AECB">
-                        <HeaderMenu aria-label="Clientes" menuLinkName="Clientes">
-                            <HeaderMenuItem href="/preaprobacion">Solicitar Preaprobación</HeaderMenuItem>
-                            <HeaderMenuItem href="/preaprobacion/historial">Historial de Solicitudes</HeaderMenuItem>
+                    <HeaderNavigation aria-label="National Bank AECB">
+                        <HeaderMenu aria-label="Clients" menuLinkName="Clients">
+                            <HeaderMenuItem href="/preapproval">Preapproval Request</HeaderMenuItem>
+                            <HeaderMenuItem href="/preapproval/history">My Preapprovals</HeaderMenuItem>
                         </HeaderMenu>
-                        <HeaderMenu aria-label="Administradores" menuLinkName="Administradores">
-                            <HeaderMenuItem href="/clientes">Clientes</HeaderMenuItem>
-                            <HeaderMenuItem href="/tarjetas">Tarjetas de Crédito</HeaderMenuItem>
-                            <HeaderMenuItem href="/promociones">Promociones</HeaderMenuItem>
-                            <HeaderMenuItem href="/seguros">Seguros</HeaderMenuItem>
-                            <HeaderMenuItem href="/clientes/solicitudes">Solicitudes</HeaderMenuItem>
+                        <HeaderMenu aria-label="Admins" menuLinkName="Admins">
+                            <HeaderMenuItem href="/clients">Clients</HeaderMenuItem>
+                            <HeaderMenuItem href="/cards">Credit Cards</HeaderMenuItem>
+                            <HeaderMenuItem href="/promotions">Promotions</HeaderMenuItem>
+                            <HeaderMenuItem href="/insurances">Insurances</HeaderMenuItem>
+                            <HeaderMenuItem href="/clients/preapprovals">Preapproval Requests</HeaderMenuItem>
                         </HeaderMenu>
-                        <HeaderMenuItem href="/promociones-tarjetas">Promociones</HeaderMenuItem>
-                        <HeaderMenuItem href="/seguros-tarjetas">Seguros</HeaderMenuItem>
+                        <HeaderMenuItem href="/card-promotions">Promotions</HeaderMenuItem>
+                        <HeaderMenuItem href="/card-insurances">Insurances</HeaderMenuItem>
                     </HeaderNavigation>
 
                     <HeaderGlobalBar>
                         <HeaderGlobalAction
-                            aria-label={currentUser ? "Cerrar Sesión" : "Iniciar Sesión"}
+                            aria-label={currentUser ? "Logout" : "Login"}
                             tooltipAlignment="end"
                             onClick={handleSession}
                         >
@@ -91,25 +91,24 @@ const Header = () => {
                     </HeaderGlobalBar>
 
                     <SideNav
-                        aria-label="Navegación lateral"
+                        aria-label="Side navigation"
                         expanded={isSideNavExpanded}
                         isPersistent={false}>
                         <SideNavItems>
                             <HeaderSideNavItems>
-                                <HeaderMenu aria-label="Clientes" menuLinkName="Clientes">
-                                    {/*isCurrentPage*/}
-                                    <HeaderMenuItem href="/preaprobacion">Solicitar Preaprobación</HeaderMenuItem>
-                                    <HeaderMenuItem href="/preaprobacion/historial">Historial de Solicitudes</HeaderMenuItem>
+                                <HeaderMenu aria-label="Clients" menuLinkName="Clients">
+                                    <HeaderMenuItem href="/preapproval">Preapproval Request</HeaderMenuItem>
+                                    <HeaderMenuItem href="/preapproval/history">My Preapprovals</HeaderMenuItem>
                                 </HeaderMenu>
-                                <HeaderMenu aria-label="Administradores" menuLinkName="Administradores">
-                                    <HeaderMenuItem href="/clientes">Clientes</HeaderMenuItem>
-                                    <HeaderMenuItem href="/tarjetas">Tarjetas de Crédito</HeaderMenuItem>
-                                    <HeaderMenuItem href="/promociones">Promociones</HeaderMenuItem>
-                                    <HeaderMenuItem href="/seguros">Seguros</HeaderMenuItem>
-                                    <HeaderMenuItem href="/clientes/solicitudes">Solicitudes</HeaderMenuItem>
+                                <HeaderMenu aria-label="Admins" menuLinkName="Admins">
+                                    <HeaderMenuItem href="/clients">Clients</HeaderMenuItem>
+                                    <HeaderMenuItem href="/cards">Credit Cards</HeaderMenuItem>
+                                    <HeaderMenuItem href="/promotions">Promotions</HeaderMenuItem>
+                                    <HeaderMenuItem href="/insurances">Insurances</HeaderMenuItem>
+                                    <HeaderMenuItem href="/clients/preapprovals">Preapproval Requests</HeaderMenuItem>
                                 </HeaderMenu>
-                                <HeaderMenuItem href="/promociones-tarjetas">Promociones</HeaderMenuItem>
-                                <HeaderMenuItem href="/seguros-tarjetas">Seguros</HeaderMenuItem>
+                                <HeaderMenuItem href="/card-promotions">Promotions</HeaderMenuItem>
+                                <HeaderMenuItem href="/card-insurances">Insurances</HeaderMenuItem>
                             </HeaderSideNavItems>
                         </SideNavItems>
                     </SideNav>

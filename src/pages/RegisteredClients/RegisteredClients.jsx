@@ -14,9 +14,7 @@ import ClientInfoTableSkeleton from "../../components/ClientInfoTableSkeleton";
 import ClientInfoTable from "../../components/ClientInfoTable";
 
 import { Helmet } from "react-helmet";
-
-import { useEffect, useState } from "react";
-import { useContext } from "react/cjs/react.development";
+import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../Auth";
 
 const gridStyles = {
@@ -28,7 +26,7 @@ const RegisteredClients = () => {
     const [showNotification, setShowNotification] = useState(false);
     const [notificationInfo, setNotificationInfo] = useState();
 
-    const { currentUser, userRole } = useContext(AuthContext);
+    const { userRole } = useContext(AuthContext);
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BACKEND_API}/api/clients/`, {
@@ -52,7 +50,7 @@ const RegisteredClients = () => {
             console.log(error);
             setNotificationInfo({
                 kind: "error",
-                title: error,
+                title: String(error),
             });
             setShowNotification(true);
         });
@@ -60,22 +58,22 @@ const RegisteredClients = () => {
 
     const formatClients = clients => {
         const formattedClients = clients.map(client => {
-            const birthdatetime = new Date(client.birthdate).toLocaleString("es-ES", { timeZone: "GMT" },);
+            const birthdatetime = new Date(client.birthdate).toLocaleString("en-US", { timeZone: "GMT" },);
 
             return {
                 name: client.name,
-                has_credit: client.has_credit ? "Si" : "No",
+                has_credit: client.has_credit ? "Yes" : "No",
                 id: client.email,
                 last_update: client.last_update,
                 curp: client.curp,
                 birthdate: birthdatetime.split(" ")[0],
                 rfc: client.rfc,
-                income: `$${client.income} MXN`,
+                income: `$${client.income} DLLS`,
                 address: client.address,
                 neighborhood: client.neighborhood,
                 city: client.city,
                 state: client.state,
-                active: client.active ? "Activo" : "Inactivo",
+                active: client.active ? "Active" : "Inactive",
             }
         });
 
@@ -87,17 +85,17 @@ const RegisteredClients = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Nuestros Clientes</title>
+                <title>National Bank | Our Clients</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles} fullWidth>
                 <Row>
                     <Column>
                         <Breadcrumb>
-                            <BreadcrumbItem href="/">Inicio</BreadcrumbItem>
-                            <BreadcrumbItem href="/clientes">Clientes</BreadcrumbItem>
-                            <BreadcrumbItem href="/clientes/registrados" isCurrentPage>
-                                Registrados
+                            <BreadcrumbItem href="/">Home</BreadcrumbItem>
+                            <BreadcrumbItem href="/clients">Clients</BreadcrumbItem>
+                            <BreadcrumbItem href="/clients/registered" isCurrentPage>
+                                Registered
                             </BreadcrumbItem>
                         </Breadcrumb><br /><br />
                         {showNotification ?
@@ -112,7 +110,7 @@ const RegisteredClients = () => {
 
                             <></>
                         }
-                        <MainHeading>Nuestros Clientes</MainHeading>
+                        <MainHeading>Our Clients</MainHeading>
                         {
                             userRole === "admin" ?
 
