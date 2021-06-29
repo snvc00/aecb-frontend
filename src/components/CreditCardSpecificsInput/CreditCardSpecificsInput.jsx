@@ -52,10 +52,10 @@ class CreditCardSpecificsInput extends Component {
 
     getCreditCardSpecifics() {
         const tierTranslations = {
-            Bronce: 1,
-            Plata: 2,
-            Oro: 3,
-            Diamante: 4
+            Bronze: 1,
+            Silver: 2,
+            Gold: 3,
+            Diamond: 4
         };
 
         return {
@@ -84,13 +84,13 @@ class CreditCardSpecificsInput extends Component {
         return (
             <FormGroup legendText={<h4>Datos Específicos</h4>}>
                 <ComboBox
-                    titleText="Categoría"
+                    titleText="Tier"
                     onChange={({ selectedItem }) => { this.setState({ selectedCategory: selectedItem }); }}
                     selectedItem={this.state.selectedCategory}
                     id="category"
                     size="lg"
                     items={creditCategories}
-                    placeholder="Filtrar"
+                    placeholder="Filter"
                 />
                 <FileUploader
                     id="image"
@@ -99,27 +99,27 @@ class CreditCardSpecificsInput extends Component {
                         '.png'
                     ]}
                     buttonKind="secondary"
-                    buttonLabel="Cargar imagen"
+                    buttonLabel="Load image"
                     filenameStatus="edit"
-                    iconDescription="Remover"
-                    labelDescription="Solo archivos .jpg o .png"
-                    labelTitle="Imagen de la Tarjeta"
+                    iconDescription="Remove"
+                    labelDescription="Only .jpg or .png files"
+                    labelTitle="Credit card image"
                     onChange={this.updateImage}
                 />
                 <MultiSelect
                     id="promotions"
                     items={this.state.promotions || []}
                     itemToString={(promotion) => (promotion.name)}
-                    titleText="Promociones"
-                    label="Selecciona las promociones que apliquen"
+                    titleText="Promotions"
+                    label="Select applicable promotions"
                     onChange={this.updateSelectedPromotions}
                 />
                 <MultiSelect
                     id="insurances"
                     items={this.state.insurances || []}
                     itemToString={(insurance) => (insurance.name)}
-                    titleText="Seguros"
-                    label="Selecciona los seguros que apliquen"
+                    titleText="Insurances"
+                    label="Select applicable insurances"
                     onChange={this.updateSelectedInsurances}
                 />
             </FormGroup>

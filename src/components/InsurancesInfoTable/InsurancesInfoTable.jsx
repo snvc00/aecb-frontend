@@ -31,22 +31,22 @@ const headers = [
     },
     {
         key: "name",
-        header: "Nombre",
+        header: "Name",
     },
     {
         key: "description",
-        header: "Descripción",
+        header: "Description",
     },
     {
         key: "max_protection",
-        header: "Protección máxima",
+        header: "Max Protection",
     },
 ];
 
 var translationKeys = {
-    'carbon.table.batch.cancel': 'Cancelar',
-    'carbon.table.batch.items.selected': 'seguros seleccionados',
-    'carbon.table.batch.item.selected': 'seguro seleccionado'
+    'carbon.table.batch.cancel': 'Cancel',
+    'carbon.table.batch.items.selected': 'insurances selected',
+    'carbon.table.batch.item.selected': 'insurance selected'
 };
 
 const InsurancesInfoTable = (props) => {
@@ -61,12 +61,10 @@ const InsurancesInfoTable = (props) => {
     }
 
     const handleBatchActionClickUpdateInsurance = (selectedRows) => {
-        console.log(selectedRows);
-        console.log("handleBatchActionClickUpdateInsurance");
         const id = selectedRows[0].cells[0].value;
 
         const location = {
-            pathname: `/seguros/actualizar/${id}`,
+            pathname: `/insurances/update/${id}`,
             state: {
                 insurance: {
                     name: selectedRows[0].cells[1].value,
@@ -112,20 +110,20 @@ const InsurancesInfoTable = (props) => {
             }) => (
                 <>
                     <TableContainer
-                        title="Seguros Registrados"
-                        description="Selecciona un seguro para ver las opciones."
+                        title="Registered Insurances"
+                        description="Pick an insurace to see options."
                         {...getTableContainerProps()}>
                         <TableToolbar {...getToolbarProps()}>
                             <TableBatchActions {...getBatchActionProps()} translateWithId={customTranslationForTableBatchActions}>
                                 <TableBatchAction
                                     renderIcon={ManageProtection}
-                                    iconDescription="Actualizar Seguro"
+                                    iconDescription="Update Insurance"
                                     onClick={() => { handleBatchActionClickUpdateInsurance(selectedRows) }}>
-                                    Actualizar Seguro
+                                    Update Insurance
                                 </TableBatchAction>
                             </TableBatchActions>
                             <TableToolbarContent>
-                                <TableToolbarSearch onChange={onInputChange} placeholder="Buscar seguro" />
+                                <TableToolbarSearch onChange={onInputChange} placeholder="Search insurance" />
                             </TableToolbarContent>
                         </TableToolbar>
                         <Table {...getTableProps()}>
@@ -153,11 +151,11 @@ const InsurancesInfoTable = (props) => {
                             </TableBody>
                         </Table>
                         <Pagination
-                            backwardText="Anterior"
-                            forwardText="Siguiente"
-                            itemsPerPageText="Seguros por página:"
+                            backwardText="Backward"
+                            forwardText="Forward"
+                            itemsPerPageText="Insurances per page:"
                             page={1}
-                            pageNumberText="Página"
+                            pageNumberText="Page"
                             pageSize={10}
                             pageSizes={[
                                 10,

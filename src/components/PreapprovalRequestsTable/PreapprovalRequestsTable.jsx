@@ -17,16 +17,12 @@ import {
     OverflowMenu,
     OverflowMenuItem,
 } from "carbon-components-react";
-
 import {
     Report24 as Report,
     Misuse24 as Misuse,
 } from "@carbon/icons-react";
-
-import { Component, Fragment } from "react";
-import { useContext, useState } from "react/cjs/react.development";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../Auth";
-import { BrowserRouter } from "react-router-dom";
 
 const headers = [
     {
@@ -88,27 +84,27 @@ const PreapprovalRequestsTable = (props) => {
             },
             body: JSON.stringify({ approved: true, reviewed_by: currentUser.email })
         })
-        .then(async (response) => ({ data: await response.json(), responseOk: response.ok }))
-        .then(({ data, responseOk }) => {
-            if (responseOk) {
+            .then(async (response) => ({ data: await response.json(), responseOk: response.ok }))
+            .then(({ data, responseOk }) => {
+                if (responseOk) {
+                    setNotificationInfo({
+                        kind: "success",
+                        title: "Request Approved",
+                    });
+                    setShowNotification(true);
+                }
+                else {
+                    throw data.detail;
+                }
+            })
+            .catch(error => {
+                console.log(error);
                 setNotificationInfo({
-                    kind: "success",
-                    title: "Request Approved",
+                    kind: "error",
+                    title: String(error),
                 });
                 setShowNotification(true);
-            }
-            else {
-                throw data.detail;
-            }
-        })
-        .catch(error => {
-            console.log(error);
-            setNotificationInfo({
-                kind: "error",
-                title: error,
             });
-            setShowNotification(true);
-        });
     }
 
     const handleDenyRequest = (row) => {
@@ -120,27 +116,27 @@ const PreapprovalRequestsTable = (props) => {
             },
             body: JSON.stringify({ approved: false, active: false, reviewed_by: currentUser.email })
         })
-        .then(async (response) => ({ data: await response.json(), responseOk: response.ok }))
-        .then(({ data, responseOk }) => {
-            if (responseOk) {
+            .then(async (response) => ({ data: await response.json(), responseOk: response.ok }))
+            .then(({ data, responseOk }) => {
+                if (responseOk) {
+                    setNotificationInfo({
+                        kind: "success",
+                        title: "Request Denied",
+                    });
+                    setShowNotification(true);
+                }
+                else {
+                    throw data.detail;
+                }
+            })
+            .catch(error => {
+                console.log(error);
                 setNotificationInfo({
-                    kind: "success",
-                    title: "Request Denied",
+                    kind: "error",
+                    title: String(error),
                 });
                 setShowNotification(true);
-            }
-            else {
-                throw data.detail;
-            }
-        })
-        .catch(error => {
-            console.log(error);
-            setNotificationInfo({
-                kind: "error",
-                title: error,
             });
-            setShowNotification(true);
-        });
     }
 
     const handleGenerateReport = () => {
@@ -152,28 +148,28 @@ const PreapprovalRequestsTable = (props) => {
                 "Admin-Email": currentUser.email,
             }
         })
-        .then(async (response) => ({ data: await response.json(), responseOk: response.ok }))
-        .then(({ data, responseOk }) => {
-            if (responseOk) {
+            .then(async (response) => ({ data: await response.json(), responseOk: response.ok }))
+            .then(({ data, responseOk }) => {
+                if (responseOk) {
+                    setNotificationInfo({
+                        kind: "success",
+                        title: "Report Generated",
+                    });
+                    setShowNotification(true);
+                    window.open(`${process.env.REACT_APP_BACKEND_API}${data.report}`, "_blank");
+                }
+                else {
+                    throw data.detail;
+                }
+            })
+            .catch(error => {
+                console.log(error);
                 setNotificationInfo({
-                    kind: "success",
-                    title: "Report Generated",
+                    kind: "error",
+                    title: String(error),
                 });
                 setShowNotification(true);
-                window.open(`${process.env.REACT_APP_BACKEND_API}${data.report}`, "_blank");
-            }
-            else {
-                throw data.detail;
-            }
-        })
-        .catch(error => {
-            console.log(error);
-            setNotificationInfo({
-                kind: "error",
-                title: error,
             });
-            setShowNotification(true);
-        });
     }
 
     const handlePageChange = pagination => {
@@ -197,7 +193,7 @@ const PreapprovalRequestsTable = (props) => {
             }
             <DataTable
                 isSortable
-                rows={props.rows.slice(itemBegin, itemEnd)}
+                rows={props.preapprovals.slice(itemBegin, itemEnd)}
                 headers={headers}
                 {...props}
                 render={({
@@ -210,65 +206,68 @@ const PreapprovalRequestsTable = (props) => {
                     getTableProps,
                     getTableContainerProps,
                 }) => (
-                    <TableContainer
-                        title="Solicitudes de Preaprobación"
-                        description="Selecciona una solicitud para resolverla o generar un reporte."
-                        {...getTableContainerProps()}>
-                        <TableToolbar {...getToolbarProps()}>
-                            <TableToolbarContent>
-                                <TableToolbarSearch onChange={onInputChange} placeholder="Buscar solicitud" />
-                                <Button
-                                    renderIcon={Report}
-                                    onClick={handleGenerateReport}
-                                    kind="primary"
-                                >
-                                    Generate Report
-                                </Button>
-                            </TableToolbarContent>
-                        </TableToolbar>
-                        <Table {...getTableProps()}>
-                            <TableHead>
-                                <TableRow>
-                                    {headers.map((header, i) => (
-                                        <TableHeader key={i} {...getHeaderProps({ header })}>
-                                            {header.header}
-                                        </TableHeader>
-                                    ))}
-                                    <TableExpandHeader />
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {rows.map((row) => (
-                                    <TableRow key={row.id} {...getRowProps({ row })}>
-                                        {row.cells.map((cell) => (
-                                            <TableCell key={cell.id}>{cell.value}</TableCell>
+                    <>
+                        <TableContainer
+                            title="Preapproval Requests"
+                            description="Select a preapproval request to approve, deny or generate report."
+                            {...getTableContainerProps()}>
+                            <TableToolbar {...getToolbarProps()}>
+                                <TableToolbarContent>
+                                    <TableToolbarSearch onChange={onInputChange} placeholder="Search preapproval request" />
+                                    <Button
+                                        renderIcon={Report}
+                                        onClick={handleGenerateReport}
+                                        kind="primary"
+                                    >
+                                        Generate Report
+                                    </Button>
+                                </TableToolbarContent>
+                            </TableToolbar>
+                            <Table {...getTableProps()}>
+                                <TableHead>
+                                    <TableRow>
+                                        {headers.map((header, i) => (
+                                            <TableHeader key={i} {...getHeaderProps({ header })}>
+                                                {header.header}
+                                            </TableHeader>
                                         ))}
-                                        <TableCell className="bx--table-column-menu">
-                                            <OverflowMenu>
-                                                <OverflowMenuItem hasDivider disabled={row.cells[2].value === "Yes" || row.cells[3].value === "No"} itemText="Approve Request" onClick={() => { handleApproveRequest(row) }} />
-                                                <OverflowMenuItem hasDivider disabled={row.cells[2].value === "No" || row.cells[3].value === "No"} isDelete itemText="Deny Request" onClick={() => { handleDenyRequest(row) }} />
-                                            </OverflowMenu>
-                                        </TableCell>
+                                        <TableExpandHeader />
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                        <Pagination
-                            backwardText="Anterior"
-                            forwardText="Siguiente"
-                            itemsPerPageText="Solicitudes por página:"
-                            page={1}
-                            pageNumberText="Página"
-                            pageSize={10}
-                            pageSizes={[
-                                10,
-                                25,
-                                50,
-                            ]}
-                            onChange={handlePageChange}
-                            totalItems={props.rows.length}
-                        />
-                    </TableContainer>
+                                </TableHead>
+                                <TableBody>
+                                    {rows.map((row) => (
+                                        <TableRow key={row.id} {...getRowProps({ row })}>
+                                            {row.cells.map((cell) => (
+                                                <TableCell key={cell.id}>{cell.value}</TableCell>
+                                            ))}
+                                            <TableCell className="bx--table-column-menu">
+                                                <OverflowMenu>
+                                                    <OverflowMenuItem hasDivider disabled={row.cells[2].value === "Yes" || row.cells[3].value === "No"} itemText="Approve Request" onClick={() => { handleApproveRequest(row) }} />
+                                                    <OverflowMenuItem hasDivider disabled={row.cells[2].value === "No" || row.cells[3].value === "No"} isDelete itemText="Deny Request" onClick={() => { handleDenyRequest(row) }} />
+                                                </OverflowMenu>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                            <Pagination
+                                backwardText="Backward"
+                                forwardText="Forward"
+                                itemsPerPageText="Preapproval requests per page:"
+                                page={1}
+                                pageNumberText="Page"
+                                pageSize={10}
+                                pageSizes={[
+                                    10,
+                                    25,
+                                    50,
+                                ]}
+                                onChange={handlePageChange}
+                                totalItems={props.preapprovals.length}
+                            />
+                        </TableContainer>
+                        <br /><br /><br />
+                    </>
                 )}
             />
         </>

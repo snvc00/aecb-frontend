@@ -14,7 +14,7 @@ const statusCodeStyles = {
 const ErrorHandler = props => (
     <>
         <Helmet>
-            <title>Banco Nacional | Lo sentimos</title>
+            <title>National Bank | We are sorry</title>
         </Helmet>
         <Header />
         <Grid condensed className="spaced top">
@@ -23,7 +23,7 @@ const ErrorHandler = props => (
                 </Column>
                 <Column>
                     <h1 style={statusCodeStyles}>{props.code}</h1>
-                    <h2>Parece que algo salió mal...</h2><br/><br/>
+                    <h2>Woops...</h2><br/><br/>
                     <h4>{props.message}</h4>
                 </Column>
                 <Column>

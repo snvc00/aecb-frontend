@@ -48,40 +48,40 @@ ReactDOM.render(
                 <Switch>
                     <Route exact path="/" component={Welcome} />
                     <Route exact path="/login" component={Login} />
-                    <Route exact path="/promociones-tarjetas" component={Promotions} />
-                    <Route exact path="/seguros-tarjetas" component={Insurances} />
+                    <Route exact path="/card-promotions" component={Promotions} />
+                    <Route exact path="/card-insurances" component={Insurances} />
 
-                    {/* Clientes */}
-                    <PrivateRoute exact path="/preaprobacion" accessTo="client" component={CreditCardPreapproval} />
-                    <PrivateRoute exact path="/preaprobacion/historial" accessTo="client" component={ClientPreapprovalRequests} />
+                    {/* Clients */}
+                    <PrivateRoute exact path="/preapproval" accessTo="client" component={CreditCardPreapproval} />
+                    <PrivateRoute exact path="/preapproval/history" accessTo="client" component={ClientPreapprovalRequests} />
 
-                    {/* Administrativos: Clientes */}
-                    <PrivateRoute exact path="/clientes" accessTo="admin" component={AdminClients} />
-                    <PrivateRoute exact path="/clientes/registrar" accessTo="admin" component={NewClient} />
-                    <PrivateRoute exact path="/clientes/actualizar/:id" accessTo="admin" component={UpdateClientAddress} />
-                    <PrivateRoute exact path="/clientes/registrados" accessTo="admin" component={RegisteredClients} />
-                    <PrivateRoute exact path="/clientes/solicitudes" accessTo="admin" component={PreapprovalRequestRecords} />
-                    {/* Administrativos: Tarjetas */}
-                    <PrivateRoute exact path="/tarjetas" accessTo="admin" component={AdminCreditCards} />
-                    <PrivateRoute exact path="/tarjetas/registrar" accessTo="admin" component={NewCreditCard} />
-                    <PrivateRoute exact path="/tarjetas/actualizar/:id" accessTo="admin" component={UpdateCreditCard} />
-                    <PrivateRoute exact path="/tarjetas/registradas" accessTo="admin" component={RegisteredCreditCards} />
-                    {/* Administrativos: Promociones */}
-                    <PrivateRoute exact path="/promociones" accessTo="admin" component={AdminPromotions} />
-                    <PrivateRoute exact path="/promociones/registrar" accessTo="admin" component={NewPromotion} />
-                    <PrivateRoute exact path="/promociones/actualizar/:id" accessTo="admin" component={UpdatePromotion} />
-                    <PrivateRoute exact path="/promociones/registradas" accessTo="admin" component={RegisteredPromotions} />
-                    {/* Administrativos: Seguros */}
-                    <PrivateRoute exact path="/seguros" accessTo="admin" component={AdminInsurances} />
-                    <PrivateRoute exact path="/seguros/registrar" accessTo="admin" component={NewInsurance} />
-                    <PrivateRoute exact path="/seguros/actualizar/:id" accessTo="admin" component={UpdateInsurance} />
-                    <PrivateRoute exact path="/seguros/registrados" accessTo="admin" component={RegisteredInsurances} />
+                    {/* Admins: Clients */}
+                    <PrivateRoute exact path="/clients" accessTo="admin" component={AdminClients} />
+                    <PrivateRoute exact path="/clients/register" accessTo="admin" component={NewClient} />
+                    <PrivateRoute exact path="/clients/update/:id" accessTo="admin" component={UpdateClientAddress} />
+                    <PrivateRoute exact path="/clients/registered" accessTo="admin" component={RegisteredClients} />
+                    <PrivateRoute exact path="/clients/preapprovals" accessTo="admin" component={PreapprovalRequestRecords} />
+                    {/* Admins: Tarjetas */}
+                    <PrivateRoute exact path="/cards" accessTo="admin" component={AdminCreditCards} />
+                    <PrivateRoute exact path="/cards/register" accessTo="admin" component={NewCreditCard} />
+                    <PrivateRoute exact path="/cards/update/:id" accessTo="admin" component={UpdateCreditCard} />
+                    <PrivateRoute exact path="/cards/registered" accessTo="admin" component={RegisteredCreditCards} />
+                    {/* Admins: Promotions */}
+                    <PrivateRoute exact path="/promotions" accessTo="admin" component={AdminPromotions} />
+                    <PrivateRoute exact path="/promotions/register" accessTo="admin" component={NewPromotion} />
+                    <PrivateRoute exact path="/promotions/update/:id" accessTo="admin" component={UpdatePromotion} />
+                    <PrivateRoute exact path="/promotions/registered" accessTo="admin" component={RegisteredPromotions} />
+                    {/* Admins: Insurances */}
+                    <PrivateRoute exact path="/insurances" accessTo="admin" component={AdminInsurances} />
+                    <PrivateRoute exact path="/insurances/register" accessTo="admin" component={NewInsurance} />
+                    <PrivateRoute exact path="/insurances/update/:id" accessTo="admin" component={UpdateInsurance} />
+                    <PrivateRoute exact path="/insurances/registered" accessTo="admin" component={RegisteredInsurances} />
 
                     <Route exact path="/error">
-                        <ErrorHandler code=":(" message="No tienes los permisos para esta operación" />
+                        <ErrorHandler code=":(" message="Your account has not the required role to access this page." />
                     </Route>
                     <Route path="*">
-                        <ErrorHandler code={404} message="No encontrado" />
+                        <ErrorHandler code={404} message="Not Found" />
                     </Route>
                 </Switch>
             </Router>
@@ -90,7 +90,4 @@ ReactDOM.render(
     document.getElementById("root")
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals(console.log);

@@ -82,7 +82,7 @@ const NewCreditCard = () => {
             if (responseOk) {
                 setNotificationInfo({
                     kind: "success",
-                    title: "Tarjeta de crédito registrada",
+                    title: "Credit card has been registered",
                 });
                 setShowNotification(true);
                 e.target.reset();
@@ -96,7 +96,7 @@ const NewCreditCard = () => {
             console.log(error);
             setNotificationInfo({
                 kind: "error",
-                title: error,
+                title: String(error),
             });
             setShowNotification(true);
         });
@@ -107,20 +107,20 @@ const NewCreditCard = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Nueva Tarjeta de Crédito</title>
+                <title>National Bank | New Credit Card</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
                         <Breadcrumb>
-                            <BreadcrumbItem href="/">Inicio</BreadcrumbItem>
-                            <BreadcrumbItem href="/tarjetas">Tarjetas</BreadcrumbItem>
-                            <BreadcrumbItem href="/tarjetas/registrar" isCurrentPage>
-                                Registrar
+                            <BreadcrumbItem href="/">Home</BreadcrumbItem>
+                            <BreadcrumbItem href="/cards">Credit Cards</BreadcrumbItem>
+                            <BreadcrumbItem href="/cards/register" isCurrentPage>
+                                Register
                             </BreadcrumbItem>
                         </Breadcrumb><br/><br/>
-                        <MainHeading>Nueva Tarjeta de Crédito</MainHeading>
+                        <MainHeading>New Credit Card</MainHeading>
                         {
                             showNotification ?
 
@@ -130,9 +130,9 @@ const NewCreditCard = () => {
                                     onCloseButtonClick={() => { setShowNotification(false); }}
                                     actions={
                                         <NotificationActionButton
-                                            onClick={() => { window.location.href = "/tarjetas/registradas" }}
+                                            onClick={() => { window.location.href = "/cards/registered" }}
                                         >
-                                            Ver Tarjetas de Crédito
+                                            See Credit Cards
                                         </NotificationActionButton>
                                     }
                                 />
@@ -145,7 +145,7 @@ const NewCreditCard = () => {
                             <CreditCardGenericInput ref={creditCardGenericsRef} />
                             <CreditCardSpecificsInput ref={creditCardSpecificsRef} />
                             <Button type="submit">
-                                Añadir
+                                Register
                             </Button>
                         </Form>
                         <br /><br /><br />

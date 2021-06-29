@@ -29,19 +29,19 @@ const AdminClients = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Administrar Clientes</title>
+                <title>National Bank | Admin Clients</title>
             </Helmet>
             <Header />
             <Grid className="spaced top">
                 <Row>
                     <Column>
                         <Breadcrumb>
-                            <BreadcrumbItem href="/">Inicio</BreadcrumbItem>
-                            <BreadcrumbItem href="/clientes" isCurrentPage>
-                                Clientes
+                            <BreadcrumbItem href="/">Home</BreadcrumbItem>
+                            <BreadcrumbItem href="/clients" isCurrentPage>
+                                Clients
                             </BreadcrumbItem>
                         </Breadcrumb><br/><br/>
-                        <MainHeading>Administrar Clientes</MainHeading>
+                        <MainHeading>Admin Clients</MainHeading>
                         <SkeletonPlaceholder style={{ width: "100%", height: 400 }} />
                         <br /><br />
                     </Column>
@@ -51,13 +51,13 @@ const AdminClients = () => {
 
                         <InlineNotification
                             kind="warning"
-                            title="Selecciona un cliente desde el registro"
+                            title="Select client from table"
                             onCloseButtonClick={()=>{ setShowNotification(false); }}
                             actions={
                             <NotificationActionButton
-                                onClick={()=>{ window.location.href = "/clientes/registrados" }}
+                                onClick={()=>{ window.location.href = "/clients/registered" }}
                             >
-                                Buscar Cliente
+                                Search Client
                             </NotificationActionButton>
                           }
                         />
@@ -68,22 +68,22 @@ const AdminClients = () => {
                 }
                 <Row>
                     <Column style={styles}>
-                        <Link href="/clientes/registrar" renderIcon={UserFollow}>
-                            <h3>Registrar Cliente</h3>
+                        <Link href="/clients/register" renderIcon={UserFollow}>
+                            <h3>Register Client</h3>
                         </Link>
                     </Column>
                 </Row>
                 <Row>
                     <Column style={styles}>
                         <Link renderIcon={UserProfile} onClick={() => { setShowNotification(true); }}>
-                            <h3>Actualizar Información de Cliente</h3>
+                            <h3>Update Client Address</h3>
                         </Link>
                     </Column>
                 </Row>
                 <Row>
                     <Column style={styles}>
-                        <Link href="/clientes/registrados" renderIcon={UserMultiple}>
-                            <h3>Clientes Registrados</h3>
+                        <Link href="/clients/registered" renderIcon={UserMultiple}>
+                            <h3>Registered Clients</h3>
                         </Link>
                     </Column>
                 </Row>

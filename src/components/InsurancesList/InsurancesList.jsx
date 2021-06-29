@@ -11,9 +11,9 @@ const InsurancesList = props => {
         <StructuredListWrapper>
             <StructuredListHead>
                 <StructuredListRow head>
-                    <StructuredListCell head>Nombre</StructuredListCell>
-                    <StructuredListCell head>Descripción</StructuredListCell>
-                    <StructuredListCell head>Protección Máxima</StructuredListCell>
+                    <StructuredListCell head>Name</StructuredListCell>
+                    <StructuredListCell head>Description</StructuredListCell>
+                    <StructuredListCell head>Max Protection</StructuredListCell>
                 </StructuredListRow>
             </StructuredListHead>
             <StructuredListBody>
@@ -27,7 +27,7 @@ const InsurancesList = props => {
                                 {insurance.description}
                             </StructuredListCell>
                             <StructuredListCell>
-                                ${insurance.max_protection} MXN
+                                ${insurance.max_protection} DLLS
                             </StructuredListCell>
                         </StructuredListRow>
                     ))

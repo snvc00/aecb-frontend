@@ -25,7 +25,7 @@ const RegisteredPromotions = () => {
     const [showNotification, setShowNotification] = useState(false);
     const [notificationInfo, setNotificationInfo] = useState();
 
-    const { currentUser, userRole } = useContext(AuthContext);
+    const { userRole } = useContext(AuthContext);
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BACKEND_API}/api/promotions/`, {
@@ -49,7 +49,7 @@ const RegisteredPromotions = () => {
             console.log(error);
             setNotificationInfo({
                 kind: "error",
-                title: error,
+                title: String(error),
             });
             setShowNotification(true);
         });
@@ -57,7 +57,7 @@ const RegisteredPromotions = () => {
 
     const formatPromotions = promotions => {
         const formattedPromotions = promotions.map(promotion => {
-            const valid_until = new Date(promotion.valid_until).toLocaleString("es-ES", { timeZone: "GMT" }, );
+            const valid_until = new Date(promotion.valid_until).toLocaleString("en-US", { timeZone: "GMT" }, );
 
             return {
                 id: Number(promotion.id).toString(),
@@ -74,17 +74,17 @@ const RegisteredPromotions = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Nuestras Promociones</title>
+                <title>National Bank | Our Promotions</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
                         <Breadcrumb>
-                            <BreadcrumbItem href="/">Inicio</BreadcrumbItem>
-                            <BreadcrumbItem href="/promociones">Promociones</BreadcrumbItem>
-                            <BreadcrumbItem href="/promociones/registradas" isCurrentPage>
-                                Registradas
+                            <BreadcrumbItem href="/">Home</BreadcrumbItem>
+                            <BreadcrumbItem href="/promotions">Promotions</BreadcrumbItem>
+                            <BreadcrumbItem href="/promotions/registered" isCurrentPage>
+                                Registered
                             </BreadcrumbItem>
                         </Breadcrumb><br /><br />
                         {showNotification ?
@@ -99,7 +99,7 @@ const RegisteredPromotions = () => {
 
                             <></>
                         }
-                        <MainHeading>Nuestras Promociones</MainHeading>
+                        <MainHeading>Our Promotions</MainHeading>
                         {
                             userRole === "admin" ?
 

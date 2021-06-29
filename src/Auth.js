@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
                         "Token": sessionStorage.getItem("token")
                     }
                 })
-                .then(async response => ({ data: await response.text(), responseOk: response.ok }))
+                .then(async response => ({ data: await response.json(), responseOk: response.ok }))
                 .then(({ data, responseOk }) => {
                     if (responseOk) {
                         const role = user.email.split("@")[1] === process.env.REACT_APP_ADMIN_DOMAIN ? "admin" : "client";

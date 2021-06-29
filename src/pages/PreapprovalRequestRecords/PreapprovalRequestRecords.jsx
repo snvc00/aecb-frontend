@@ -20,7 +20,7 @@ const gridStyles = {
 
 const PreapprovalRequestRecords = () => {
     const [preapprovalRequests, setPreapprovalRequests] = useState([]);
-    const { currentUser, userRole } = useContext(AuthContext);
+    const { userRole } = useContext(AuthContext);
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BACKEND_API}/api/preapprovals/`, {
@@ -48,7 +48,7 @@ const PreapprovalRequestRecords = () => {
     const formatPreapprovals = preapprovals => {
         const formattedPreapprovals = preapprovals.map(preapproval => ({
             id: preapproval.id,
-            creation_timestamp: Date(preapproval.creation_timestamp).toString(),
+            creation_timestamp: new Date(preapproval.creation_timestamp).toLocaleString("en-US", { timeZone: "GMT" }),
             approved: preapproval.approved ? "Yes" : "No",
             active: preapproval.active ? "Yes" : "No",
             credit_card_id: preapproval.credit_card.id,
@@ -65,16 +65,16 @@ const PreapprovalRequestRecords = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Solicitudes de Preaprobación</title>
+                <title>National Bank | Preapproval Requests</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
-                        <MainHeading>Solicitudes de Preaprobación</MainHeading>
+                        <MainHeading>Preapproval Requests</MainHeading>
 
                         {userRole === "admin" ? (
-                            <PreapprovalRequestsTable rows={preapprovalRequests} />
+                            <PreapprovalRequestsTable preapprovals={preapprovalRequests} />
                         ) : (
                             <PreapprovalRequestsTableSkeleton />
                         )}

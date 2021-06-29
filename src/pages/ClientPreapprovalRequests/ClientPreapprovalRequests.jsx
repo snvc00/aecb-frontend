@@ -3,10 +3,6 @@ import {
     Row,
     Column,
     InlineNotification,
-    ComposedModal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
 } from "carbon-components-react";
 
 import Header from "../../components/Header";
@@ -50,7 +46,7 @@ const ClientPreapprovalRequests = () => {
                 console.log(error);
                 setNotificationInfo({
                     kind: "error",
-                    title: error,
+                    title: String(error),
                 });
                 setShowNotification(true);
             });
@@ -60,12 +56,12 @@ const ClientPreapprovalRequests = () => {
         const formattedPreapprovals = preapprovals.map(preapproval => {
             return {
                 id: Number(preapproval.id).toString(),
-                approved: preapproval.approved ? "Si" : "No",
-                active : preapproval.active ? "Si" : "No",
+                approved: preapproval.approved ? "Yes" : "No",
+                active : preapproval.active ? "Yes" : "No",
                 creation_timestamp: preapproval.creation_timestamp,
                 last_update: preapproval.last_update,
                 credit_card_name: preapproval.credit_card.name,
-                credit_card_max_credit: `$${preapproval.credit_card.max_credit} MXN`,
+                credit_card_max_credit: `$${preapproval.credit_card.max_credit} DLLS`,
                 reviewed_by: preapproval.reviewed_by ? preapproval.reviewed_by : "",
                 credit_card_image: preapproval.credit_card.image,
             }
@@ -77,7 +73,7 @@ const ClientPreapprovalRequests = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Mis Solicitudes</title>
+                <title>National Bank | My Preapprovals</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
@@ -95,7 +91,7 @@ const ClientPreapprovalRequests = () => {
 
                             <></>
                         }
-                        <MainHeading>Mis Solicitudes</MainHeading>
+                        <MainHeading>My Preapprovals</MainHeading>
                         {
                             userRole === "client" ?
 

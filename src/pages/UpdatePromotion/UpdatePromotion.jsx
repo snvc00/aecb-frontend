@@ -46,7 +46,7 @@ const UpdatePromotion = (props) => {
                 if (responseOk) {
                     setNotificationInfo({
                         kind: "success",
-                        title: "Promoción modificada",
+                        title: "Promotions has been updated",
                     });
                     setShowNotification(true);
                     e.target.reset();
@@ -60,7 +60,7 @@ const UpdatePromotion = (props) => {
                 console.log(error);
                 setNotificationInfo({
                     kind: "error",
-                    title: error,
+                    title: String(error),
                 });
                 setShowNotification(true);
             });
@@ -69,7 +69,7 @@ const UpdatePromotion = (props) => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Actualizar Promoción</title>
+                <title>National Bank | Update Promotion</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
@@ -84,9 +84,9 @@ const UpdatePromotion = (props) => {
                                     onCloseButtonClick={() => { setShowNotification(false); }}
                                     actions={
                                         <NotificationActionButton
-                                            onClick={() => { window.location.replace("/promociones/registradas") }}
+                                            onClick={() => { window.location.replace("/promotions/registered") }}
                                         >
-                                            Ver Promociones
+                                            See Promotions
                                         </NotificationActionButton>
                                     }
                                 />
@@ -95,11 +95,11 @@ const UpdatePromotion = (props) => {
 
                                 <></>
                         }
-                        <MainHeading>Actualizar Promoción</MainHeading>
+                        <MainHeading>Update Promotion</MainHeading>
                         <Form onSubmit={handleSubmit}>
                             <PromotionInput ref={promotionRef} promotion={props.history.location.state.promotion} />
                             <Button type="submit">
-                                Actualizar
+                                Update
                             </Button>
                         </Form>
                     </Column>

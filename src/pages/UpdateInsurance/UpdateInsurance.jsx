@@ -46,7 +46,7 @@ const UpdateInsurance = (props) => {
             if (responseOk) {
                 setNotificationInfo({
                     kind: "success",
-                    title: "Seguro modificado",
+                    title: "Insurance has been updated",
                 });
                 setShowNotification(true);
                 e.target.reset();
@@ -60,7 +60,7 @@ const UpdateInsurance = (props) => {
             console.log(error);
             setNotificationInfo({
                 kind: "error",
-                title: error,
+                title: String(error),
             });
             setShowNotification(true);
         });
@@ -69,7 +69,7 @@ const UpdateInsurance = (props) => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Actualizar Seguro</title>
+                <title>National Bank | Update Insurance</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
@@ -84,9 +84,9 @@ const UpdateInsurance = (props) => {
                                     onCloseButtonClick={() => { setShowNotification(false); }}
                                     actions={
                                         <NotificationActionButton
-                                            onClick={() => { window.location.replace("/seguros/registrados") }}
+                                            onClick={() => { window.location.replace("/insurances/registered") }}
                                         >
-                                            Ver Seguros
+                                            See Insurances
                                         </NotificationActionButton>
                                     }
                                 />
@@ -95,11 +95,11 @@ const UpdateInsurance = (props) => {
 
                                 <></>
                         }
-                        <MainHeading>Actualizar Seguro</MainHeading>
+                        <MainHeading>Update Insurance</MainHeading>
                         <Form onSubmit={handleSubmit}>
                             <InsuranceInput ref={insuranceRef} insurance={props.history.location.state.insurance} />
                             <Button type="submit">
-                                Actualizar
+                                Update
                             </Button>
                         </Form>
                     </Column>

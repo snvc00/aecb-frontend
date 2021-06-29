@@ -10,8 +10,7 @@ import PromotionsList from "../../components/PromotionsList";
 
 import { Helmet } from 'react-helmet'
 import MainHeading from "../../components/MainHeading";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const Promotions = () => {
     const [cards, setCards] = useState();
@@ -44,21 +43,21 @@ const Promotions = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Promociones</title>
+                <title>National Bank | Promotions</title>
             </Helmet>
             <Header />
             <Grid className="spaced top">
                 <Row>
                     <Column>
-                        <MainHeading>Promociones</MainHeading>
+                        <MainHeading>Promotions</MainHeading>
                         <ComboBox
                             id="cards"
                             items={cards}
                             itemToString={(card) => (card.name)}
                             onChange={updateSelectedCard}
-                            placeholder="Buscar tarjeta"
-                            titleText="Tarjetas de Crédito"
-                            helperText="Selecciona una tarjeta para mostrar sus promociones."
+                            placeholder="Search credit card"
+                            titleText="Credit Cards"
+                            helperText="Pick a credit card to see their promotions."
                         />
                     </Column>
                 </Row>

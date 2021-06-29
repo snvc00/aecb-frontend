@@ -3,7 +3,6 @@ import {
     Grid,
     Row,
     Column,
-    TextInput,
     Button,
     Breadcrumb,
     BreadcrumbItem,
@@ -47,7 +46,7 @@ const NewInsurance = () => {
             if (responseOk) {
                 setNotificationInfo({
                     kind: "success",
-                    title: "Seguro registrado",
+                    title: "Insurance has been registered",
                 });
                 setShowNotification(true);
                 e.target.reset();
@@ -61,7 +60,7 @@ const NewInsurance = () => {
             console.log(error);
             setNotificationInfo({
                 kind: "error",
-                title: error,
+                title: String(error),
             });
             setShowNotification(true);
         });
@@ -70,20 +69,20 @@ const NewInsurance = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Nuevo Seguro</title>
+                <title>National Bank | Nuevo Seguro</title>
             </Helmet>
             <Header />
             <Grid style={gridStyles}>
                 <Row>
                     <Column>
                         <Breadcrumb>
-                            <BreadcrumbItem href="/">Inicio</BreadcrumbItem>
-                            <BreadcrumbItem href="/seguros">Seguros</BreadcrumbItem>
-                            <BreadcrumbItem href="/seguros/registrar" isCurrentPage>
-                                Registrar
+                            <BreadcrumbItem href="/">Home</BreadcrumbItem>
+                            <BreadcrumbItem href="/insurances">Insurances</BreadcrumbItem>
+                            <BreadcrumbItem href="/insurances/register" isCurrentPage>
+                                Register
                             </BreadcrumbItem>
                         </Breadcrumb><br/><br/>
-                        <MainHeading>Nuevo Seguro</MainHeading>
+                        <MainHeading>New Insurance</MainHeading>
                         {
                             showNotification ?
 
@@ -93,9 +92,9 @@ const NewInsurance = () => {
                                     onCloseButtonClick={() => { setShowNotification(false); }}
                                     actions={
                                         <NotificationActionButton
-                                            onClick={() => { window.location.replace("/seguros/registrados") }}
+                                            onClick={() => { window.location.replace("/insurances/registered") }}
                                         >
-                                            Ver Seguros
+                                            See Insurances
                                         </NotificationActionButton>
                                     }
                                 />
@@ -107,7 +106,7 @@ const NewInsurance = () => {
                         <Form onSubmit={handleSubmit}>
                             <InsuranceInput ref={insuranceRef} />
                             <Button type="submit">
-                                Añadir
+                                Add
                             </Button>
                         </Form>
                     </Column>

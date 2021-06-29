@@ -32,15 +32,15 @@ import { AuthContext } from "../../Auth";
 const headers = [
     {
         key: "name",
-        header: "Nombre",
+        header: "Name",
     },
     {
         key: "id",
-        header: "Correo",
+        header: "Email",
     },
     {
         key: "last_update",
-        header: "Última Actualización",
+        header: "Last Update",
     },
     {
         key: "curp",
@@ -48,7 +48,7 @@ const headers = [
     },
     {
         key: "birthdate",
-        header: "Fecha de Nacimiento",
+        header: "Birthdate",
     },
     {
         key: "rfc",
@@ -56,38 +56,38 @@ const headers = [
     },
     {
         key: "income",
-        header: "Ingreso Mensual",
+        header: "Monthly Income",
     },
     {
         key: "address",
-        header: "Calle y Número",
+        header: "Street and Number",
     },
     {
         key: "neighborhood",
-        header: "Colonia",
+        header: "Neighborhood",
     },
     {
         key: "city",
-        header: "Ciudad",
+        header: "City",
     },
     {
         key: "state",
-        header: "Estado",
+        header: "State",
     },
     {
         key: "active",
-        header: "Actividad",
+        header: "Active",
     },
     {
         key: "has_credit",
-        header: "Tiene Crédito",
+        header: "Has Credit",
     },
 ];
 
 var translationKeys = {
-    'carbon.table.batch.cancel': 'Cancelar',
-    'carbon.table.batch.items.selected': 'clientes seleccionados',
-    'carbon.table.batch.item.selected': 'cliente seleccionado'
+    'carbon.table.batch.cancel': 'Cancel',
+    'carbon.table.batch.items.selected': 'clients selected',
+    'carbon.table.batch.item.selected': 'client selected'
 };
 
 const ClientInfoTable = (props) => {
@@ -101,7 +101,7 @@ const ClientInfoTable = (props) => {
     const handleBatchActionClickUpdateStatus = (selectedRows) => {
         const token = sessionStorage.getItem("token");
         const id = selectedRows[0].cells[1].value;
-        const isActive = selectedRows[0].cells[11].value === "Activo";
+        const isActive = selectedRows[0].cells[11].value === "Active";
 
         fetch(`${process.env.REACT_APP_BACKEND_API}/api/clients/${id}/`, {
             method: "PATCH",
@@ -116,7 +116,7 @@ const ClientInfoTable = (props) => {
             if (responseOk) {
                 setNotificationInfo({
                     kind: "success",
-                    title: "Actividad modificada",
+                    title: "Activity status has been updated",
                 });
                 setShowNotification(true);
             }
@@ -128,7 +128,7 @@ const ClientInfoTable = (props) => {
             console.log(error);
             setNotificationInfo({
                 kind: "error",
-                title: error,
+                title: String(error),
             });
             setShowNotification(true);
         });
@@ -138,7 +138,7 @@ const ClientInfoTable = (props) => {
         const id = selectedRows[0].cells[1].value;
 
         const location = {
-            pathname: `/clientes/actualizar/${id}`,
+            pathname: `/clients/update/${id}`,
             state: { 
                 client: { 
                     curp: selectedRows[0].cells[3].value, 
@@ -176,7 +176,7 @@ const ClientInfoTable = (props) => {
                         <NotificationActionButton
                             onClick={() => { window.location.reload() }}
                         >
-                            Recargar
+                            Reload
                         </NotificationActionButton>
                     }
                 >
@@ -206,26 +206,26 @@ const ClientInfoTable = (props) => {
                 }) => (
                     <>
                         <TableContainer
-                            title="Clientes Registrados"
-                            description="Selecciona un cliente para modificar su estado de actividad o domicilio."
+                            title="Registered Clients"
+                            description="Select a client to update address or activity status."
                             {...getTableContainerProps()}>
                             <TableToolbar {...getToolbarProps()}>
                                 <TableBatchActions {...getBatchActionProps()} translateWithId={customTranslationForTableBatchActions}>
                                     <TableBatchAction
                                         renderIcon={UserActivity}
-                                        iconDescription="Cambiar Estado de Actividad"
+                                        iconDescription="Update Activity Status"
                                         onClick={() => { handleBatchActionClickUpdateStatus(selectedRows) }}>
-                                        Cambiar Estado de Actividad
+                                        Update Activity Status
                                     </TableBatchAction>
                                     <TableBatchAction
                                         renderIcon={Edit}
-                                        iconDescription="Editar Domicilio"
+                                        iconDescription="Update Address"
                                         onClick={() => { handleBatchActionClickUpdateAddress(selectedRows) }}>
-                                        Editar Domicilio
+                                        Update Address
                                     </TableBatchAction>
                                 </TableBatchActions>
                                 <TableToolbarContent>
-                                    <TableToolbarSearch onChange={onInputChange} placeholder="Buscar cliente" />
+                                    <TableToolbarSearch onChange={onInputChange} placeholder="Search client" />
                                 </TableToolbarContent>
                             </TableToolbar>
                             <Table {...getTableProps()}>
@@ -253,11 +253,11 @@ const ClientInfoTable = (props) => {
                                 </TableBody>
                             </Table>
                             <Pagination
-                                backwardText="Anterior"
-                                forwardText="Siguiente"
-                                itemsPerPageText="Clientes por página:"
+                                backwardText="Backward"
+                                forwardText="Forward"
+                                itemsPerPageText="Clients per page:"
                                 page={1}
-                                pageNumberText="Página"
+                                pageNumberText="Page"
                                 pageSize={10}
                                 pageSizes={[
                                     10,

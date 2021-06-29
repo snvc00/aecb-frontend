@@ -29,19 +29,19 @@ const AdminCreditCards = () => {
     return (
         <>
             <Helmet>
-                <title>Banco Nacional | Administrar Tarjetas de Crédito</title>
+                <title>National Bank | Admin Credit Cards</title>
             </Helmet>
             <Header />
             <Grid className="spaced top">
                 <Row>
                     <Column>
                         <Breadcrumb>
-                            <BreadcrumbItem href="/">Inicio</BreadcrumbItem>
-                            <BreadcrumbItem href="/tarjetas" isCurrentPage>
-                                Tarjetas
+                            <BreadcrumbItem href="/">Home</BreadcrumbItem>
+                            <BreadcrumbItem href="/cards" isCurrentPage>
+                                Credit Cards
                             </BreadcrumbItem>
                         </Breadcrumb><br/><br/>
-                        <MainHeading>Administrar Tarjetas de Crédito</MainHeading>
+                        <MainHeading>Admin Credit Cards</MainHeading>
                         <SkeletonPlaceholder style={{ width: "100%", height: 400 }} />
                         <br /><br />
                     </Column>
@@ -55,9 +55,9 @@ const AdminCreditCards = () => {
                             onCloseButtonClick={()=>{ setShowNotification(false); }}
                             actions={
                             <NotificationActionButton
-                                onClick={()=>{ window.location.href = "/tarjetas/registradas" }}
+                                onClick={()=>{ window.location.href = "/cards/registered" }}
                             >
-                                Buscar Tarjeta de Crédito
+                                Search Credit Card
                             </NotificationActionButton>
                           }
                         />
@@ -68,22 +68,22 @@ const AdminCreditCards = () => {
                 }
                 <Row>
                     <Column style={styles}>
-                        <Link href="/tarjetas/registrar" renderIcon={Add}>
-                            <h3>Registrar Tarjeta de Crédito</h3>
+                        <Link href="/cards/register" renderIcon={Add}>
+                            <h3>Register Credit Card</h3>
                         </Link>
                     </Column>
                 </Row>
                 <Row>
                     <Column style={styles}>
                         <Link renderIcon={Edit} onClick={() => { setShowNotification(true); }}>
-                            <h3>Actualizar Información de Tarjeta de Crédito</h3>
+                            <h3>Update Credit Card</h3>
                         </Link>
                     </Column>
                 </Row>
                 <Row>
                     <Column style={styles}>
-                        <Link href="/tarjetas/registradas" renderIcon={Purchase}>
-                            <h3>Tarjetas de Crédito Registradas</h3>
+                        <Link href="/cards/registered" renderIcon={Purchase}>
+                            <h3>Registered Credit Cards</h3>
                         </Link>
                     </Column>
                 </Row>
