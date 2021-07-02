@@ -70,7 +70,7 @@ const PreapprovalRequestsClientTable = (props) => {
     const { currentUser } = useContext(AuthContext); 
 
     const handleOpenImage = (row) => {
-        const image = process.env.REACT_APP_BACKEND_API + row.cells[8].value;
+        const image = row.cells[8].value;
         window.open(image, "_blank");
     };
 

@@ -63,7 +63,7 @@ const ClientPreapprovalRequests = () => {
                 credit_card_name: preapproval.credit_card.name,
                 credit_card_max_credit: `$${preapproval.credit_card.max_credit} DLLS`,
                 reviewed_by: preapproval.reviewed_by ? preapproval.reviewed_by : "",
-                credit_card_image: process.env.REACT_APP_BACKEND_API + preapproval.credit_card.image,
+                credit_card_image: preapproval.credit_card.image,
             }
         });
 
