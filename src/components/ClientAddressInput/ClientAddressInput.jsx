@@ -8,7 +8,7 @@ import {
     createRef,
 } from "react";
 
-import { states } from "../../assets/json/Mexico.json";
+import { states } from "../../assets/json/mexico.json";
 
 class ClientAddressInput extends Component {
     constructor(props) {
