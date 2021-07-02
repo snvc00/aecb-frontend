@@ -10,9 +10,8 @@ import PreapprovalRequestsTableSkeleton from "../../components/PreapprovalReques
 import PreapprovalRequestsTable from "../../components/PreapprovalRequestsTable";
 
 import { Helmet } from "react-helmet";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../Auth";
-import { useEffect } from "react/cjs/react.development";
 
 const gridStyles = {
     marginTop: "80px",

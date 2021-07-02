@@ -5,16 +5,13 @@ import {
     MultiSelect,
 } from "carbon-components-react";
 
-import {
-    Component,
-    createRef,
-} from "react";
+import { Component } from "react";
 
 const creditCategories = [
-    "Bronce",
-    "Plata",
-    "Oro",
-    "Diamante"
+    "Bronze",
+    "Silver",
+    "Gold",
+    "Diamond"
 ];
 
 class CreditCardSpecificsInput extends Component {

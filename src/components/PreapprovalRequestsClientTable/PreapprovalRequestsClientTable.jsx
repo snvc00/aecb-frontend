@@ -67,12 +67,10 @@ const PreapprovalRequestsClientTable = (props) => {
     const [openModal, setOpenModal] = useState(false);
     const [notificationInfo, setNotificationInfo] = useState(props.history ? props.history.location.state.notificationInfo : null);
     const [showNotification, setShowNotification] = useState(props.history ? props.history.location.state.showNotification : false);
-    let history = useHistory();
     const { currentUser } = useContext(AuthContext); 
 
     const handleOpenImage = (row) => {
-        console.log(row)
-        const image = row.cells[8].value;
+        const image = process.env.REACT_APP_BACKEND_API + row.cells[8].value;
         window.open(image, "_blank");
     };
 
