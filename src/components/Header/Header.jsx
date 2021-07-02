@@ -20,9 +20,11 @@ import {
 import { AuthContext } from "../../Auth";
 import { useContext } from "react";
 import app from "../../firebase";
+import { useHistory } from "react-router-dom";
 
 const Header = () => {
     const { currentUser } = useContext(AuthContext);
+    let history = useHistory();
 
     const getPostfix = () => {
         if (!currentUser) {
@@ -35,10 +37,17 @@ const Header = () => {
 
     const headerNamePostfix = getPostfix();
 
-    const handleSession = () => {
+    const handleSession = async () => {
         if (currentUser) {
-            app.auth().signOut();
-            sessionStorage.clear();
+            await app.auth().signOut();
+            sessionStorage.removeItem("token");
+            history.push({
+                pathname: "/",
+                state: {
+                    showSignoutModal: true
+                }
+            });
+            window.location.reload();
         }
         else {
             window.location.replace("/login");

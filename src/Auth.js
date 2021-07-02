@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import app from "./firebase.js";
 import { Loading } from "carbon-components-react";
-import { useHistory } from "react-router";
 
 export const AuthContext = React.createContext();
 
@@ -37,9 +36,6 @@ export const AuthProvider = ({ children }) => {
                     setErrorMessage(String(error));
                     app.auth().signOut();
                 });
-            }
-            else {
-                sessionStorage.removeItem("token");
             }
 
             setPending(false);

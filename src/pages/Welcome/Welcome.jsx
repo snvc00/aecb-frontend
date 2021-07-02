@@ -8,6 +8,9 @@ import {
     Link,
     InlineNotification,
     NotificationActionButton,
+    ComposedModal,
+    ModalHeader,
+    ModalBody,
 } from "carbon-components-react";
 import {
     Purchase24,
@@ -17,13 +20,31 @@ import {
 import "./Welcome.css";
 import { Helmet } from 'react-helmet'
 import { AuthContext } from "../../Auth";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-const Welcome = () => {
+const Welcome = (props) => {
     const { currentUser, errorMessage } = useContext(AuthContext);
     const [showNotification, setShowNotification] = useState(true);
+    const [showSignoutModal, setShowSignoutModal] = useState(null);
     let history = useHistory();
+
+    useEffect(() => {
+        if (props.history.location.state) {
+            setShowSignoutModal(props.history.location.state.showSignoutModal);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (showSignoutModal === true) {
+            setTimeout(() => {
+                props.history.push({
+                    state: {}
+                });
+                setShowSignoutModal(null);
+            }, 3000);
+        }
+    }, [showSignoutModal]);
 
     return (
         <>
@@ -60,6 +81,10 @@ const Welcome = () => {
             </Grid>
             <Grid className="spaced">
                 <Row>
+                    <ComposedModal open={showSignoutModal === true || false} onClose={()=>{setShowSignoutModal(null);}}>
+                        <ModalHeader title="You have been successfully signed out" />
+                        <ModalBody />
+                    </ComposedModal>
                     <Column>
                         <h4><strong>Services for Clients</strong></h4><br />
                         <p className="spaced">
